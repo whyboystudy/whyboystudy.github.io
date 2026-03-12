@@ -6,13 +6,92 @@
         <description>Recent content in Posts on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Wed, 09 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://whyboystudy.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 12 Mar 2026 19:29:26 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>第一篇博客</title>
         <link>https://whyboystudy.github.io/p/test-chinese/</link>
-        <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+        <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
         
         <guid>https://whyboystudy.github.io/p/test-chinese/</guid>
-        <description>&lt;p&gt;好好学习，天天向上。&lt;/p&gt;
+        <description>&lt;h2 id=&#34;好好学习天天向上&#34;&gt;好好学习，天天向上。
+&lt;/h2&gt;&lt;h3 id=&#34;3123&#34;&gt;3123
+&lt;/h3&gt;&lt;h4 id=&#34;3123-1&#34;&gt;3123
+&lt;/h4&gt;&lt;h3 id=&#34;3123-2&#34;&gt;3123
+&lt;/h3&gt;&lt;h4 id=&#34;3123-3&#34;&gt;3123
+&lt;/h4&gt;&lt;h3 id=&#34;3123-4&#34;&gt;3123
+&lt;/h3&gt;&lt;h4 id=&#34;3123-5&#34;&gt;3123
+&lt;/h4&gt;&lt;h4 id=&#34;3123-6&#34;&gt;3123
+&lt;/h4&gt;&lt;p&gt;这通常是因为在下载或保存文件时，图片的格式被更改了。
+文件扩展名被自动修改：有些浏览器或下载工具在保存图片时，可能会将文件扩展名默认设置为 .jpg，即使你下载的是 .svg 文件。
+平台或工具自动转换：部分平台或图片查看器不直接支持SVG格式，下载时可能会自动将其转换为JPG等位图格式以方便查看。
+🤔 如何确认和解决
+检查文件扩展名
+下载文件后，首先检查文件名的后缀。如果后缀是 .jpg 或 .jpeg，那么它就是一个JPG格式的文件。
+尝试修改扩展名
+如果你确定下载的是SVG文件，可以尝试将文件后缀从 .jpg 改回 .svg，然后用文本编辑器或浏览器打开查看。如果能正常显示图形代码或图像，说明文件本身是SVG格式，只是扩展名被改错了。
+使用其他方式下载
+如果修改扩展名后文件无法正常打开，说明文件已经被转换。建议尝试以下方法：
+右键另存为：在图片上点击鼠标右键，选择“另存为”，在保存对话框中手动将文件类型选择为“所有文件”，然后将文件名设置为“xxx.svg”进行保存。
+复制粘贴：如果是在浏览器中查看SVG，可以尝试直接复制图片，然后粘贴到支持SVG的编辑器（如 Adobe Illustrator、Inkscape）或文档中，再从编辑器中导出为SVG文件。
+使用专业工具：使用专业的图片下载工具或浏览器插件，这些工具通常能更好地保留图片的原始格式。&lt;/p&gt;
+&lt;p&gt;8篇来源
+CST是什么
+CST是一个具有多种含义的缩写，具体含义取决于它所处的上下文。以下是几个主要领域中的常见解释：
+🌍 时区与地理
+CST 常作为多个标准时间的缩写，这在国际交流中容易产生歧义：
+中国标准时间 (China Standard Time)：UTC+8，为中国大陆、台湾等地所使用。
+美国中部时间 (Central Standard Time, USA)：UTC-6，在非夏令时期间比北京时间晚14小时。
+澳大利亚中部时间 (Central Standard Time, Australia)：UTC+9:30。
+古巴标准时间 (Cuba Standard Time)：UTC-4。
+💻 计算机与技术
+在技术和网络领域，CST 有多种指代：
+电磁仿真软件 (CST Studio Suite)：一款广泛应用于电子、通信行业的专业三维电磁场仿真软件。
+中国科技网 (China Science and Technology Network, CSTNET)：由中国科学院领导的学术性科研计算机网络。
+数据库术语：可能指“当前系统时间”（Current System Time）、“客户端/服务器技术”（Client/Server Technology）或“变更跟踪”（Change Tracking）。
+🏗️ 工程与管理
+中国特色科技安全管理体系 (CHINA-SPECIFIC S&amp;amp;T SAFETY MANAGEMENT SYSTEM)：简称CST体系，是一套结合中国国情和AI科技趋势的安全管理框架，用于解决工程建设中的安全问题。
+成本 (Cost)：在ERP（企业资源计划）系统中，CST通常代表成本相关字段，如单位成本或成本中心。
+🩺 医学与科学
+宫缩应激试验 (Contraction Stress Test)：一种产科检查，用于评估胎儿在宫缩时的储备能力和胎盘功能。
+共刺激信号转导通路 (Costimulatory Signaling Transduction)：免疫学中的一个概念，指调节T细胞免疫反应的关键信号通路。
+厘斯 (centistokes)：运动粘度的单位，1 cst = 1 mm²/s。
+✈️ 其他领域
+沙特通信认证 (Communications Certification Author&lt;/p&gt;
+&lt;p&gt;这通常是因为在下载或保存文件时，图片的格式被更改了。
+文件扩展名被自动修改：有些浏览器或下载工具在保存图片时，可能会将文件扩展名默认设置为 .jpg，即使你下载的是 .svg 文件。
+平台或工具自动转换：部分平台或图片查看器不直接支持SVG格式，下载时可能会自动将其转换为JPG等位图格式以方便查看。
+🤔 如何确认和解决
+检查文件扩展名
+下载文件后，首先检查文件名的后缀。如果后缀是 .jpg 或 .jpeg，那么它就是一个JPG格式的文件。
+尝试修改扩展名
+如果你确定下载的是SVG文件，可以尝试将文件后缀从 .jpg 改回 .svg，然后用文本编辑器或浏览器打开查看。如果能正常显示图形代码或图像，说明文件本身是SVG格式，只是扩展名被改错了。
+使用其他方式下载
+如果修改扩展名后文件无法正常打开，说明文件已经被转换。建议尝试以下方法：
+右键另存为：在图片上点击鼠标右键，选择“另存为”，在保存对话框中手动将文件类型选择为“所有文件”，然后将文件名设置为“xxx.svg”进行保存。
+复制粘贴：如果是在浏览器中查看SVG，可以尝试直接复制图片，然后粘贴到支持SVG的编辑器（如 Adobe Illustrator、Inkscape）或文档中，再从编辑器中导出为SVG文件。
+使用专业工具：使用专业的图片下载工具或浏览器插件，这些工具通常能更好地保留图片的原始格式。&lt;/p&gt;
+&lt;p&gt;8篇来源
+CST是什么
+CST是一个具有多种含义的缩写，具体含义取决于它所处的上下文。以下是几个主要领域中的常见解释：
+🌍 时区与地理
+CST 常作为多个标准时间的缩写，这在国际交流中容易产生歧义：
+中国标准时间 (China Standard Time)：UTC+8，为中国大陆、台湾等地所使用。
+美国中部时间 (Central Standard Time, USA)：UTC-6，在非夏令时期间比北京时间晚14小时。
+澳大利亚中部时间 (Central Standard Time, Australia)：UTC+9:30。
+古巴标准时间 (Cuba Standard Time)：UTC-4。
+💻 计算机与技术
+在技术和网络领域，CST 有多种指代：
+电磁仿真软件 (CST Studio Suite)：一款广泛应用于电子、通信行业的专业三维电磁场仿真软件。
+中国科技网 (China Science and Technology Network, CSTNET)：由中国科学院领导的学术性科研计算机网络。
+数据库术语：可能指“当前系统时间”（Current System Time）、“客户端/服务器技术”（Client/Server Technology）或“变更跟踪”（Change Tracking）。
+🏗️ 工程与管理
+中国特色科技安全管理体系 (CHINA-SPECIFIC S&amp;amp;T SAFETY MANAGEMENT SYSTEM)：简称CST体系，是一套结合中国国情和AI科技趋势的安全管理框架，用于解决工程建设中的安全问题。
+成本 (Cost)：在ERP（企业资源计划）系统中，CST通常代表成本相关字段，如单位成本或成本中心。
+🩺 医学与科学
+宫缩应激试验 (Contraction Stress Test)：一种产科检查，用于评估胎儿在宫缩时的储备能力和胎盘功能。
+共刺激信号转导通路 (Costimulatory Signaling Transduction)：免疫学中的一个概念，指调节T细胞免疫反应的关键信号通路。
+厘斯 (centistokes)：运动粘度的单位，1 cst = 1 mm²/s。
+✈️ 其他领域
+沙特通信认证 (Communications Certification Author&lt;/p&gt;
 </description>
         </item>
         
