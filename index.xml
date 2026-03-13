@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>美味芝士</title>
+        <title>首页 on 美味芝士</title>
         <link>https://whyboystudy.github.io/</link>
-        <description>Recent content on 美味芝士</description>
+        <description>Recent content in 首页 on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <lastBuildDate>Fri, 13 Mar 2026 11:51:39 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <language>zh-cn</language><atom:link href="https://whyboystudy.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>第一篇博客</title>
         <link>https://whyboystudy.github.io/p/test-chinese/</link>
         <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
