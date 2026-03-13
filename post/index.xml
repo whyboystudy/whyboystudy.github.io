@@ -6,7 +6,261 @@
         <description>Recent content in Posts on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Thu, 12 Mar 2026 19:59:26 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 13 Mar 2026 11:51:39 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>第一篇博客</title>
+        <link>https://whyboystudy.github.io/p/test-chinese/</link>
+        <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://whyboystudy.github.io/p/test-chinese/</guid>
+        <description>&lt;h2 id=&#34;好好学习天天向上&#34;&gt;好好学习，天天向上。
+&lt;/h2&gt;&lt;h3 id=&#34;3123&#34;&gt;3123
+&lt;/h3&gt;&lt;h4 id=&#34;3123-1&#34;&gt;3123
+&lt;/h4&gt;&lt;h3 id=&#34;3123-2&#34;&gt;3123
+&lt;/h3&gt;&lt;h4 id=&#34;3123-3&#34;&gt;3123
+&lt;/h4&gt;&lt;h3 id=&#34;3123-4&#34;&gt;3123
+&lt;/h3&gt;&lt;h4 id=&#34;3123-5&#34;&gt;3123
+&lt;/h4&gt;&lt;h4 id=&#34;3123-6&#34;&gt;3123
+&lt;/h4&gt;&lt;p&gt;这通常是因为在下载或保存文件时，图片的格式被更改了。
+文件扩展名被自动修改：有些浏览器或下载工具在保存图片时，可能会将文件扩展名默认设置为 .jpg，即使你下载的是 .svg 文件。
+平台或工具自动转换：部分平台或图片查看器不直接支持SVG格式，下载时可能会自动将其转换为JPG等位图格式以方便查看。
+🤔 如何确认和解决
+检查文件扩展名
+下载文件后，首先检查文件名的后缀。如果后缀是 .jpg 或 .jpeg，那么它就是一个JPG格式的文件。
+尝试修改扩展名
+如果你确定下载的是SVG文件，可以尝试将文件后缀从 .jpg 改回 .svg，然后用文本编辑器或浏览器打开查看。如果能正常显示图形代码或图像，说明文件本身是SVG格式，只是扩展名被改错了。
+使用其他方式下载
+如果修改扩展名后文件无法正常打开，说明文件已经被转换。建议尝试以下方法：
+右键另存为：在图片上点击鼠标右键，选择“另存为”，在保存对话框中手动将文件类型选择为“所有文件”，然后将文件名设置为“xxx.svg”进行保存。
+复制粘贴：如果是在浏览器中查看SVG，可以尝试直接复制图片，然后粘贴到支持SVG的编辑器（如 Adobe Illustrator、Inkscape）或文档中，再从编辑器中导出为SVG文件。
+使用专业工具：使用专业的图片下载工具或浏览器插件，这些工具通常能更好地保留图片的原始格式。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;58
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;59
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;60
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;61
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;62
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;63
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;64
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;65
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;66
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;67
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;68
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;69
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;70
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;71
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;72
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;73
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;74
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;75
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;76
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;77
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;78
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;79
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;80
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;style&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    .highlight {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        /* 你可以根据需要调整这个高度 */
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        max-height: 400px;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        overflow: hidden;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    .code-show {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        max-height: none !important;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    .code-more-box {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        width: 100%;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        padding-top: 78px;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#fff));
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        position: absolute;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        left: 0;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        right: 0;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        bottom: 0;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        z-index: 1;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    .code-more-btn {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        display: block;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        margin: auto;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        width: 44px;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        height: 22px;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        background: #f0f0f5;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        border-top-left-radius: 8px;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        border-top-right-radius: 8px;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        padding-top: 6px;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        cursor: pointer;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    .code-more-img {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        cursor: pointer !important;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        display: block;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        margin: auto;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        width: 22px;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        height: 16px;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;/style&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;script&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  function initCodeMoreBox() {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    let codeBlocks = document.querySelectorAll(&amp;#34;.highlight&amp;#34;);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    if (!codeBlocks) {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      return;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    codeBlocks.forEach(codeBlock =&amp;gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      // 校验是否overflow
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      if (codeBlock.scrollHeight &amp;lt;= codeBlock.clientHeight) {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        return;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      // 元素初始化
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      // codeMoreBox
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      let codeMoreBox = document.createElement(&amp;#39;div&amp;#39;);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      codeMoreBox.classList.add(&amp;#39;code-more-box&amp;#39;);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      // codeMoreBtn
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      let codeMoreBtn = document.createElement(&amp;#39;span&amp;#39;);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      codeMoreBtn.classList.add(&amp;#39;code-more-btn&amp;#39;);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      codeMoreBtn.addEventListener(&amp;#39;click&amp;#39;, () =&amp;gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        codeBlock.classList.add(&amp;#39;code-show&amp;#39;);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        codeMoreBox.style.display = &amp;#39;none&amp;#39;;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        // 触发resize事件，重新计算目录位置
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        window.dispatchEvent(new Event(&amp;#39;resize&amp;#39;))
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      })
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      // img
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      let img = document.createElement(&amp;#39;img&amp;#39;);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      img.classList.add(&amp;#39;code-more-img&amp;#39;);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      img.src = {{ (resources.Get &amp;#34;icons/codeMore.png&amp;#34;).Permalink }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      // 元素添加
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      codeMoreBtn.appendChild(img);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      codeMoreBox.appendChild(codeMoreBtn);
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      codeBlock.appendChild(codeMoreBox)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    })
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  initCodeMoreBox();
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;/script&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;8篇来源
+CST是什么
+CST是一个具有多种含义的缩写，具体含义取决于它所处的上下文。以下是几个主要领域中的常见解释：
+🌍 时区与地理
+CST 常作为多个标准时间的缩写，这在国际交流中容易产生歧义：
+中国标准时间 (China Standard Time)：UTC+8，为中国大陆、台湾等地所使用。
+美国中部时间 (Central Standard Time, USA)：UTC-6，在非夏令时期间比北京时间晚14小时。
+澳大利亚中部时间 (Central Standard Time, Australia)：UTC+9:30。
+古巴标准时间 (Cuba Standard Time)：UTC-4。
+💻 计算机与技术
+在技术和网络领域，CST 有多种指代：
+电磁仿真软件 (CST Studio Suite)：一款广泛应用于电子、通信行业的专业三维电磁场仿真软件。
+中国科技网 (China Science and Technology Network, CSTNET)：由中国科学院领导的学术性科研计算机网络。
+数据库术语：可能指“当前系统时间”（Current System Time）、“客户端/服务器技术”（Client/Server Technology）或“变更跟踪”（Change Tracking）。
+🏗️ 工程与管理
+中国特色科技安全管理体系 (CHINA-SPECIFIC S&amp;amp;T SAFETY MANAGEMENT SYSTEM)：简称CST体系，是一套结合中国国情和AI科技趋势的安全管理框架，用于解决工程建设中的安全问题。
+成本 (Cost)：在ERP（企业资源计划）系统中，CST通常代表成本相关字段，如单位成本或成本中心。
+🩺 医学与科学
+宫缩应激试验 (Contraction Stress Test)：一种产科检查，用于评估胎儿在宫缩时的储备能力和胎盘功能。
+共刺激信号转导通路 (Costimulatory Signaling Transduction)：免疫学中的一个概念，指调节T细胞免疫反应的关键信号通路。
+厘斯 (centistokes)：运动粘度的单位，1 cst = 1 mm²/s。
+✈️ 其他领域
+沙特通信认证 (Communications Certification Author&lt;/p&gt;
+&lt;p&gt;这通常是因为在下载或保存文件时，图片的格式被更改了。
+文件扩展名被自动修改：有些浏览器或下载工具在保存图片时，可能会将文件扩展名默认设置为 .jpg，即使你下载的是 .svg 文件。
+平台或工具自动转换：部分平台或图片查看器不直接支持SVG格式，下载时可能会自动将其转换为JPG等位图格式以方便查看。
+🤔 如何确认和解决
+检查文件扩展名
+下载文件后，首先检查文件名的后缀。如果后缀是 .jpg 或 .jpeg，那么它就是一个JPG格式的文件。
+尝试修改扩展名
+如果你确定下载的是SVG文件，可以尝试将文件后缀从 .jpg 改回 .svg，然后用文本编辑器或浏览器打开查看。如果能正常显示图形代码或图像，说明文件本身是SVG格式，只是扩展名被改错了。
+使用其他方式下载
+如果修改扩展名后文件无法正常打开，说明文件已经被转换。建议尝试以下方法：
+右键另存为：在图片上点击鼠标右键，选择“另存为”，在保存对话框中手动将文件类型选择为“所有文件”，然后将文件名设置为“xxx.svg”进行保存。
+复制粘贴：如果是在浏览器中查看SVG，可以尝试直接复制图片，然后粘贴到支持SVG的编辑器（如 Adobe Illustrator、Inkscape）或文档中，再从编辑器中导出为SVG文件。
+使用专业工具：使用专业的图片下载工具或浏览器插件，这些工具通常能更好地保留图片的原始格式。&lt;/p&gt;
+&lt;p&gt;8篇来源
+CST是什么
+CST是一个具有多种含义的缩写，具体含义取决于它所处的上下文。以下是几个主要领域中的常见解释：
+🌍 时区与地理
+CST 常作为多个标准时间的缩写，这在国际交流中容易产生歧义：
+中国标准时间 (China Standard Time)：UTC+8，为中国大陆、台湾等地所使用。
+美国中部时间 (Central Standard Time, USA)：UTC-6，在非夏令时期间比北京时间晚14小时。
+澳大利亚中部时间 (Central Standard Time, Australia)：UTC+9:30。
+古巴标准时间 (Cuba Standard Time)：UTC-4。
+💻 计算机与技术
+在技术和网络领域，CST 有多种指代：
+电磁仿真软件 (CST Studio Suite)：一款广泛应用于电子、通信行业的专业三维电磁场仿真软件。
+中国科技网 (China Science and Technology Network, CSTNET)：由中国科学院领导的学术性科研计算机网络。
+数据库术语：可能指“当前系统时间”（Current System Time）、“客户端/服务器技术”（Client/Server Technology）或“变更跟踪”（Change Tracking）。
+🏗️ 工程与管理
+中国特色科技安全管理体系 (CHINA-SPECIFIC S&amp;amp;T SAFETY MANAGEMENT SYSTEM)：简称CST体系，是一套结合中国国情和AI科技趋势的安全管理框架，用于解决工程建设中的安全问题。
+成本 (Cost)：在ERP（企业资源计划）系统中，CST通常代表成本相关字段，如单位成本或成本中心。
+🩺 医学与科学
+宫缩应激试验 (Contraction Stress Test)：一种产科检查，用于评估胎儿在宫缩时的储备能力和胎盘功能。
+共刺激信号转导通路 (Costimulatory Signaling Transduction)：免疫学中的一个概念，指调节T细胞免疫反应的关键信号通路。
+厘斯 (centistokes)：运动粘度的单位，1 cst = 1 mm²/s。
+✈️ 其他领域
+沙特通信认证 (Communications Certification Author&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>第一篇博客</title>
         <link>https://whyboystudy.github.io/p/test-chinese/</link>
         <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
