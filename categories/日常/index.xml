@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on 美味芝士</title>
-        <link>https://whyboystudy.github.io/post/</link>
-        <description>Recent content in Posts on 美味芝士</description>
+        <title>日常 on 美味芝士</title>
+        <link>https://whyboystudy.github.io/categories/%E6%97%A5%E5%B8%B8/</link>
+        <description>Recent content in 日常 on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 13 Sep 2026 14:52:55 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 13 Sep 2026 14:52:55 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/categories/%E6%97%A5%E5%B8%B8/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>租房续租引起的猜想</title>
         <link>https://whyboystudy.github.io/p/daily/p3/</link>
         <pubDate>Sun, 13 Sep 2026 00:00:00 +0000</pubDate>
