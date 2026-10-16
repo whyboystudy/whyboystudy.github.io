@@ -6,7 +6,7 @@
         <description>Recent content in Pages on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Fri, 16 Oct 2026 18:17:40 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 16 Oct 2026 18:27:59 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>分类&amp;标签</title>
         <link>https://whyboystudy.github.io/catestags/</link>
         <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
@@ -113,6 +113,14 @@
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
         <guid>https://whyboystudy.github.io/search/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>随机文章</title>
+        <link>https://whyboystudy.github.io/random/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://whyboystudy.github.io/random/</guid>
         <description></description>
         </item>
         
