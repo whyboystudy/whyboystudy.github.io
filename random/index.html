@@ -289,10 +289,29 @@
     </ol>
 </aside>
 
-            <main class="main full-width"><script>
-  (function() {
-    const url = "/post/shenlun/2026-10-20/";
-    window.location.replace(url);
+            <main class="main full-width">
+<script>
+  (function () {
+    var urls = ["/post/shenlun/2026-10-20/","/post/daily/p3/"];
+    if (!urls || !urls.length) return;
+
+    var KEY = 'randomPostLast';
+    var pick = urls[Math.floor(Math.random() * urls.length)];
+
+    try {
+      var last = sessionStorage.getItem(KEY);
+      
+      if (urls.length > 1 && pick === last) {
+        var idx = urls.indexOf(pick);
+        var offset = 1 + Math.floor(Math.random() * (urls.length - 1));
+        pick = urls[(idx + offset) % urls.length];
+      }
+      sessionStorage.setItem(KEY, pick);
+    } catch (e) {
+      
+    }
+
+    window.location.replace(pick);
   })();
 </script>
 
