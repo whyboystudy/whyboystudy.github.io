@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从创建存储桶、绑定自定义域名，到缓存规则、防盗链与防刷，一份能直接照着做的 R2 运维教程">
+<title>Cloudflare R2 实战指南：建桶、上传、缓存与防盗链</title>
+
+<link rel='canonical' href='https://whyboystudy.github.io/post/tutorial/cloudflare-r2/'>
+
+<link rel="stylesheet" href="/scss/style.min.18a701aa053afa31f501733b7888d9627b915041b97b37f77b618ad00b547565.css"><meta property='og:title' content="Cloudflare R2 实战指南：建桶、上传、缓存与防盗链">
+<meta property='og:description' content="从创建存储桶、绑定自定义域名，到缓存规则、防盗链与防刷，一份能直接照着做的 R2 运维教程">
+<meta property='og:url' content='https://whyboystudy.github.io/post/tutorial/cloudflare-r2/'>
+<meta property='og:site_name' content='美味芝士'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cloudflare' /><meta property='article:tag' content='R2' /><meta property='article:tag' content='缓存' /><meta property='article:tag' content='防盗链' /><meta property='article:published_time' content='2026-10-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-21T09:13:23&#43;08:00'/>
+<meta name="twitter:title" content="Cloudflare R2 实战指南：建桶、上传、缓存与防盗链">
+<meta name="twitter:description" content="从创建存储桶、绑定自定义域名，到缓存规则、防盗链与防刷，一份能直接照着做的 R2 运维教程">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c222babdbdc5d500.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🚀</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">美味芝士</a></h1>
+            <h2 class="site-description">技术分享与生活记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/389116170'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/whyboystudy'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/WhyTastyCheese'
+                        target="_blank"
+                        title="X"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol>
+    <ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E%E6%88%91/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/catestags/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类&amp;标签</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>全部文章</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索 | Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blogroll/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>部落卷</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/random/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>随机文章</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                <form action="/search/" class="search-form widget" >
+        <p>
+            <label>搜索</label>
+            <input name="keyword" required placeholder="输入关键词..." />
+        
+            <button title="搜索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#先搞清楚-r2-的计费模型">先搞清楚 R2 的计费模型</a></li>
+    <li><a href="#建桶与控制台操作">建桶与控制台操作</a></li>
+    <li><a href="#用-api-token-和命令行传文件">用 API Token 和命令行传文件</a></li>
+    <li><a href="#绑定自定义域名缓存才有可能生效">绑定自定义域名，缓存才有可能生效</a></li>
+    <li><a href="#缓存两层配置缺一不可">缓存：两层配置，缺一不可</a></li>
+    <li><a href="#防盗链先认清它能防到什么程度">防盗链：先认清它能防到什么程度</a></li>
+    <li><a href="#日常运维迁移清理与成本">日常运维：迁移、清理与成本</a></li>
+    <li><a href="#常见问题排查">常见问题排查</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+            
+                <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">归档</h2>
+
+        
+        
+        
+
+        <div class="archive-tags">
+            
+                    <a href="/archives/#2026" class="archive-tag">
+                        <span class="year">2026</span>
+                        <span class="count">8</span>
+                    </a>
+                
+            
+        </div>
+    </section>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%95%99%E7%A8%8B/" style="background-color: #4361a8; color: #fff;">
+                教程
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/tutorial/cloudflare-r2/">Cloudflare R2 实战指南：建桶、上传、缓存与防盗链</a>
+        </h2>
+
+        
+        <h3 class="article-subtitle">
+            从创建存储桶、绑定自定义域名，到缓存规则、防盗链与防刷，一份能直接照着做的 R2 运维教程
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-10-21T00:00:00Z'>2026-10-21</time>
+            </div>
+        
+
+        
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+        
+        <div id="viewCount">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <time class="article-time--reading">
+                
+                <span id="vercount_value_page_pv">loading... </span>次
+            </time>
+        </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>R2 是 Cloudflare 的对象存储，兼容 S3 接口，最大的卖点是没有出网流量费。很多人第一次用它，是因为把图片、视频放在别处被流量费咬了一口，换过来之后发现账单只剩存储和请求两项。</p>
+<p>这篇文章按实际操作顺序写：建桶、传文件、绑域名、配缓存、加防盗链，最后是日常运维和排错。文中价格与免费额度以 Cloudflare 官方文档为准，具体以控制台显示为实。</p>
+<h2 id="先搞清楚-r2-的计费模型">先搞清楚 R2 的计费模型
+</h2><p>R2 只收三样东西的钱：存储量、Class A 操作、Class B 操作。出网流量（Egress）对所有存储类型都是零费用，这是它和 S3 最本质的区别。</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>项目</th>
+					<th>Standard</th>
+					<th>Infrequent Access</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>存储</td>
+					<td>$0.015 / GB-月</td>
+					<td>$0.01 / GB-月</td>
+			</tr>
+			<tr>
+					<td>Class A 操作</td>
+					<td>$4.50 / 百万次</td>
+					<td>$9.00 / 百万次</td>
+			</tr>
+			<tr>
+					<td>Class B 操作</td>
+					<td>$0.36 / 百万次</td>
+					<td>$0.90 / 百万次</td>
+			</tr>
+			<tr>
+					<td>数据取回费</td>
+					<td>无</td>
+					<td>$0.01 / GB</td>
+			</tr>
+			<tr>
+					<td>最短存储期</td>
+					<td>无</td>
+					<td>30 天</td>
+			</tr>
+			<tr>
+					<td>出网流量</td>
+					<td>免费</td>
+					<td>免费</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>免费额度只对 Standard 生效，每月 10 GB 存储、100 万次 Class A、1000 万次 Class B。个人博客、小站点的图片和附件基本用不到付费区间。</p>
+<p>理解 Class A 和 Class B 的区别，是省钱的关键：</p>
+<ul>
+<li><strong>Class A（贵，写类）</strong>：PutObject、CopyObject、ListObjects、CreateMultipartUpload、UploadPart 等，凡是&quot;改动状态&quot;的算这里。</li>
+<li><strong>Class B（便宜，读类）</strong>：GetObject、HeadObject 等读取操作。</li>
+<li><strong>免费</strong>：DeleteObject、DeleteBucket、AbortMultipartUpload。</li>
+</ul>
+<p>有一个容易被忽略的细节：<strong>计费单位向上取整</strong>。做了 100 万零 1 次 Class A，按 200 万次计费；存了 1.1 GB-月，按 2 GB-月计费。所以别写出&quot;每秒 List 一次目录&quot;这种代码，List 属于 Class A，会把免费额度吃得很快。</p>
+<h2 id="建桶与控制台操作">建桶与控制台操作
+</h2><p>登录 Cloudflare 控制台，左侧菜单进 R2，首次使用需要绑定支付方式（即使只用免费额度）。</p>
+<p>建桶时注意两点：桶名全局唯一、创建后<strong>不能改名</strong>；存储位置（Location）选自动或就近区域即可，R2 会自动做全球分布，位置主要影响写入延迟和数据驻留合规。</p>
+<p>建好之后，桶的 Settings 页面有几个开关值得先说清楚：</p>
+<ul>
+<li><strong>Public access → R2.dev subdomain</strong>：打开后会给你一个 <code>pub-xxxxxxxx.r2.dev</code> 的地址，能直接公网访问。<strong>这个域名只适合测试</strong>，Cloudflare 明确说明它有速率限制、不保证性能，不要拿它上生产。</li>
+<li><strong>Public access → Custom Domains</strong>：绑定自己的域名，这才是生产用法，下一节细说。</li>
+<li><strong>CORS Policy</strong>：前端直传或跨域读取时需要配，否则浏览器会拦。</li>
+</ul>
+<h2 id="用-api-token-和命令行传文件">用 API Token 和命令行传文件
+</h2><p>控制台能拖拽上传，但批量操作还是要靠命令行。先在 R2 页面右侧的 &ldquo;Manage R2 API Tokens&rdquo; 创建一个 Token，权限选 <strong>Object Read &amp; Write</strong>，可以限定到某个桶。记下三样东西：Access Key ID、Secret Access Key、以及账户的 S3 端点：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">https://&lt;ACCOUNT_ID&gt;.r2.cloudflarestorage.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>方式一：rclone</strong>（适合同步目录、断点续传）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[r2]</span>
+</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">s3</span>
+</span></span><span class="line"><span class="cl"><span class="na">provider</span> <span class="o">=</span> <span class="s">Cloudflare</span>
+</span></span><span class="line"><span class="cl"><span class="na">access_key_id</span> <span class="o">=</span> <span class="s">&lt;ACCESS_KEY_ID&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="na">secret_access_key</span> <span class="o">=</span> <span class="s">&lt;SECRET_ACCESS_KEY&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="na">endpoint</span> <span class="o">=</span> <span class="s">https://&lt;ACCOUNT_ID&gt;.r2.cloudflarestorage.com</span>
+</span></span><span class="line"><span class="cl"><span class="na">acl</span> <span class="o">=</span> <span class="s">private</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 上传整个目录，并带上缓存头</span>
+</span></span><span class="line"><span class="cl">rclone copy ./images r2:my-bucket/images <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --header-upload <span class="s2">&#34;Cache-Control: public, max-age=31536000, immutable&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --progress
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>方式二：AWS CLI</strong>（R2 兼容 S3，换个 endpoint 就能用）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">aws configure <span class="nb">set</span> aws_access_key_id &lt;ACCESS_KEY_ID&gt;
+</span></span><span class="line"><span class="cl">aws configure <span class="nb">set</span> aws_secret_access_key &lt;SECRET_ACCESS_KEY&gt;
+</span></span><span class="line"><span class="cl">aws configure <span class="nb">set</span> region auto
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">aws --endpoint-url https://&lt;ACCOUNT_ID&gt;.r2.cloudflarestorage.com <span class="se">\
+</span></span></span><span class="line"><span class="cl">  s3 cp ./dist s3://my-bucket/assets --recursive <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cache-control <span class="s2">&#34;public, max-age=31536000, immutable&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上传时顺手把 <code>Cache-Control</code> 写进对象元数据，是后面缓存能生效的前提。带内容哈希的静态资源（<code>app.a1b2c3.js</code> 这种）可以放心用一年；会变的文件用 <code>max-age=86400</code> 更稳。</p>
+<h2 id="绑定自定义域名缓存才有可能生效">绑定自定义域名，缓存才有可能生效
+</h2><p>这一步是整个教程的分水岭。<strong>用 r2.dev 域名访问，请求根本不经过 Cloudflare 的 CDN 缓存</strong>，也就谈不上缓存命中、WAF 和速率限制；只有绑定自定义域名并开启橙色云代理，这些能力才会挂上去。</p>
+<p>操作路径：桶 → Settings → Public access → Custom Domains → Connect Domain，填一个子域名，例如 <code>cdn.example.com</code>。前提是这个域名已经托管在同一个 Cloudflare 账户下，系统会自动写入一条 CNAME 记录，<strong>代理状态必须是橙色云（Proxied）</strong>，灰色云等于直连，缓存和防护全部失效。</p>
+<p>绑定完成后验证两件事：访问 <code>https://cdn.example.com/你的文件名</code> 能拿到内容；响应头里出现 <code>cf-cache-status</code>，初始一般为 <code>MISS</code> 或 <code>DYNAMIC</code>，配好缓存规则后应该变成 <code>HIT</code>。</p>
+<h2 id="缓存两层配置缺一不可">缓存：两层配置，缺一不可
+</h2><p>R2 前面这层缓存由 Cloudflare 负责，效果取决于两处配置：对象自带的 <code>Cache-Control</code> 头，和域名上的 Cache Rules。前者是&quot;源站怎么说&quot;，后者是&quot;CDN 怎么执行&quot;。</p>
+<p><strong>第一层：对象元数据。</strong> 上传时设置 <code>Cache-Control: public, max-age=31536000, immutable</code>，告诉 CDN 和浏览器这个文件可以长期缓存。已经上传的文件可以改元数据，或干脆重传。</p>
+<p><strong>第二层：Cache Rules。</strong> 路径是域名 → Caching → Cache Rules → Create rule。一条够用的规则长这样：</p>
+<ul>
+<li>规则名：<code>r2-cdn-cache</code></li>
+<li>匹配条件：<code>Hostname equals cdn.example.com</code></li>
+<li>缓存资格：Eligible for cache</li>
+<li>Edge TTL：Ignore cache-control header and use this TTL → 30 天（或 7 天）</li>
+<li>Browser TTL：Respect origin（沿用源站）</li>
+</ul>
+<p>为什么不直接沿用源站的 <code>Cache-Control</code>？因为 Cloudflare 的默认行为只缓存常见静态扩展名，HTML 之类默认不缓存。用 Cache Rules 显式声明 TTL，能让&quot;边缘缓存多久&quot;脱离源站头的限制，特别是当对象上传时压根没设头的情况下。</p>
+<p>不同内容的 TTL 可以参考这个思路：</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>内容</th>
+					<th>Edge TTL</th>
+					<th>说明</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>图片、字体</td>
+					<td>30 天</td>
+					<td>基本不改，缓存收益最高</td>
+			</tr>
+			<tr>
+					<td>带哈希的 JS/CSS</td>
+					<td>1 年</td>
+					<td>文件名变即内容变，可 immutable</td>
+			</tr>
+			<tr>
+					<td>视频、压缩包</td>
+					<td>30 天</td>
+					<td>体积大，命中一次省一次 Class B</td>
+			</tr>
+			<tr>
+					<td>PDF、文档</td>
+					<td>7 天</td>
+					<td>偶尔更新，留一点回旋余地</td>
+			</tr>
+			<tr>
+					<td>JSON、接口响应</td>
+					<td>不缓存</td>
+					<td>动态内容，缓存会读到脏数据</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>缓存配好之后，收益是双重叠加的：<strong>命中边缘缓存的请求不会打到 R2，既不消耗 Class B 操作，也不产生任何存储读取</strong>。一个日访问几万次的图片站，缓存命中率从 40% 提到 95%，账单差距可能是一个数量级。</p>
+<p>改完规则记得刷缓存：Caching → Purge Cache，可以按 URL 刷，也可以整站刷。否则旧的边缘副本会一直按老 TTL 活着。</p>
+<h2 id="防盗链先认清它能防到什么程度">防盗链：先认清它能防到什么程度
+</h2><p>防盗链的本质是&quot;判断请求是不是从我的页面发起的&quot;。绕不过去的前提是：<strong>Referer 可以由客户端随意伪造</strong>，所以它只能挡住直接引用你链接的一般站点，挡不住有心人。真正要保护付费资源，得用签名 URL 或鉴权代理。</p>
+<p><strong>方案一：WAF 自定义规则校验 Referer（最常用）</strong></p>
+<p>路径：域名 → Security → WAF → Custom rules → Create rule。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(http.host eq &#34;cdn.example.com&#34; and http.referer ne &#34;&#34; and not http.referer contains &#34;example.com&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>动作选 Block。这条规则的意思是：访问 CDN 域名、带了 Referer、但 Referer 不是自己站点的，一律拦截。</p>
+<p><code>http.referer ne &quot;&quot;</code> 这个条件很重要——浏览器直接打开图片、或者从微信/QQ 里点开时，Referer 往往是空的。加了这一句表示&quot;放行空 Referer&quot;，体验更好；如果资源敏感，就去掉它，让空 Referer 也被挡。</p>
+<p><strong>方案二：签名 URL（适合私有资源）</strong></p>
+<p>公开资源用 Referer 够了，付费下载、限时链接这种就要签名。R2 支持 S3 预签名，生成的是带时效的临时地址：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">aws --endpoint-url https://&lt;ACCOUNT_ID&gt;.r2.cloudflarestorage.com <span class="se">\
+</span></span></span><span class="line"><span class="cl">  s3 presign s3://my-bucket/private/report.pdf --expires-in <span class="m">3600</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>链接一小时后失效，转发出去也没用。缺点是每个文件都要单独生成，适合后端按需签发，不适合海量静态资源。</p>
+<p><strong>方案三：Worker 做鉴权代理</strong></p>
+<p>把域名指向 Worker，在 Worker 里校验 token、Cookie、UA 或调用频率，通过后再用 <code>env.MY_BUCKET.get(key)</code> 从 R2 取对象返回。灵活度最高，可以加黑白名单、限速、按用户计次，代价是要写代码，且 Worker 请求本身有免费额度限制。</p>
+<p><strong>方案四：速率限制兜底</strong></p>
+<p>防盗链防的是&quot;别人引用&quot;，防不住&quot;有人拿脚本刷你的公开链接&quot;。域名 → Security → WAF → Rate limiting rules，对同一 IP 设阈值，比如 10 秒内超过 100 次请求就 Block 或 Managed Challenge。免费计划也提供少量规则额度，配一条针对大文件路径的规则很划算。</p>
+<p>组合起来用：<strong>WAF 挡盗链、Rate Limiting 挡刷量、签名 URL 保敏感资源</strong>，三层各管一段。</p>
+<h2 id="日常运维迁移清理与成本">日常运维：迁移、清理与成本
+</h2><p><strong>从 S3 搬数据</strong>有两种官方工具：Super Slurper 适合一次性批量迁移，会自动分片、重试；Sippy 适合渐进式迁移，请求命中 R2 就直接返回，没有就从源桶拉过来并回填，业务可以先切流量再慢慢搬。两者工具本身免费，只算 R2 的 Class A 操作费。</p>
+<p><strong>对象生命周期</strong>：桶的 Settings 里可以配生命周期规则，比如把 90 天未访问的对象转到 Infrequent Access，或直接删除临时文件。注意 IA 有 30 天最短存储期，删早了照样按 30 天收钱，别拿它存短期文件。</p>
+<p><strong>成本自查清单</strong>：</p>
+<ul>
+<li>缓存命中率是否够高（<code>cf-cache-status: HIT</code> 的占比）</li>
+<li>有没有代码在频繁 <code>ListObjects</code>（这是 Class A，很贵）</li>
+<li>大文件是否走了分片上传并正常完成（残留的分片会占存储）</li>
+<li>免费额度是否已经贴近上限（10 GB / 100 万 Class A / 1000 万 Class B）</li>
+</ul>
+<h2 id="常见问题排查">常见问题排查
+</h2><p><strong>访问返回 403</strong>：先看对象是不是私有、域名有没有绑对；如果是刚配的 WAF 规则，去 Security Events 里看是不是被自己拦了。</p>
+<p><strong><code>cf-cache-status</code> 一直是 DYNAMIC</strong>：说明请求没被当作可缓存内容。检查域名是否橙色云、Cache Rule 是否真的命中、文件扩展名是否在缓存范围内。</p>
+<p><strong>改了文件但访问还是旧内容</strong>：边缘缓存没过期。要么 Purge 缓存，要么用带哈希的文件名做版本控制，后者才是长久做法。</p>
+<p><strong>前端直传报 CORS 错误</strong>：桶的 Settings 里配 CORS Policy，把允许的 Origin 写清楚，<code>AllowedMethods</code> 至少包含 <code>PUT</code>，需要读取再加 <code>GET</code>。</p>
+<p><strong>上传大文件失败</strong>：超过 5 GB 的对象必须走分片上传（Multipart Upload），普通 <code>PutObject</code> 单次上限是 5 GB，用 rclone 或 SDK 会自动处理。</p>
+<p><strong>怀疑被刷</strong>：看 R2 的请求量图表和域名的流量分析，对照 Class A/B 操作数。异常增长通常来自某个公开链接被批量请求，先上 Rate Limiting，再考虑给该路径加签名。</p>
+
+        </section>
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/cloudflare/">Cloudflare</a>
+        
+            <a href="/tags/r2/">R2</a>
+        
+            <a href="/tags/%E7%BC%93%E5%AD%98/">缓存</a>
+        
+            <a href="/tags/%E9%98%B2%E7%9B%97%E9%93%BE/">防盗链</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2026-10-21 09:13
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2026 美味芝士
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.2">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+
+    showHideView();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 400px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 78px;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#fff));
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #f0f0f5;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+    function initCodeMoreBox() {
+        let codeBlocks = document.querySelectorAll(".highlight");
+        if (!codeBlocks) {
+            return;
+        }
+        codeBlocks.forEach(codeBlock => {
+            
+            if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+                return;
+            }
+            
+            
+            let codeMoreBox = document.createElement('div');
+            codeMoreBox.classList.add('code-more-box');
+            
+            let codeMoreBtn = document.createElement('span');
+            codeMoreBtn.classList.add('code-more-btn');
+            codeMoreBtn.addEventListener('click', () => {
+                codeBlock.classList.add('code-show');
+                codeMoreBox.style.display = 'none';
+                
+                window.dispatchEvent(new Event('resize'))
+            })
+            
+            let img = document.createElement('img');
+            img.classList.add('code-more-img');
+            img.src = "https://whyboystudy.github.io/icons/codeMore.png"
+            
+            codeMoreBtn.appendChild(img);
+            codeMoreBox.appendChild(codeMoreBtn);
+            codeBlock.appendChild(codeMoreBox)
+        })
+    }
+
+    initCodeMoreBox();
+</script>
+
+    </body>
+</html>

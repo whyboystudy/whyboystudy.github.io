@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>R2 on 美味芝士</title>
+        <link>https://whyboystudy.github.io/tags/r2/</link>
+        <description>Recent content in R2 on 美味芝士</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Wed, 21 Oct 2026 09:13:23 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/r2/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Cloudflare R2 实战指南：建桶、上传、缓存与防盗链</title>
+        <link>https://whyboystudy.github.io/post/tutorial/cloudflare-r2/</link>
+        <pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://whyboystudy.github.io/post/tutorial/cloudflare-r2/</guid>
+        <description>&lt;p&gt;R2 是 Cloudflare 的对象存储，兼容 S3 接口，最大的卖点是没有出网流量费。很多人第一次用它，是因为把图片、视频放在别处被流量费咬了一口，换过来之后发现账单只剩存储和请求两项。&lt;/p&gt;
+&lt;p&gt;这篇文章按实际操作顺序写：建桶、传文件、绑域名、配缓存、加防盗链，最后是日常运维和排错。文中价格与免费额度以 Cloudflare 官方文档为准，具体以控制台显示为实。&lt;/p&gt;
+&lt;h2 id=&#34;先搞清楚-r2-的计费模型&#34;&gt;先搞清楚 R2 的计费模型
+&lt;/h2&gt;&lt;p&gt;R2 只收三样东西的钱：存储量、Class A 操作、Class B 操作。出网流量（Egress）对所有存储类型都是零费用，这是它和 S3 最本质的区别。&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;项目&lt;/th&gt;
+					&lt;th&gt;Standard&lt;/th&gt;
+					&lt;th&gt;Infrequent Access&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;存储&lt;/td&gt;
+					&lt;td&gt;$0.015 / GB-月&lt;/td&gt;
+					&lt;td&gt;$0.01 / GB-月&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Class A 操作&lt;/td&gt;
+					&lt;td&gt;$4.50 / 百万次&lt;/td&gt;
+					&lt;td&gt;$9.00 / 百万次&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Class B 操作&lt;/td&gt;
+					&lt;td&gt;$0.36 / 百万次&lt;/td&gt;
+					&lt;td&gt;$0.90 / 百万次&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;数据取回费&lt;/td&gt;
+					&lt;td&gt;无&lt;/td&gt;
+					&lt;td&gt;$0.01 / GB&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;最短存储期&lt;/td&gt;
+					&lt;td&gt;无&lt;/td&gt;
+					&lt;td&gt;30 天&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;出网流量&lt;/td&gt;
+					&lt;td&gt;免费&lt;/td&gt;
+					&lt;td&gt;免费&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;免费额度只对 Standard 生效，每月 10 GB 存储、100 万次 Class A、1000 万次 Class B。个人博客、小站点的图片和附件基本用不到付费区间。&lt;/p&gt;
+&lt;p&gt;理解 Class A 和 Class B 的区别，是省钱的关键：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Class A（贵，写类）&lt;/strong&gt;：PutObject、CopyObject、ListObjects、CreateMultipartUpload、UploadPart 等，凡是&amp;quot;改动状态&amp;quot;的算这里。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Class B（便宜，读类）&lt;/strong&gt;：GetObject、HeadObject 等读取操作。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;免费&lt;/strong&gt;：DeleteObject、DeleteBucket、AbortMultipartUpload。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;有一个容易被忽略的细节：&lt;strong&gt;计费单位向上取整&lt;/strong&gt;。做了 100 万零 1 次 Class A，按 200 万次计费；存了 1.1 GB-月，按 2 GB-月计费。所以别写出&amp;quot;每秒 List 一次目录&amp;quot;这种代码，List 属于 Class A，会把免费额度吃得很快。&lt;/p&gt;
+&lt;h2 id=&#34;建桶与控制台操作&#34;&gt;建桶与控制台操作
+&lt;/h2&gt;&lt;p&gt;登录 Cloudflare 控制台，左侧菜单进 R2，首次使用需要绑定支付方式（即使只用免费额度）。&lt;/p&gt;
+&lt;p&gt;建桶时注意两点：桶名全局唯一、创建后&lt;strong&gt;不能改名&lt;/strong&gt;；存储位置（Location）选自动或就近区域即可，R2 会自动做全球分布，位置主要影响写入延迟和数据驻留合规。&lt;/p&gt;
+&lt;p&gt;建好之后，桶的 Settings 页面有几个开关值得先说清楚：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Public access → R2.dev subdomain&lt;/strong&gt;：打开后会给你一个 &lt;code&gt;pub-xxxxxxxx.r2.dev&lt;/code&gt; 的地址，能直接公网访问。&lt;strong&gt;这个域名只适合测试&lt;/strong&gt;，Cloudflare 明确说明它有速率限制、不保证性能，不要拿它上生产。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Public access → Custom Domains&lt;/strong&gt;：绑定自己的域名，这才是生产用法，下一节细说。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CORS Policy&lt;/strong&gt;：前端直传或跨域读取时需要配，否则浏览器会拦。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;用-api-token-和命令行传文件&#34;&gt;用 API Token 和命令行传文件
+&lt;/h2&gt;&lt;p&gt;控制台能拖拽上传，但批量操作还是要靠命令行。先在 R2 页面右侧的 &amp;ldquo;Manage R2 API Tokens&amp;rdquo; 创建一个 Token，权限选 &lt;strong&gt;Object Read &amp;amp; Write&lt;/strong&gt;，可以限定到某个桶。记下三样东西：Access Key ID、Secret Access Key、以及账户的 S3 端点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;https://&amp;lt;ACCOUNT_ID&amp;gt;.r2.cloudflarestorage.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;方式一：rclone&lt;/strong&gt;（适合同步目录、断点续传）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;[r2]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;s3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;provider&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;Cloudflare&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;access_key_id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;lt;ACCESS_KEY_ID&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;secret_access_key&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;lt;SECRET_ACCESS_KEY&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;endpoint&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;https://&amp;lt;ACCOUNT_ID&amp;gt;.r2.cloudflarestorage.com&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;acl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;private&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 上传整个目录，并带上缓存头&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;rclone copy ./images r2:my-bucket/images &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  --header-upload &lt;span class=&#34;s2&#34;&gt;&amp;#34;Cache-Control: public, max-age=31536000, immutable&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  --progress
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;方式二：AWS CLI&lt;/strong&gt;（R2 兼容 S3，换个 endpoint 就能用）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;aws configure &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; aws_access_key_id &amp;lt;ACCESS_KEY_ID&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;aws configure &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; aws_secret_access_key &amp;lt;SECRET_ACCESS_KEY&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;aws configure &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; region auto
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;aws --endpoint-url https://&amp;lt;ACCOUNT_ID&amp;gt;.r2.cloudflarestorage.com &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  s3 cp ./dist s3://my-bucket/assets --recursive &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  --cache-control &lt;span class=&#34;s2&#34;&gt;&amp;#34;public, max-age=31536000, immutable&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上传时顺手把 &lt;code&gt;Cache-Control&lt;/code&gt; 写进对象元数据，是后面缓存能生效的前提。带内容哈希的静态资源（&lt;code&gt;app.a1b2c3.js&lt;/code&gt; 这种）可以放心用一年；会变的文件用 &lt;code&gt;max-age=86400&lt;/code&gt; 更稳。&lt;/p&gt;
+&lt;h2 id=&#34;绑定自定义域名缓存才有可能生效&#34;&gt;绑定自定义域名，缓存才有可能生效
+&lt;/h2&gt;&lt;p&gt;这一步是整个教程的分水岭。&lt;strong&gt;用 r2.dev 域名访问，请求根本不经过 Cloudflare 的 CDN 缓存&lt;/strong&gt;，也就谈不上缓存命中、WAF 和速率限制；只有绑定自定义域名并开启橙色云代理，这些能力才会挂上去。&lt;/p&gt;
+&lt;p&gt;操作路径：桶 → Settings → Public access → Custom Domains → Connect Domain，填一个子域名，例如 &lt;code&gt;cdn.example.com&lt;/code&gt;。前提是这个域名已经托管在同一个 Cloudflare 账户下，系统会自动写入一条 CNAME 记录，&lt;strong&gt;代理状态必须是橙色云（Proxied）&lt;/strong&gt;，灰色云等于直连，缓存和防护全部失效。&lt;/p&gt;
+&lt;p&gt;绑定完成后验证两件事：访问 &lt;code&gt;https://cdn.example.com/你的文件名&lt;/code&gt; 能拿到内容；响应头里出现 &lt;code&gt;cf-cache-status&lt;/code&gt;，初始一般为 &lt;code&gt;MISS&lt;/code&gt; 或 &lt;code&gt;DYNAMIC&lt;/code&gt;，配好缓存规则后应该变成 &lt;code&gt;HIT&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;缓存两层配置缺一不可&#34;&gt;缓存：两层配置，缺一不可
+&lt;/h2&gt;&lt;p&gt;R2 前面这层缓存由 Cloudflare 负责，效果取决于两处配置：对象自带的 &lt;code&gt;Cache-Control&lt;/code&gt; 头，和域名上的 Cache Rules。前者是&amp;quot;源站怎么说&amp;quot;，后者是&amp;quot;CDN 怎么执行&amp;quot;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一层：对象元数据。&lt;/strong&gt; 上传时设置 &lt;code&gt;Cache-Control: public, max-age=31536000, immutable&lt;/code&gt;，告诉 CDN 和浏览器这个文件可以长期缓存。已经上传的文件可以改元数据，或干脆重传。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第二层：Cache Rules。&lt;/strong&gt; 路径是域名 → Caching → Cache Rules → Create rule。一条够用的规则长这样：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;规则名：&lt;code&gt;r2-cdn-cache&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;匹配条件：&lt;code&gt;Hostname equals cdn.example.com&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;缓存资格：Eligible for cache&lt;/li&gt;
+&lt;li&gt;Edge TTL：Ignore cache-control header and use this TTL → 30 天（或 7 天）&lt;/li&gt;
+&lt;li&gt;Browser TTL：Respect origin（沿用源站）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为什么不直接沿用源站的 &lt;code&gt;Cache-Control&lt;/code&gt;？因为 Cloudflare 的默认行为只缓存常见静态扩展名，HTML 之类默认不缓存。用 Cache Rules 显式声明 TTL，能让&amp;quot;边缘缓存多久&amp;quot;脱离源站头的限制，特别是当对象上传时压根没设头的情况下。&lt;/p&gt;
+&lt;p&gt;不同内容的 TTL 可以参考这个思路：&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;内容&lt;/th&gt;
+					&lt;th&gt;Edge TTL&lt;/th&gt;
+					&lt;th&gt;说明&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;图片、字体&lt;/td&gt;
+					&lt;td&gt;30 天&lt;/td&gt;
+					&lt;td&gt;基本不改，缓存收益最高&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;带哈希的 JS/CSS&lt;/td&gt;
+					&lt;td&gt;1 年&lt;/td&gt;
+					&lt;td&gt;文件名变即内容变，可 immutable&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;视频、压缩包&lt;/td&gt;
+					&lt;td&gt;30 天&lt;/td&gt;
+					&lt;td&gt;体积大，命中一次省一次 Class B&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;PDF、文档&lt;/td&gt;
+					&lt;td&gt;7 天&lt;/td&gt;
+					&lt;td&gt;偶尔更新，留一点回旋余地&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;JSON、接口响应&lt;/td&gt;
+					&lt;td&gt;不缓存&lt;/td&gt;
+					&lt;td&gt;动态内容，缓存会读到脏数据&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;缓存配好之后，收益是双重叠加的：&lt;strong&gt;命中边缘缓存的请求不会打到 R2，既不消耗 Class B 操作，也不产生任何存储读取&lt;/strong&gt;。一个日访问几万次的图片站，缓存命中率从 40% 提到 95%，账单差距可能是一个数量级。&lt;/p&gt;
+&lt;p&gt;改完规则记得刷缓存：Caching → Purge Cache，可以按 URL 刷，也可以整站刷。否则旧的边缘副本会一直按老 TTL 活着。&lt;/p&gt;
+&lt;h2 id=&#34;防盗链先认清它能防到什么程度&#34;&gt;防盗链：先认清它能防到什么程度
+&lt;/h2&gt;&lt;p&gt;防盗链的本质是&amp;quot;判断请求是不是从我的页面发起的&amp;quot;。绕不过去的前提是：&lt;strong&gt;Referer 可以由客户端随意伪造&lt;/strong&gt;，所以它只能挡住直接引用你链接的一般站点，挡不住有心人。真正要保护付费资源，得用签名 URL 或鉴权代理。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方案一：WAF 自定义规则校验 Referer（最常用）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;路径：域名 → Security → WAF → Custom rules → Create rule。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;(http.host eq &amp;#34;cdn.example.com&amp;#34; and http.referer ne &amp;#34;&amp;#34; and not http.referer contains &amp;#34;example.com&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;动作选 Block。这条规则的意思是：访问 CDN 域名、带了 Referer、但 Referer 不是自己站点的，一律拦截。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;http.referer ne &amp;quot;&amp;quot;&lt;/code&gt; 这个条件很重要——浏览器直接打开图片、或者从微信/QQ 里点开时，Referer 往往是空的。加了这一句表示&amp;quot;放行空 Referer&amp;quot;，体验更好；如果资源敏感，就去掉它，让空 Referer 也被挡。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方案二：签名 URL（适合私有资源）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;公开资源用 Referer 够了，付费下载、限时链接这种就要签名。R2 支持 S3 预签名，生成的是带时效的临时地址：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;aws --endpoint-url https://&amp;lt;ACCOUNT_ID&amp;gt;.r2.cloudflarestorage.com &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  s3 presign s3://my-bucket/private/report.pdf --expires-in &lt;span class=&#34;m&#34;&gt;3600&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;链接一小时后失效，转发出去也没用。缺点是每个文件都要单独生成，适合后端按需签发，不适合海量静态资源。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方案三：Worker 做鉴权代理&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;把域名指向 Worker，在 Worker 里校验 token、Cookie、UA 或调用频率，通过后再用 &lt;code&gt;env.MY_BUCKET.get(key)&lt;/code&gt; 从 R2 取对象返回。灵活度最高，可以加黑白名单、限速、按用户计次，代价是要写代码，且 Worker 请求本身有免费额度限制。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方案四：速率限制兜底&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;防盗链防的是&amp;quot;别人引用&amp;quot;，防不住&amp;quot;有人拿脚本刷你的公开链接&amp;quot;。域名 → Security → WAF → Rate limiting rules，对同一 IP 设阈值，比如 10 秒内超过 100 次请求就 Block 或 Managed Challenge。免费计划也提供少量规则额度，配一条针对大文件路径的规则很划算。&lt;/p&gt;
+&lt;p&gt;组合起来用：&lt;strong&gt;WAF 挡盗链、Rate Limiting 挡刷量、签名 URL 保敏感资源&lt;/strong&gt;，三层各管一段。&lt;/p&gt;
+&lt;h2 id=&#34;日常运维迁移清理与成本&#34;&gt;日常运维：迁移、清理与成本
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;从 S3 搬数据&lt;/strong&gt;有两种官方工具：Super Slurper 适合一次性批量迁移，会自动分片、重试；Sippy 适合渐进式迁移，请求命中 R2 就直接返回，没有就从源桶拉过来并回填，业务可以先切流量再慢慢搬。两者工具本身免费，只算 R2 的 Class A 操作费。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;对象生命周期&lt;/strong&gt;：桶的 Settings 里可以配生命周期规则，比如把 90 天未访问的对象转到 Infrequent Access，或直接删除临时文件。注意 IA 有 30 天最短存储期，删早了照样按 30 天收钱，别拿它存短期文件。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;成本自查清单&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存命中率是否够高（&lt;code&gt;cf-cache-status: HIT&lt;/code&gt; 的占比）&lt;/li&gt;
+&lt;li&gt;有没有代码在频繁 &lt;code&gt;ListObjects&lt;/code&gt;（这是 Class A，很贵）&lt;/li&gt;
+&lt;li&gt;大文件是否走了分片上传并正常完成（残留的分片会占存储）&lt;/li&gt;
+&lt;li&gt;免费额度是否已经贴近上限（10 GB / 100 万 Class A / 1000 万 Class B）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;常见问题排查&#34;&gt;常见问题排查
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;访问返回 403&lt;/strong&gt;：先看对象是不是私有、域名有没有绑对；如果是刚配的 WAF 规则，去 Security Events 里看是不是被自己拦了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;cf-cache-status&lt;/code&gt; 一直是 DYNAMIC&lt;/strong&gt;：说明请求没被当作可缓存内容。检查域名是否橙色云、Cache Rule 是否真的命中、文件扩展名是否在缓存范围内。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;改了文件但访问还是旧内容&lt;/strong&gt;：边缘缓存没过期。要么 Purge 缓存，要么用带哈希的文件名做版本控制，后者才是长久做法。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;前端直传报 CORS 错误&lt;/strong&gt;：桶的 Settings 里配 CORS Policy，把允许的 Origin 写清楚，&lt;code&gt;AllowedMethods&lt;/code&gt; 至少包含 &lt;code&gt;PUT&lt;/code&gt;，需要读取再加 &lt;code&gt;GET&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;上传大文件失败&lt;/strong&gt;：超过 5 GB 的对象必须走分片上传（Multipart Upload），普通 &lt;code&gt;PutObject&lt;/code&gt; 单次上限是 5 GB，用 rclone 或 SDK 会自动处理。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;怀疑被刷&lt;/strong&gt;：看 R2 的请求量图表和域名的流量分析，对照 Class A/B 操作数。异常增长通常来自某个公开链接被批量请求，先上 Rate Limiting，再考虑给该路径加签名。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
