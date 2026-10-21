@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从 MongoDB Atlas 数据库到 Vercel Serverless 部署，再到 Hugo Stack 主题配置，一份能直接照着做的 Waline 评论系统搭建教程，全程 0 元">
+<title>10 分钟搞定 Waline 评论系统：Vercel &#43; MongoDB Atlas 全免费方案</title>
+
+<link rel='canonical' href='https://whyboystudy.github.io/post/tutorial/waline-comments/'>
+
+<link rel="stylesheet" href="/scss/style.min.7ada70ff60b30072c6f421c1be7265de535c75a26e366f9cc7d72358884696ab.css"><meta property='og:title' content="10 分钟搞定 Waline 评论系统：Vercel + MongoDB Atlas 全免费方案">
+<meta property='og:description' content="从 MongoDB Atlas 数据库到 Vercel Serverless 部署，再到 Hugo Stack 主题配置，一份能直接照着做的 Waline 评论系统搭建教程，全程 0 元">
+<meta property='og:url' content='https://whyboystudy.github.io/post/tutorial/waline-comments/'>
+<meta property='og:site_name' content='美味芝士'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Waline' /><meta property='article:tag' content='Vercel' /><meta property='article:tag' content='MongoDB' /><meta property='article:tag' content='评论系统' /><meta property='article:tag' content='Hugo' /><meta property='article:published_time' content='2026-10-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-21T21:03:21&#43;08:00'/>
+<meta name="twitter:title" content="10 分钟搞定 Waline 评论系统：Vercel + MongoDB Atlas 全免费方案">
+<meta name="twitter:description" content="从 MongoDB Atlas 数据库到 Vercel Serverless 部署，再到 Hugo Stack 主题配置，一份能直接照着做的 Waline 评论系统搭建教程，全程 0 元">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c222babdbdc5d500.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🚀</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">美味芝士</a></h1>
+            <h2 class="site-description">技术分享与生活记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/389116170'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/whyboystudy'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://x.com/WhyTastyCheese'
+                        target="_blank"
+                        title="X"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol>
+    <ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E%E6%88%91/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/catestags/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类&amp;标签</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>全部文章</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索 | Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blogroll/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>部落卷</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/random/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>随机文章</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                <form action="/search/" class="search-form widget" >
+        <p>
+            <label>搜索</label>
+            <input name="keyword" required placeholder="输入关键词..." />
+        
+            <button title="搜索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#方案总览">方案总览</a></li>
+    <li><a href="#费用账单">费用账单</a></li>
+    <li><a href="#第一部分mongodb-atlas数据库">第一部分：MongoDB Atlas（数据库）</a>
+      <ol>
+        <li><a href="#注册--创建免费集群">注册 + 创建免费集群</a></li>
+        <li><a href="#创建数据库用户">创建数据库用户</a></li>
+        <li><a href="#放开网络访问重要">放开网络访问（重要！）</a></li>
+        <li><a href="#复制连接串-">复制连接串 🔑</a></li>
+      </ol>
+    </li>
+    <li><a href="#第二部分vercel-部署-waline-后端">第二部分：Vercel 部署 Waline 后端</a>
+      <ol>
+        <li><a href="#删之前的错误项目如果有">删之前的错误项目（如果有）</a></li>
+        <li><a href="#-关键必须走官方一键部署">⚠️ 关键：必须走官方一键部署</a></li>
+        <li><a href="#vercel-创建项目">Vercel 创建项目</a></li>
+        <li><a href="#先加环境变量再-deploy">先加环境变量再 Deploy</a></li>
+        <li><a href="#点击-deploy-">点击 Deploy 🚀</a></li>
+        <li><a href="#-验证后端">✅ 验证后端！</a></li>
+      </ol>
+    </li>
+    <li><a href="#第三部分配置-hugo-stack-主题">第三部分：配置 Hugo Stack 主题</a>
+      <ol>
+        <li><a href="#修改-hugoyaml">修改 hugo.yaml</a></li>
+        <li><a href="#本地预览">本地预览</a></li>
+        <li><a href="#部署上线">部署上线</a></li>
+      </ol>
+    </li>
+    <li><a href="#第四部分可选的美化">第四部分：可选的美化</a>
+      <ol>
+        <li><a href="#给-vercel-加个友好域名">给 Vercel 加个友好域名</a></li>
+        <li><a href="#自定义-waline-样式">自定义 Waline 样式</a></li>
+        <li><a href="#开启垃圾评论过滤">开启垃圾评论过滤</a></li>
+      </ol>
+    </li>
+    <li><a href="#第五部分日常运维">第五部分：日常运维</a></li>
+    <li><a href="#常见问题排查">常见问题排查</a></li>
+    <li><a href="#和-giscus-对比">和 Giscus 对比</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+            
+                <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">归档</h2>
+
+        
+        
+        
+
+        <div class="archive-tags">
+            
+                    <a href="/archives/#2026" class="archive-tag">
+                        <span class="year">2026</span>
+                        <span class="count">9</span>
+                    </a>
+                
+            
+        </div>
+    </section>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%95%99%E7%A8%8B/" style="background-color: #4361a8; color: #fff;">
+                教程
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/tutorial/waline-comments/">10 分钟搞定 Waline 评论系统：Vercel &#43; MongoDB Atlas 全免费方案</a>
+        </h2>
+
+        
+        <h3 class="article-subtitle">
+            从 MongoDB Atlas 数据库到 Vercel Serverless 部署，再到 Hugo Stack 主题配置，一份能直接照着做的 Waline 评论系统搭建教程，全程 0 元
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-10-21T00:00:00Z'>2026-10-21</time>
+            </div>
+        
+
+        
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+        
+        <div id="viewCount">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <time class="article-time--reading">
+                
+                <span id="vercount_value_page_pv">loading... </span>次
+            </time>
+        </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>为什么换 Waline？之前用 Giscus（GitHub Discussions）体验不错，但有个硬伤：<strong>读者必须有 GitHub 账号才能评论</strong>。对个人博客来说，这个门槛太高了。</p>
+<p>Waline 的优势：</p>
+<ul>
+<li>支持<strong>匿名评论</strong>（填昵称 + 邮箱就行）</li>
+<li>完全免费开源（MIT 协议）</li>
+<li>前后端分离，前端一行 <code>&lt;script&gt;</code> 就能接入</li>
+<li>Stack 主题原生支持，深浅色完美跟随</li>
+<li>自带浏览量统计、多级嵌套回复、表情、垃圾评论过滤</li>
+</ul>
+<p>这篇文章记录我实际搭建的完整过程：<strong>Vercel（后端）+ MongoDB Atlas（数据库）+ Hugo Stack 主题</strong>，全程 <strong>0 元</strong>，<strong>不用服务器</strong>，<strong>10 分钟搞定</strong>。</p>
+<h2 id="方案总览">方案总览
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌──────────────────────────┐        ┌─────────────────────┐
+</span></span><span class="line"><span class="cl">│   GitHub Pages 博客      │        │   MongoDB Atlas     │
+</span></span><span class="line"><span class="cl">│   (Hugo Stack 主题)      │        │   M0 免费集群       │
+</span></span><span class="line"><span class="cl">│                          │        │                     │
+</span></span><span class="line"><span class="cl">│   Waline 前端组件        │──HTTPS──│   评论数据存储      │
+</span></span><span class="line"><span class="cl">│   (内置在 Stack 里)      │        │   512MB 免费空间    │
+</span></span><span class="line"><span class="cl">└──────────┬───────────────┘        └─────────────────────┘
+</span></span><span class="line"><span class="cl">           │
+</span></span><span class="line"><span class="cl">           │  serverURL
+</span></span><span class="line"><span class="cl">           ▼
+</span></span><span class="line"><span class="cl">┌──────────────────────────┐
+</span></span><span class="line"><span class="cl">│   Vercel Serverless      │
+</span></span><span class="line"><span class="cl">│   Waline 后端 API        │
+</span></span><span class="line"><span class="cl">│   Hobby 免费档           │
+</span></span><span class="line"><span class="cl">│   无限请求 + 100GB 流量  │
+</span></span><span class="line"><span class="cl">└──────────────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="费用账单">费用账单
+</h2><div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>服务</th>
+					<th>费用</th>
+					<th>免费额度</th>
+					<th>个人博客够用吗</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Vercel Hobby</td>
+					<td><strong>0 元</strong></td>
+					<td>无限请求 / 100GB 流量 / 月</td>
+					<td>✅ 绰绰有余</td>
+			</tr>
+			<tr>
+					<td>MongoDB Atlas M0</td>
+					<td><strong>0 元</strong></td>
+					<td>512MB 存储 / 永久在线</td>
+					<td>✅ 存 50 万条评论都够</td>
+			</tr>
+			<tr>
+					<td>GitHub Pages</td>
+					<td><strong>0 元</strong></td>
+					<td>无限制</td>
+					<td>✅</td>
+			</tr>
+			<tr>
+					<td><strong>合计</strong></td>
+					<td><strong>¥ 0.00</strong></td>
+					<td></td>
+					<td></td>
+			</tr>
+	</tbody>
+</table></div>
+<blockquote>
+<p>💡 计算一下：个人博客每天 1000 PV，每月 3 万次评论查询，Vercel Hobby 无限请求根本不花钱。MongoDB 每条评论约 500 字节，5000 条才 2.5 MB，离 512MB 还远得很。</p>
+</blockquote>
+<h2 id="第一部分mongodb-atlas数据库">第一部分：MongoDB Atlas（数据库）
+</h2><h3 id="注册--创建免费集群">注册 + 创建免费集群
+</h3><ol>
+<li>打开 <a class="link" href="https://www.mongodb.com/cloud/atlas/register"  target="_blank" rel="noopener"
+    >https://www.mongodb.com/cloud/atlas/register</a></li>
+<li>邮箱注册（可用 GitHub 邮箱）</li>
+<li>创建第一个 Project，名字随便（比如 <code>whyblog</code>）</li>
+<li>点 <strong>Build a Database</strong> → 选 <strong>M0 Sandbox（免费）</strong></li>
+<li>Region 选 <strong>Singapore</strong> 或 <strong>Tokyo</strong>（离国内近，延迟低）</li>
+<li>Cluster Name 随便（比如 <code>whyblogcluster</code>）</li>
+<li>等 1~2 分钟，集群变成 Running</li>
+</ol>
+<h3 id="创建数据库用户">创建数据库用户
+</h3><p>集群 Running 后点 <strong>Connect</strong> 按钮：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">弹出框 → 选 Drivers（中间那个）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">然后：
+</span></span><span class="line"><span class="cl">1. Create a Database User
+</span></span><span class="line"><span class="cl">2. Username: waline_user（随便起）
+</span></span><span class="line"><span class="cl">3. Password: 自己设一个强密码（记好！）
+</span></span><span class="line"><span class="cl">4. 权限选 Read and write to any database
+</span></span><span class="line"><span class="cl">5. Create User
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="放开网络访问重要">放开网络访问（重要！）
+</h3><p>默认只有你当前 IP 能访问，要放开给 Vercel（IP 会变）：</p>
+<ol>
+<li>左侧菜单 → <strong>Network Access</strong></li>
+<li>点 <strong>Add IP Address</strong></li>
+<li>选 <strong>Allow Access from Anywhere</strong> → 自动填 <code>0.0.0.0/0</code></li>
+<li><strong>Confirm &amp; Close</strong></li>
+</ol>
+<h3 id="复制连接串-">复制连接串 🔑
+</h3><p>回到集群卡片 → <strong>Connect</strong> → <strong>Drivers</strong>：</p>
+<p>复制这行（从 <code>mongodb+srv://</code> 开始到末尾）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mongodb+srv://waline_user:你的密码@whyblogcluster.p6mjbul.mongodb.net/?retryWrites=true&amp;w=majority
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>⚠️ 如果密码里有 <code>@</code> <code>:</code> <code>/</code> <code>?</code> <code>#</code> 这些特殊字符，粘进连接串前要先 URL 编码。在线编码工具：<a class="link" href="https://www.urlencoder.org/"  target="_blank" rel="noopener"
+    >https://www.urlencoder.org/</a></p>
+</blockquote>
+<hr>
+<h2 id="第二部分vercel-部署-waline-后端">第二部分：Vercel 部署 Waline 后端
+</h2><h3 id="删之前的错误项目如果有">删之前的错误项目（如果有）
+</h3><p>如果你之前手动 Import 过 <code>walinejs/waline</code> 主仓库（一个几十 MB 的 monorepo），那个是错的。Vercel 把它当成静态站处理，返回的是 HTML 页面而不是 JSON API。</p>
+<p>Vercel Dashboard → Projects → 点错项目 → Settings → 拉到底 → Delete Project</p>
+<h3 id="-关键必须走官方一键部署">⚠️ 关键：必须走官方一键部署
+</h3><p><strong>不要手动 Import 任何仓库！</strong> 官方会自动创建一个轻量的 <code>@waline/vercel</code> 模板仓库（只有 server 代码）。</p>
+<p>浏览器访问 → <a class="link" href="https://waline.js.org/guide/deploy/vercel.html"  target="_blank" rel="noopener"
+    >https://waline.js.org/guide/deploy/vercel.html</a></p>
+<p>页面上方有一个<strong>绿色的 Deploy to Vercel 按钮</strong>，点它！</p>
+<h3 id="vercel-创建项目">Vercel 创建项目
+</h3><p>点按钮后 Vercel 自动弹出 Create Project 页面：</p>
+<ul>
+<li><strong>Repository Name</strong>：<code>waline-server</code>（Vercel 会自动帮你在 GitHub 创建仓库）</li>
+<li>其他字段：<strong>全部保持默认不要改！</strong></li>
+</ul>
+<h3 id="先加环境变量再-deploy">先加环境变量再 Deploy
+</h3><p><strong>往下滚找到 Environment Variables</strong>，逐条添加（共 4 条）：</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>#</th>
+					<th>KEY</th>
+					<th>VALUE</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>1</td>
+					<td><code>MONGO_URI</code></td>
+					<td>第一部分复制的完整连接串</td>
+			</tr>
+			<tr>
+					<td>2</td>
+					<td><code>MONGO_DB</code></td>
+					<td><code>waline</code></td>
+			</tr>
+			<tr>
+					<td>3</td>
+					<td><code>SITE_URL</code></td>
+					<td>你的博客地址，比如 <code>https://whyboystudy.github.io/</code></td>
+			</tr>
+			<tr>
+					<td>4</td>
+					<td><code>SITE_NAME</code></td>
+					<td>博客名，比如 <code>美味芝士</code></td>
+			</tr>
+	</tbody>
+</table></div>
+<h3 id="点击-deploy-">点击 Deploy 🚀
+</h3><p>滚回页面顶部，点大的 <strong>Deploy</strong> 按钮。等 <strong>1~2 分钟</strong>，状态变成 <strong>✅ Ready</strong>。</p>
+<h3 id="-验证后端">✅ 验证后端！
+</h3><p>Deploy 成功后 Vercel 给你一个域名，格式类似：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">https://waline-server-xxxxx.vercel.app
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>必须验证！</strong> 浏览器打开那个域名，看到的应该是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;errno&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">&#34;data&#34;</span><span class="p">:[]}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果返回的是 HTML 页面或 Vercel 预览页 → 说明走错了，回去重新点官方 Deploy 按钮。</p>
+<hr>
+<h2 id="第三部分配置-hugo-stack-主题">第三部分：配置 Hugo Stack 主题
+</h2><h3 id="修改-hugoyaml">修改 hugo.yaml
+</h3><p>在 <code>hugo.yaml</code> 里找到 <code>params.comments</code> 段，确保这样配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">comments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l">waline       </span><span class="w"> </span><span class="c"># 必须是 waline</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">waline</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">serverURL</span><span class="p">:</span><span class="w"> </span><span class="l">https://你的-waline-域名.vercel.app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">lang</span><span class="p">:</span><span class="w"> </span><span class="l">zh-CN</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">pageview</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">        </span><span class="c"># 同时开启浏览量统计</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">emoji</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">https://unpkg.com/@waline/emojis@1.0.1/weibo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">requiredMeta</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">name             </span><span class="w"> </span><span class="c"># 必填：昵称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">email            </span><span class="w"> </span><span class="c"># 必填：邮箱</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># - url              # 注释掉就是可选的</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">locale</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">admin</span><span class="p">:</span><span class="w"> </span><span class="l">美味芝士</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">placeholder</span><span class="p">:</span><span class="w"> </span><span class="l">留下你的评论吧～</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="本地预览">本地预览
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>打开任意一篇文章（不是首页），往下滚：</p>
+<ul>
+<li>Waline 评论区应该出现</li>
+<li>可以填昵称 + 邮箱 + 内容 → 提交评论</li>
+<li>侧边栏浏览量也会有数字</li>
+<li>切换深浅色主题，Waline 会自动跟随 ✅</li>
+</ul>
+<blockquote>
+<p>💡 第一次打开可能需要 10~30 秒（Serverless 冷启动），空白就刷新一下。</p>
+</blockquote>
+<h3 id="部署上线">部署上线
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;feat: 接入 Waline 评论系统&#34;</span>
+</span></span><span class="line"><span class="cl">git push
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="第四部分可选的美化">第四部分：可选的美化
+</h2><h3 id="给-vercel-加个友好域名">给 Vercel 加个友好域名
+</h3><p>Vercel Dashboard → Settings → Domains → 输入 <code>whyblog-waline</code> → Add<br>
+以后就是 <code>https://whyblog-waline.vercel.app</code>，不再是那串随机后缀。</p>
+<h3 id="自定义-waline-样式">自定义 Waline 样式
+</h3><p>Stack 主题已经原生适配 Waline 的深浅色跟随。想微调的话在 <code>custom.scss</code> 里加：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.waline-container</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="na">margin-top</span><span class="o">:</span> <span class="mi">2</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nc">.wl-comment-box</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">border-radius</span><span class="o">:</span> <span class="mi">12</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nc">.wl-btn</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">border-radius</span><span class="o">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="开启垃圾评论过滤">开启垃圾评论过滤
+</h3><p>Waline 支持 Akismet 反垃圾（免费版即可）。在 Vercel 的环境变量里再加两条：</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>KEY</th>
+					<th>VALUE</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>AKISMET_KEY</code></td>
+					<td>去 <a class="link" href="https://akismet.com/development/api/"  target="_blank" rel="noopener"
+    >https://akismet.com/development/api/</a> 申请</td>
+			</tr>
+			<tr>
+					<td><code>AKISMET_SITE</code></td>
+					<td>你的博客地址</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>然后 Redeploy 就行。</p>
+<hr>
+<h2 id="第五部分日常运维">第五部分：日常运维
+</h2><div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>操作</th>
+					<th>去哪做</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>看评论数据</td>
+					<td>MongoDB Atlas → Collections → 选 <code>waline</code> 数据库</td>
+			</tr>
+			<tr>
+					<td>手动删评论</td>
+					<td>Atlas 里找到 <code>comments</code> collection → 删除对应行</td>
+			</tr>
+			<tr>
+					<td>改环境变量</td>
+					<td>Vercel → Settings → Env Vars → 改完 <strong>Redeploy</strong></td>
+			</tr>
+			<tr>
+					<td>升级 Waline</td>
+					<td>GitHub 上的 waline-server 仓库 → Sync from upstream</td>
+			</tr>
+			<tr>
+					<td>备份评论数据</td>
+					<td>Atlas → Database → 你的集群 → Backup → Create Snapshot</td>
+			</tr>
+			<tr>
+					<td>换评论系统</td>
+					<td><code>hugo.yaml</code> → <code>comments.provider</code> 改回 <code>giscus</code> / 其他</td>
+			</tr>
+	</tbody>
+</table></div>
+<hr>
+<h2 id="常见问题排查">常见问题排查
+</h2><div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>现象</th>
+					<th>原因</th>
+					<th>解决</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>评论区完全空白</td>
+					<td>后端冷启动 / serverURL 写错</td>
+					<td>等 30 秒刷新 / 检查域名</td>
+			</tr>
+			<tr>
+					<td>提交报 Mongo 连接错误</td>
+					<td>Atlas 的 Network Access 没放开</td>
+					<td>加 <code>0.0.0.0/0</code> 规则</td>
+			</tr>
+			<tr>
+					<td>提交报密码错</td>
+					<td>MONGO_URI 密码写错或没编码</td>
+					<td>检查特殊字符</td>
+			</tr>
+			<tr>
+					<td>浏览量一直是 0</td>
+					<td>浏览器 Console 有跨域错误</td>
+					<td>确认 serverURL 和博客同 https</td>
+			</tr>
+			<tr>
+					<td>Giscus 和 Waline 同时出现</td>
+					<td>provider 没改干净</td>
+					<td>确认只有 <code>provider: waline</code></td>
+			</tr>
+	</tbody>
+</table></div>
+<hr>
+<h2 id="和-giscus-对比">和 Giscus 对比
+</h2><div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>Giscus</th>
+					<th>Waline</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>是否需要 GitHub 账号评论</td>
+					<td>❌ <strong>必须</strong></td>
+					<td>✅ <strong>支持匿名</strong></td>
+			</tr>
+			<tr>
+					<td>是否需要后端部署</td>
+					<td>❌</td>
+					<td>✅ 10 分钟</td>
+			</tr>
+			<tr>
+					<td>数据归属</td>
+					<td>GitHub Discussions</td>
+					<td>你自己的 MongoDB</td>
+			</tr>
+			<tr>
+					<td>深浅色跟随 Stack</td>
+					<td>✅</td>
+					<td>✅</td>
+			</tr>
+			<tr>
+					<td>浏览量统计</td>
+					<td>❌</td>
+					<td>✅</td>
+			</tr>
+			<tr>
+					<td>免费额度</td>
+					<td>无限制</td>
+					<td>个人博客用不完</td>
+			</tr>
+			<tr>
+					<td>国内访问速度</td>
+					<td>一般</td>
+					<td>取决于 Vercel</td>
+			</tr>
+			<tr>
+					<td>垃圾评论过滤</td>
+					<td>GitHub 处理</td>
+					<td>需配 Akismet</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>Giscus 胜在零运维，Waline 胜在匿名评论和完全独立。两者都是免费的，如果你觉得读者注册 GitHub 门槛太高，Waline 是更好的选择。</p>
+<hr>
+<h2 id="总结">总结
+</h2><p>Waline 评论系统搭建的核心步骤：</p>
+<ol>
+<li><strong>MongoDB Atlas</strong>：创建 M0 集群 → 建用户 → 放开网络 → 复制连接串</li>
+<li><strong>Vercel</strong>：点官方 Deploy 按钮 → 加 4 条环境变量 → 等 Ready → 验证返回 JSON</li>
+<li><strong>Hugo</strong>：改 <code>hugo.yaml</code> 的 <code>comments.provider: waline</code> → 填 <code>serverURL</code> → 预览测试</li>
+</ol>
+<p>整体过程 10 分钟以内，全程浏览器操作，不用服务器，不用 Docker，不用 SSH。三个免费服务加起来一分钱不花，够个人博客用到天荒地老。</p>
+
+        </section>
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/waline/">Waline</a>
+        
+            <a href="/tags/vercel/">Vercel</a>
+        
+            <a href="/tags/mongodb/">MongoDB</a>
+        
+            <a href="/tags/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/">评论系统</a>
+        
+            <a href="/tags/hugo/">Hugo</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2026-10-21 21:03
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        
+        <div class="related-content--item">
+            <a href="/post/tutorial/cloudflare-r2/">Cloudflare R2 实战指南：建桶、上传、缓存与防盗链</a>
+        </div>
+        
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="whyboystudy/blog-discussion"
+    data-repo-id="R_kgDOVSIrRw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOVSIrR84DJP61"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2026 美味芝士
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.2">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+
+    showHideView();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 400px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 78px;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#fff));
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #f0f0f5;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+    function initCodeMoreBox() {
+        let codeBlocks = document.querySelectorAll(".highlight");
+        if (!codeBlocks) {
+            return;
+        }
+        codeBlocks.forEach(codeBlock => {
+            
+            if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+                return;
+            }
+            
+            
+            let codeMoreBox = document.createElement('div');
+            codeMoreBox.classList.add('code-more-box');
+            
+            let codeMoreBtn = document.createElement('span');
+            codeMoreBtn.classList.add('code-more-btn');
+            codeMoreBtn.addEventListener('click', () => {
+                codeBlock.classList.add('code-show');
+                codeMoreBox.style.display = 'none';
+                
+                window.dispatchEvent(new Event('resize'))
+            })
+            
+            let img = document.createElement('img');
+            img.classList.add('code-more-img');
+            img.src = "https://whyboystudy.github.io/icons/codeMore.png"
+            
+            codeMoreBtn.appendChild(img);
+            codeMoreBox.appendChild(codeMoreBtn);
+            codeBlock.appendChild(codeMoreBox)
+        })
+    }
+
+    initCodeMoreBox();
+</script>
+
+    </body>
+</html>
