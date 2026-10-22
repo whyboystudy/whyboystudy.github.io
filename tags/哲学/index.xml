@@ -6,68 +6,75 @@
         <description>Recent content in 哲学 on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Thu, 22 Oct 2026 21:10:52 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/%E5%93%B2%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 22 Oct 2026 21:57:47 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/%E5%93%B2%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>哲学概论思维导图：哲学的基本问题与马克思主义</title>
         <link>https://whyboystudy.github.io/post/zhengzhililun/zhexue-gailun/</link>
         <pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate>
         
         <guid>https://whyboystudy.github.io/post/zhengzhililun/zhexue-gailun/</guid>
-        <description>&lt;p&gt;这是一份「哲学概论」的知识梳理，源自我桌面上那张哲学思维导图。公考政治理论里，哲学部分最怕记混两条线：一条是&lt;strong&gt;哲学的基本问题&lt;/strong&gt;（物质和意识谁第一性、能不能认识世界），另一条是&lt;strong&gt;马克思主义本身的来龙去脉&lt;/strong&gt;。下面先用一张脑图把主干立起来，再逐块展开。&lt;/p&gt;
-&lt;h2 id=&#34;思维导图总览&#34;&gt;思维导图总览
+        <description>&lt;p&gt;这是一份「哲学概论」的知识梳理，源自我桌面上那张哲学思维导图。公考政治理论里，哲学部分最怕记混两条线：一条是&lt;strong&gt;哲学的基本问题&lt;/strong&gt;（物质和意识谁第一性、能不能认识世界），另一条是&lt;strong&gt;马克思主义本身的来龙去脉&lt;/strong&gt;。下面先用一张流程图把主干立起来，再逐块展开。&lt;/p&gt;
+&lt;h2 id=&#34;流程图总览&#34;&gt;流程图总览
 &lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
-  mindmap
-  root((哲学概论))
-    哲学的基本问题
-      恩格斯第一次科学概括哲学基本问题
-      思维和存在的关系问题
-        何者为第一性
-          唯物主义:::key
-            物质第一性·意识第二性
-            古代朴素唯物主义
-              金木水火土气等具体形态
-            近代形而上学唯物主义
-              原子是世界本原
-              局限：机械性·形而上学性·不彻底性
-            辩证唯物主义和历史唯物主义
-              唯物论与辩证法·自然观与历史观统一
-          唯心主义:::key
-            意识第一性·物质第二性
-            主观唯心主义
-              人·我·心·感觉·观念·意志
-            客观唯心主义
-              道·理·上帝·绝对精神
-        二者有无同一性
-          可知论
-          不可知论
-    马克思主义
-      自然科学基础
-        细胞学说
-        能量守恒和转化定律
-        达尔文进化论
-      直接理论来源:::key
-        德国古典哲学
-        英国古典政治经济学
-        英法空想社会主义
-      阶级基础
-        无产阶级的产生和发展
-        《反杜林论》:::cite
-      三大组成部分:::key
-        马克思主义哲学
-          辩证唯物主义
-          历史唯物主义
-            《德意志意识形态》:::cite
-        政治经济学
-          《资本论》:::cite
-        科学社会主义
-          《共产党宣言》:::cite
-      基本特征
-        实践性:::key
-        科学性
-        革命性
-        人民性:::key
-        发展性
-  classDef key fill:#e74c3c,stroke:#c0392b,color:#fff,font-weight:bold;
-  classDef cite fill:#3498db,stroke:#2471a3,color:#fff;
+  flowchart LR
+    root[&amp;#34;哲学概论&amp;#34;]
+
+    root --&amp;gt; pbq[&amp;#34;哲学的基本问题&amp;#34;]
+    pbq --&amp;gt; eng[&amp;#34;恩格斯第一次科学概括哲学基本问题&amp;#34;]
+    pbq --&amp;gt; relation[&amp;#34;思维和存在的关系问题&amp;#34;]
+
+    relation --&amp;gt; first[&amp;#34;何者为第一性&amp;#34;]
+    first --&amp;gt; material[&amp;#34;唯物主义&amp;#34;]
+    material --&amp;gt; matKey[&amp;#34;物质第一性·意识第二性&amp;#34;]
+    material --&amp;gt; ancient[&amp;#34;古代朴素唯物主义&amp;lt;br/&amp;gt;金木水火土气等具体形态&amp;#34;]
+    material --&amp;gt; modern[&amp;#34;近代形而上学唯物主义&amp;lt;br/&amp;gt;原子是世界本原&amp;lt;br/&amp;gt;局限：机械性·形而上学性·不彻底性&amp;#34;]
+    material --&amp;gt; dialectical[&amp;#34;辩证唯物主义和历史唯物主义&amp;lt;br/&amp;gt;唯物论与辩证法·自然观与历史观统一&amp;#34;]
+    first --&amp;gt; ideal[&amp;#34;唯心主义&amp;#34;]
+    ideal --&amp;gt; ideKey[&amp;#34;意识第一性·物质第二性&amp;#34;]
+    ideal --&amp;gt; subj[&amp;#34;主观唯心主义&amp;lt;br/&amp;gt;人·我·心·感觉·观念·意志&amp;#34;]
+    ideal --&amp;gt; obj[&amp;#34;客观唯心主义&amp;lt;br/&amp;gt;道·理·上帝·绝对精神&amp;#34;]
+
+    relation --&amp;gt; same[&amp;#34;二者有无同一性&amp;#34;]
+    same --&amp;gt; knowable[&amp;#34;可知论&amp;#34;]
+    same --&amp;gt; unknowable[&amp;#34;不可知论&amp;#34;]
+
+    root --&amp;gt; marx[&amp;#34;马克思主义&amp;#34;]
+    marx --&amp;gt; sci[&amp;#34;自然科学基础&amp;#34;]
+    sci --&amp;gt; cell[&amp;#34;细胞学说&amp;#34;]
+    sci --&amp;gt; energy[&amp;#34;能量守恒和转化定律&amp;#34;]
+    sci --&amp;gt; evolve[&amp;#34;达尔文进化论&amp;#34;]
+    marx --&amp;gt; source[&amp;#34;直接理论来源&amp;#34;]
+    source --&amp;gt; german[&amp;#34;德国古典哲学&amp;#34;]
+    source --&amp;gt; british[&amp;#34;英国古典政治经济学&amp;#34;]
+    source --&amp;gt; utopian[&amp;#34;英法空想社会主义&amp;#34;]
+    marx --&amp;gt; classBase[&amp;#34;阶级基础&amp;#34;]
+    classBase --&amp;gt; prole[&amp;#34;无产阶级的产生和发展&amp;#34;]
+    classBase --&amp;gt; anti[&amp;#34;《反杜林论》&amp;#34;]
+    marx --&amp;gt; three[&amp;#34;三大组成部分&amp;#34;]
+    three --&amp;gt; phil[&amp;#34;马克思主义哲学&amp;#34;]
+    phil --&amp;gt; diaMat[&amp;#34;辩证唯物主义&amp;#34;]
+    phil --&amp;gt; hisMat[&amp;#34;历史唯物主义&amp;#34;]
+    hisMat --&amp;gt; antiIdeo[&amp;#34;《德意志意识形态》&amp;#34;]
+    three --&amp;gt; polit[&amp;#34;政治经济学&amp;#34;]
+    polit --&amp;gt; capital[&amp;#34;《资本论》&amp;#34;]
+    three --&amp;gt; sciSocial[&amp;#34;科学社会主义&amp;#34;]
+    sciSocial --&amp;gt; manifesto[&amp;#34;《共产党宣言》&amp;#34;]
+    marx --&amp;gt; feature[&amp;#34;基本特征&amp;#34;]
+    feature --&amp;gt; practice[&amp;#34;实践性&amp;#34;]
+    feature --&amp;gt; science[&amp;#34;科学性&amp;#34;]
+    feature --&amp;gt; revolution[&amp;#34;革命性&amp;#34;]
+    feature --&amp;gt; people[&amp;#34;人民性&amp;#34;]
+    feature --&amp;gt; develop[&amp;#34;发展性&amp;#34;]
+
+    classDef rootC fill:#2c3e50,stroke:#1b2631,color:#fff,font-weight:bold
+    classDef branchA fill:#e67e22,stroke:#ca6f1e,color:#fff,font-weight:bold
+    classDef branchB fill:#16a085,stroke:#0e6655,color:#fff,font-weight:bold
+    classDef key fill:#e74c3c,stroke:#c0392b,color:#fff,font-weight:bold
+    classDef cite fill:#3498db,stroke:#2471a3,color:#fff,font-weight:bold
+    class root rootC
+    class pbq branchA
+    class marx branchB
+    class matKey,ideKey,source,three,practice,people key
+    class anti,antiIdeo,capital,manifesto cite
 &lt;/pre&gt;
 
 &lt;h2 id=&#34;哲学的基本问题&#34;&gt;哲学的基本问题
@@ -118,7 +125,7 @@
 &lt;li&gt;&lt;strong&gt;发展性&lt;/strong&gt;：是不断发展的学说，具有与时俱进的理论品质。《反杜林论》全面阐述了马克思主义的理论体系，并首次以三大组成部分的形式进行阐述。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;p&gt;这张图配合上面的文字，基本覆盖了哲学概论的核心考点。复习时可以先用脑图回忆主干，再用文字补细节；碰到&amp;quot;唯物主义三种形态&amp;quot;&amp;ldquo;马哲三大组成部分及代表作&amp;quot;这类高频题，照着结构填就行。&lt;/p&gt;
+&lt;p&gt;这张图配合上面的文字，基本覆盖了哲学概论的核心考点。复习时可以先用流程图回忆主干，再用文字补细节；碰到&amp;quot;唯物主义三种形态&amp;quot;&amp;ldquo;马哲三大组成部分及代表作&amp;quot;这类高频题，照着结构填就行。&lt;/p&gt;
 </description>
         </item>
         
