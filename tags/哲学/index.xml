@@ -6,7 +6,7 @@
         <description>Recent content in 哲学 on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Thu, 22 Oct 2026 20:52:09 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/%E5%93%B2%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 22 Oct 2026 21:10:52 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/%E5%93%B2%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>哲学概论思维导图：哲学的基本问题与马克思主义</title>
         <link>https://whyboystudy.github.io/post/zhengzhililun/zhexue-gailun/</link>
         <pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate>
@@ -18,39 +18,56 @@
   mindmap
   root((哲学概论))
     哲学的基本问题
+      恩格斯第一次科学概括哲学基本问题
       思维和存在的关系问题
         何者为第一性
-          唯物主义
+          唯物主义:::key
+            物质第一性·意识第二性
             古代朴素唯物主义
+              金木水火土气等具体形态
             近代形而上学唯物主义
+              原子是世界本原
+              局限：机械性·形而上学性·不彻底性
             辩证唯物主义和历史唯物主义
-          唯心主义
+              唯物论与辩证法·自然观与历史观统一
+          唯心主义:::key
+            意识第一性·物质第二性
             主观唯心主义
+              人·我·心·感觉·观念·意志
             客观唯心主义
-        有无同一性
+              道·理·上帝·绝对精神
+        二者有无同一性
           可知论
           不可知论
     马克思主义
       自然科学基础
         细胞学说
         能量守恒和转化定律
-        达尔文的进化论
-      直接理论来源
+        达尔文进化论
+      直接理论来源:::key
         德国古典哲学
         英国古典政治经济学
         英法空想社会主义
       阶级基础
         无产阶级的产生和发展
-      三大组成部分
+        《反杜林论》:::cite
+      三大组成部分:::key
         马克思主义哲学
+          辩证唯物主义
+          历史唯物主义
+            《德意志意识形态》:::cite
         政治经济学
+          《资本论》:::cite
         科学社会主义
+          《共产党宣言》:::cite
       基本特征
-        实践性
+        实践性:::key
         科学性
         革命性
-        人民性
+        人民性:::key
         发展性
+  classDef key fill:#e74c3c,stroke:#c0392b,color:#fff,font-weight:bold;
+  classDef cite fill:#3498db,stroke:#2471a3,color:#fff;
 &lt;/pre&gt;
 
 &lt;h2 id=&#34;哲学的基本问题&#34;&gt;哲学的基本问题
