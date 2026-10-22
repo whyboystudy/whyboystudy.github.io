@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>政治理论 on 美味芝士</title>
+        <link>https://whyboystudy.github.io/tags/%E6%94%BF%E6%B2%BB%E7%90%86%E8%AE%BA/</link>
+        <description>Recent content in 政治理论 on 美味芝士</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Thu, 22 Oct 2026 20:52:09 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/%E6%94%BF%E6%B2%BB%E7%90%86%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>哲学概论思维导图：哲学的基本问题与马克思主义</title>
+        <link>https://whyboystudy.github.io/post/zhengzhililun/zhexue-gailun/</link>
+        <pubDate>Thu, 22 Oct 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://whyboystudy.github.io/post/zhengzhililun/zhexue-gailun/</guid>
+        <description>&lt;p&gt;这是一份「哲学概论」的知识梳理，源自我桌面上那张哲学思维导图。公考政治理论里，哲学部分最怕记混两条线：一条是&lt;strong&gt;哲学的基本问题&lt;/strong&gt;（物质和意识谁第一性、能不能认识世界），另一条是&lt;strong&gt;马克思主义本身的来龙去脉&lt;/strong&gt;。下面先用一张脑图把主干立起来，再逐块展开。&lt;/p&gt;
+&lt;h2 id=&#34;思维导图总览&#34;&gt;思维导图总览
+&lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
+  mindmap
+  root((哲学概论))
+    哲学的基本问题
+      思维和存在的关系问题
+        何者为第一性
+          唯物主义
+            古代朴素唯物主义
+            近代形而上学唯物主义
+            辩证唯物主义和历史唯物主义
+          唯心主义
+            主观唯心主义
+            客观唯心主义
+        有无同一性
+          可知论
+          不可知论
+    马克思主义
+      自然科学基础
+        细胞学说
+        能量守恒和转化定律
+        达尔文的进化论
+      直接理论来源
+        德国古典哲学
+        英国古典政治经济学
+        英法空想社会主义
+      阶级基础
+        无产阶级的产生和发展
+      三大组成部分
+        马克思主义哲学
+        政治经济学
+        科学社会主义
+      基本特征
+        实践性
+        科学性
+        革命性
+        人民性
+        发展性
+&lt;/pre&gt;
+
+&lt;h2 id=&#34;哲学的基本问题&#34;&gt;哲学的基本问题
+&lt;/h2&gt;&lt;p&gt;恩格斯在哲学史上第一次科学地对哲学基本问题作出完整概括和论证。这个问题就是&lt;strong&gt;思维和存在的关系问题&lt;/strong&gt;，它又拆成两个方面。&lt;/p&gt;
+&lt;h3 id=&#34;第一方面思维和存在何者为第一性&#34;&gt;第一方面：思维和存在何者为第一性
+&lt;/h3&gt;&lt;p&gt;这是划分哲学派别的根本标准，回答&amp;quot;谁决定谁&amp;quot;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;唯物主义&lt;/strong&gt;认为物质第一性、意识第二性，按历史形态分为三派：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;古代朴素唯物主义&lt;/strong&gt;：认为某种物质的具体形态是世界的本原，比如金、木、水、火、土、气等。直观但缺乏科学依据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;近代形而上学唯物主义（机械唯物主义）&lt;/strong&gt;：认为自然科学意义的原子是世界的本原。它的局限性有三点——机械性、形而上学性、不彻底性，所以也叫&amp;quot;半截子唯物主义&amp;quot;（自然观唯物，历史观唯心）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;辩证唯物主义和历史唯物主义（即马克思主义哲学）&lt;/strong&gt;：实现了唯物主义和辩证法、唯物辩证的自然观和历史观在实践基础上的统一，是科学的世界观。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;唯心主义&lt;/strong&gt;认为意识第一性、物质第二性，也分两派：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;主观唯心主义&lt;/strong&gt;：把主观精神当作世界的本原，关键词是&amp;quot;人、我、心、感觉、观念、意志&amp;quot;等，典型如&amp;quot;存在即被感知&amp;quot;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;客观唯心主义&lt;/strong&gt;：把客观精神当作世界的本原，关键词是&amp;quot;道、理、上帝、绝对精神&amp;quot;等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;第二方面思维和存在有无同一性&#34;&gt;第二方面：思维和存在有无同一性
+&lt;/h3&gt;&lt;p&gt;回答&amp;quot;世界能不能被认识&amp;quot;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;可知论&lt;/strong&gt;：认为思维和存在具有同一性，世界可以被认识。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;不可知论&lt;/strong&gt;：否认这种同一性，认为世界不可彻底认识。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;马克思主义&#34;&gt;马克思主义
+&lt;/h2&gt;&lt;p&gt;马克思主义不是凭空产生的，它的诞生有科学基础、理论来源和阶级基础三层支撑，内部又由三大组成部分构成，并具有五个基本特征。&lt;/p&gt;
+&lt;h3 id=&#34;产生的条件&#34;&gt;产生的条件
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;自然科学基础（三大发现）&lt;/strong&gt;：细胞学说、能量守恒和转化定律、达尔文的进化论。它们打破了自然界的神秘性，为唯物辩证法提供了自然科学依据。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;直接理论来源&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;德国古典哲学——黑格尔的辩证法、费尔巴哈的唯物主义；&lt;/li&gt;
+&lt;li&gt;英国古典政治经济学——亚当·斯密、大卫·李嘉图；&lt;/li&gt;
+&lt;li&gt;英法空想社会主义——圣西门、傅立叶、欧文。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;阶级基础&lt;/strong&gt;：无产阶级的产生和发展，为马克思主义提供了现实的阶级力量。&lt;/p&gt;
+&lt;h3 id=&#34;三大组成部分&#34;&gt;三大组成部分
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;马克思主义哲学&lt;/strong&gt;：包括辩证唯物主义（下分唯物论、辩证法、认识论）和历史唯物主义。其中《德意志意识形态》第一次比较系统地阐述了历史唯物主义基本原理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;政治经济学&lt;/strong&gt;：以《资本论》为代表，系统阐述了剩余价值学说，被誉为&amp;quot;工人阶级的圣经&amp;quot;，是马克思主义最厚重、最丰富的著作。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;科学社会主义&lt;/strong&gt;：以《共产党宣言》为代表，它的发表标志着科学社会主义的诞生，也标志着马克思主义的诞生。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;基本特征&#34;&gt;基本特征
+&lt;/h3&gt;&lt;p&gt;马克思主义具有五个鲜明特征，这是它区别于其他学说的根本：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;实践性&lt;/strong&gt;：实践观点是马克思主义首要的和基本的观点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;科学性&lt;/strong&gt;：是对自然、社会和人类思维发展本质和规律的正确反映。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;革命性&lt;/strong&gt;：集中表现为彻底的批判精神和鲜明的无产阶级立场。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;人民性&lt;/strong&gt;：人民至上是马克思主义的政治立场，人民性是其本质属性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;发展性&lt;/strong&gt;：是不断发展的学说，具有与时俱进的理论品质。《反杜林论》全面阐述了马克思主义的理论体系，并首次以三大组成部分的形式进行阐述。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;这张图配合上面的文字，基本覆盖了哲学概论的核心考点。复习时可以先用脑图回忆主干，再用文字补细节；碰到&amp;quot;唯物主义三种形态&amp;quot;&amp;ldquo;马哲三大组成部分及代表作&amp;quot;这类高频题，照着结构填就行。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
