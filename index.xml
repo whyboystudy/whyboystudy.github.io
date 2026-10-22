@@ -42,67 +42,91 @@
 &lt;h2 id=&#34;流程图总览&#34;&gt;流程图总览
 &lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
   flowchart LR
-    root[&amp;#34;哲学概论&amp;#34;]
+    root([&amp;#34;哲学概论&amp;#34;])
 
-    root --&amp;gt; pbq[&amp;#34;哲学的基本问题&amp;#34;]
-    pbq --&amp;gt; eng[&amp;#34;恩格斯第一次科学概括哲学基本问题&amp;#34;]
-    pbq --&amp;gt; relation[&amp;#34;思维和存在的关系问题&amp;#34;]
+    subgraph PBQ[&amp;#34;一、哲学的基本问题&amp;#34;]
+        direction TB
+        eng[&amp;#34;恩格斯第一次科学概括&amp;lt;br/&amp;gt;哲学基本问题&amp;#34;]
+        relation[&amp;#34;思维和存在的关系问题&amp;#34;]
+        first[&amp;#34;何者为第一性&amp;#34;]
+        material[&amp;#34;唯物主义&amp;#34;]
+        matKey[&amp;#34;物质第一性·意识第二性&amp;#34;]
+        ancient[&amp;#34;古代朴素唯物主义&amp;lt;br/&amp;gt;金木水火土气等具体形态&amp;#34;]
+        modern[&amp;#34;近代形而上学唯物主义&amp;lt;br/&amp;gt;原子是世界本原&amp;lt;br/&amp;gt;局限：机械性·形而上学性·不彻底性&amp;#34;]
+        dialectical[&amp;#34;辩证唯物主义和历史唯物主义&amp;lt;br/&amp;gt;唯物论与辩证法·自然观与历史观统一&amp;#34;]
+        ideal[&amp;#34;唯心主义&amp;#34;]
+        ideKey[&amp;#34;意识第一性·物质第二性&amp;#34;]
+        subj[&amp;#34;主观唯心主义&amp;lt;br/&amp;gt;人·我·心·感觉·观念·意志&amp;#34;]
+        obj[&amp;#34;客观唯心主义&amp;lt;br/&amp;gt;道·理·上帝·绝对精神&amp;#34;]
+        same[&amp;#34;二者有无同一性&amp;#34;]
+        knowable[&amp;#34;可知论&amp;#34;]
+        unknowable[&amp;#34;不可知论&amp;#34;]
+    end
 
-    relation --&amp;gt; first[&amp;#34;何者为第一性&amp;#34;]
-    first --&amp;gt; material[&amp;#34;唯物主义&amp;#34;]
-    material --&amp;gt; matKey[&amp;#34;物质第一性·意识第二性&amp;#34;]
-    material --&amp;gt; ancient[&amp;#34;古代朴素唯物主义&amp;lt;br/&amp;gt;金木水火土气等具体形态&amp;#34;]
-    material --&amp;gt; modern[&amp;#34;近代形而上学唯物主义&amp;lt;br/&amp;gt;原子是世界本原&amp;lt;br/&amp;gt;局限：机械性·形而上学性·不彻底性&amp;#34;]
-    material --&amp;gt; dialectical[&amp;#34;辩证唯物主义和历史唯物主义&amp;lt;br/&amp;gt;唯物论与辩证法·自然观与历史观统一&amp;#34;]
-    first --&amp;gt; ideal[&amp;#34;唯心主义&amp;#34;]
-    ideal --&amp;gt; ideKey[&amp;#34;意识第一性·物质第二性&amp;#34;]
-    ideal --&amp;gt; subj[&amp;#34;主观唯心主义&amp;lt;br/&amp;gt;人·我·心·感觉·观念·意志&amp;#34;]
-    ideal --&amp;gt; obj[&amp;#34;客观唯心主义&amp;lt;br/&amp;gt;道·理·上帝·绝对精神&amp;#34;]
+    subgraph MARX[&amp;#34;二、马克思主义&amp;#34;]
+        direction TB
+        sci[&amp;#34;自然科学基础&amp;#34;]
+        cell[&amp;#34;细胞学说&amp;#34;]
+        energy[&amp;#34;能量守恒和转化定律&amp;#34;]
+        evolve[&amp;#34;达尔文进化论&amp;#34;]
+        source[&amp;#34;直接理论来源&amp;#34;]
+        german[&amp;#34;德国古典哲学&amp;#34;]
+        british[&amp;#34;英国古典政治经济学&amp;#34;]
+        utopian[&amp;#34;英法空想社会主义&amp;#34;]
+        classBase[&amp;#34;阶级基础&amp;#34;]
+        prole[&amp;#34;无产阶级的产生和发展&amp;#34;]
+        anti[&amp;#34;《反杜林论》&amp;#34;]
+        three[&amp;#34;三大组成部分&amp;#34;]
+        phil[&amp;#34;马克思主义哲学&amp;#34;]
+        diaMat[&amp;#34;辩证唯物主义&amp;#34;]
+        hisMat[&amp;#34;历史唯物主义&amp;#34;]
+        antiIdeo[&amp;#34;《德意志意识形态》&amp;#34;]
+        polit[&amp;#34;政治经济学&amp;#34;]
+        capital[&amp;#34;《资本论》&amp;#34;]
+        sciSocial[&amp;#34;科学社会主义&amp;#34;]
+        manifesto[&amp;#34;《共产党宣言》&amp;#34;]
+        feature[&amp;#34;基本特征&amp;#34;]
+        practice[&amp;#34;实践性&amp;#34;]
+        science[&amp;#34;科学性&amp;#34;]
+        revolution[&amp;#34;革命性&amp;#34;]
+        people[&amp;#34;人民性&amp;#34;]
+        develop[&amp;#34;发展性&amp;#34;]
+    end
 
-    relation --&amp;gt; same[&amp;#34;二者有无同一性&amp;#34;]
-    same --&amp;gt; knowable[&amp;#34;可知论&amp;#34;]
-    same --&amp;gt; unknowable[&amp;#34;不可知论&amp;#34;]
+    root --&amp;gt; PBQ
+    root --&amp;gt; MARX
 
-    root --&amp;gt; marx[&amp;#34;马克思主义&amp;#34;]
-    marx --&amp;gt; sci[&amp;#34;自然科学基础&amp;#34;]
-    sci --&amp;gt; cell[&amp;#34;细胞学说&amp;#34;]
-    sci --&amp;gt; energy[&amp;#34;能量守恒和转化定律&amp;#34;]
-    sci --&amp;gt; evolve[&amp;#34;达尔文进化论&amp;#34;]
-    marx --&amp;gt; source[&amp;#34;直接理论来源&amp;#34;]
-    source --&amp;gt; german[&amp;#34;德国古典哲学&amp;#34;]
-    source --&amp;gt; british[&amp;#34;英国古典政治经济学&amp;#34;]
-    source --&amp;gt; utopian[&amp;#34;英法空想社会主义&amp;#34;]
-    marx --&amp;gt; classBase[&amp;#34;阶级基础&amp;#34;]
-    classBase --&amp;gt; prole[&amp;#34;无产阶级的产生和发展&amp;#34;]
-    classBase --&amp;gt; anti[&amp;#34;《反杜林论》&amp;#34;]
-    marx --&amp;gt; three[&amp;#34;三大组成部分&amp;#34;]
-    three --&amp;gt; phil[&amp;#34;马克思主义哲学&amp;#34;]
-    phil --&amp;gt; diaMat[&amp;#34;辩证唯物主义&amp;#34;]
-    phil --&amp;gt; hisMat[&amp;#34;历史唯物主义&amp;#34;]
-    hisMat --&amp;gt; antiIdeo[&amp;#34;《德意志意识形态》&amp;#34;]
-    three --&amp;gt; polit[&amp;#34;政治经济学&amp;#34;]
-    polit --&amp;gt; capital[&amp;#34;《资本论》&amp;#34;]
-    three --&amp;gt; sciSocial[&amp;#34;科学社会主义&amp;#34;]
-    sciSocial --&amp;gt; manifesto[&amp;#34;《共产党宣言》&amp;#34;]
-    marx --&amp;gt; feature[&amp;#34;基本特征&amp;#34;]
-    feature --&amp;gt; practice[&amp;#34;实践性&amp;#34;]
-    feature --&amp;gt; science[&amp;#34;科学性&amp;#34;]
-    feature --&amp;gt; revolution[&amp;#34;革命性&amp;#34;]
-    feature --&amp;gt; people[&amp;#34;人民性&amp;#34;]
-    feature --&amp;gt; develop[&amp;#34;发展性&amp;#34;]
+    PBQ --&amp;gt; eng &amp;amp; relation
+    relation --&amp;gt; first &amp;amp; same
+    first --&amp;gt; material &amp;amp; ideal
+    material --&amp;gt; matKey &amp;amp; ancient &amp;amp; modern &amp;amp; dialectical
+    ideal --&amp;gt; ideKey &amp;amp; subj &amp;amp; obj
+    same --&amp;gt; knowable &amp;amp; unknowable
+
+    MARX --&amp;gt; sci &amp;amp; source &amp;amp; classBase &amp;amp; three &amp;amp; feature
+    sci --&amp;gt; cell &amp;amp; energy &amp;amp; evolve
+    source --&amp;gt; german &amp;amp; british &amp;amp; utopian
+    classBase --&amp;gt; prole &amp;amp; anti
+    three --&amp;gt; phil &amp;amp; polit &amp;amp; sciSocial
+    phil --&amp;gt; diaMat &amp;amp; hisMat
+    hisMat --&amp;gt; antiIdeo
+    polit --&amp;gt; capital
+    sciSocial --&amp;gt; manifesto
+    feature --&amp;gt; practice &amp;amp; science &amp;amp; revolution &amp;amp; people &amp;amp; develop
 
     classDef rootC fill:#2c3e50,stroke:#1b2631,color:#fff,font-weight:bold
-    classDef branchA fill:#e67e22,stroke:#ca6f1e,color:#fff,font-weight:bold
-    classDef branchB fill:#16a085,stroke:#0e6655,color:#fff,font-weight:bold
     classDef key fill:#e74c3c,stroke:#c0392b,color:#fff,font-weight:bold
     classDef cite fill:#3498db,stroke:#2471a3,color:#fff,font-weight:bold
     class root rootC
-    class pbq branchA
-    class marx branchB
     class matKey,ideKey,source,three,practice,people key
     class anti,antiIdeo,capital,manifesto cite
+    style PBQ fill:#fef9e7,stroke:#e67e22,color:#7e5109
+    style MARX fill:#e8f8f5,stroke:#16a085,color:#0e6655
 &lt;/pre&gt;
 
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;图例&lt;/strong&gt;：深蓝灰＝根节点；橙框＝哲学的基本问题；青绿框＝马克思主义；&lt;font color=&#34;#e74c3c&#34;&gt;&lt;strong&gt;红&lt;/strong&gt;&lt;/font&gt;＝核心关键词（物质/意识第一性、直接理论来源、三大组成部分、实践性、人民性）；&lt;font color=&#34;#3498db&#34;&gt;&lt;strong&gt;蓝&lt;/strong&gt;&lt;/font&gt;＝代表著作（《反杜林论》《德意志意识形态》《资本论》《共产党宣言》）。点击图右上角「⛶ 全屏」可放大查看。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;哲学的基本问题&#34;&gt;哲学的基本问题
 &lt;/h2&gt;&lt;p&gt;恩格斯在哲学史上第一次科学地对哲学基本问题作出完整概括和论证。这个问题就是&lt;strong&gt;思维和存在的关系问题&lt;/strong&gt;，它又拆成两个方面。&lt;/p&gt;
 &lt;h3 id=&#34;第一方面思维和存在何者为第一性&#34;&gt;第一方面：思维和存在何者为第一性

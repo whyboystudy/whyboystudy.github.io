@@ -10,7 +10,7 @@
 <meta property='og:description' content="技术分享与生活记录">
 <meta property='og:url' content='https://whyboystudy.github.io/tags/%E5%93%B2%E5%AD%A6/'>
 <meta property='og:site_name' content='美味芝士'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-10-22T21:57:47&#43;08:00 '/>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-10-22T22:10:47&#43;08:00 '/>
 <meta name="twitter:title" content="哲学">
 <meta name="twitter:description" content="技术分享与生活记录"><link rel="alternate" type="application/rss&#43;xml" href="https://whyboystudy.github.io/tags/%E5%93%B2%E5%AD%A6/index.xml">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -535,6 +535,81 @@
     }
 
     showHideView();
+</script>
+
+
+<style>
+  .mermaid { position: relative; }
+  .mermaid-fs-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+    border: 1px solid var(--card-border, #ddd);
+    background: var(--card-background, #fff);
+    color: var(--body-text-color, #333);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 12px;
+    line-height: 1.4;
+    cursor: pointer;
+    opacity: .55;
+    transition: opacity .2s;
+  }
+  .mermaid-fs-btn:hover { opacity: 1; }
+  .mermaid:fullscreen {
+    background: var(--card-background, #fff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    padding: 24px;
+  }
+  .mermaid:fullscreen svg { max-width: 100%; max-height: 100%; height: auto; }
+</style>
+<script>
+(function () {
+  if (!document.querySelector('.mermaid')) return;
+  function setupFs() {
+    document.querySelectorAll('.mermaid').forEach(function (c) {
+      if (c.dataset.fs) return;
+      c.dataset.fs = '1';
+      var host = c;
+      if (c.tagName && c.tagName.toLowerCase() === 'svg') {
+        var wrap = document.createElement('div');
+        wrap.className = 'mermaid';
+        c.parentNode.insertBefore(wrap, c);
+        wrap.appendChild(c);
+        host = wrap;
+      }
+      host.style.position = 'relative';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'mermaid-fs-btn';
+      btn.textContent = '⛶ 全屏';
+      btn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (!document.fullscreenElement) {
+          var r = host.requestFullscreen || host.webkitRequestFullscreen;
+          if (r) r.call(host);
+        } else {
+          var x = document.exitFullscreen || document.webkitExitFullscreen;
+          if (x) x.call(document);
+        }
+      });
+      host.appendChild(btn);
+    });
+  }
+  
+  var tries = 0;
+  var timer = setInterval(function () {
+    tries++;
+    if (document.querySelectorAll('.mermaid svg').length || tries > 40) {
+      clearInterval(timer);
+      setupFs();
+    }
+  }, 200);
+})();
 </script>
 
 <style>
