@@ -6,11 +6,11 @@
 
 <link rel='canonical' href='https://whyboystudy.github.io/tags/%E6%B0%91%E7%94%9F%E4%BF%9D%E9%9A%9C/'>
 
-<link rel="stylesheet" href="/scss/style.min.2e8d02a480a7720d64ea79eebf9250a977ef9a2dd0b5f73eb23d76eac97052b1.css"><meta property='og:title' content="民生保障">
+<link rel="stylesheet" href="/scss/style.min.34810a1e06905390b98253f6b0ceb824b2b182f7a4db326b9523787fdf9db594.css"><meta property='og:title' content="民生保障">
 <meta property='og:description' content="技术分享与生活记录">
 <meta property='og:url' content='https://whyboystudy.github.io/tags/%E6%B0%91%E7%94%9F%E4%BF%9D%E9%9A%9C/'>
 <meta property='og:site_name' content='美味芝士'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-10-23T11:39:52&#43;08:00 '/>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-10-23T18:09:27&#43;08:00 '/>
 <meta name="twitter:title" content="民生保障">
 <meta name="twitter:description" content="技术分享与生活记录"><link rel="alternate" type="application/rss&#43;xml" href="https://whyboystudy.github.io/tags/%E6%B0%91%E7%94%9F%E4%BF%9D%E9%9A%9C/index.xml">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -239,6 +239,27 @@
 
                 
                 <span>部落卷</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/series/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>系列文章</span>
             </a>
         </li>
         
@@ -721,6 +742,52 @@
       setupFs();
     }
   }, 200);
+})();
+</script>
+
+
+
+<script>
+(function () {
+  function setupSeriesPager() {
+    document.querySelectorAll('.series-panel__list').forEach(function (ul) {
+      var items = Array.prototype.slice.call(ul.querySelectorAll(':scope > li'));
+      if (items.length <= 10) return;
+      var pageSize = parseInt(ul.getAttribute('data-page-size'), 10) || 10;
+      var total = items.length;
+      var pages = Math.ceil(total / pageSize);
+      var current = 1;
+
+      function render() {
+        var start = (current - 1) * pageSize;
+        items.forEach(function (li, i) {
+          li.style.display = (i >= start && i < start + pageSize) ? '' : 'none';
+        });
+        prevBtn.disabled = current === 1;
+        nextBtn.disabled = current === pages;
+        label.textContent = current + ' / ' + pages;
+      }
+
+      var nav = document.createElement('div');
+      nav.className = 'series-panel__pager';
+      var prevBtn = document.createElement('button');
+      prevBtn.type = 'button';
+      prevBtn.textContent = '上一页';
+      prevBtn.addEventListener('click', function () { if (current > 1) { current--; render(); } });
+      var nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.textContent = '下一页';
+      nextBtn.addEventListener('click', function () { if (current < pages) { current++; render(); } });
+      var label = document.createElement('span');
+      nav.appendChild(prevBtn);
+      nav.appendChild(label);
+      nav.appendChild(nextBtn);
+      ul.insertAdjacentElement('afterend', nav);
+      render();
+    });
+  }
+  if (document.readyState !== 'loading') setupSeriesPager();
+  else document.addEventListener('DOMContentLoaded', setupSeriesPager);
 })();
 </script>
 
