@@ -589,7 +589,80 @@
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    .back-top-btn {
+        position: fixed;
+        right: 370px;
+        bottom: 100px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--card-background, #fff);
+        border: 1px solid var(--card-border, #e5e7eb);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s ease;
+    }
+    .back-top-btn.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    .back-top-btn:hover {
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+    .back-top-btn svg {
+        width: 22px;
+        height: 22px;
+        stroke: var(--body-text-color, #333);
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+</style>
 
+<script>
+(function () {
+    if (!document.querySelector('.article-page')) return;
+
+    var btn = document.createElement('div');
+    btn.className = 'back-top-btn';
+    btn.title = '返回顶部';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
+
+    document.body.appendChild(btn);
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    btn.addEventListener('click', backToTop);
+
+    var ticking = false;
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+            var y = window.scrollY || document.documentElement.scrollTop;
+            if (y > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+            ticking = false;
+        });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
 
 
 
