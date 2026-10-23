@@ -536,7 +536,7 @@
     position: absolute;
     top: 8px;
     right: 8px;
-    z-index: 5;
+    z-index: 6;
     border: 1px solid var(--card-border, #ddd);
     background: var(--card-background, #fff);
     color: var(--body-text-color, #333);
@@ -554,27 +554,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: auto;
-    padding: 24px;
+    overflow: hidden;
+    padding: 0;
   }
-  .mermaid:fullscreen svg { max-width: 100%; max-height: 100%; height: auto; }
+   
+  .mermaid:fullscreen svg {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    transform-origin: 0 0;
+    cursor: grab;
+  }
+  .mermaid:fullscreen svg.grabbing { cursor: grabbing; }
 </style>
 <script>
 (function () {
   if (!document.querySelector('.mermaid')) return;
   function setupFs() {
-    document.querySelectorAll('.mermaid').forEach(function (c) {
-      if (c.dataset.fs) return;
-      c.dataset.fs = '1';
-      var host = c;
-      if (c.tagName && c.tagName.toLowerCase() === 'svg') {
-        var wrap = document.createElement('div');
-        wrap.className = 'mermaid';
-        c.parentNode.insertBefore(wrap, c);
-        wrap.appendChild(c);
-        host = wrap;
-      }
+    document.querySelectorAll('.mermaid').forEach(function (host) {
+      if (host.dataset.fs) return;
+      host.dataset.fs = '1';
       host.style.position = 'relative';
+
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'mermaid-fs-btn';
@@ -590,6 +592,43 @@
         }
       });
       host.appendChild(btn);
+
+      var svg = host.querySelector('svg');
+      if (!svg) return;
+
+      var scale = 1, tx = 0, ty = 0, panning = false, sx = 0, sy = 0, stx = 0, sty = 0;
+      function apply() {
+        svg.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+      }
+      function reset() { scale = 1; tx = 0; ty = 0; apply(); }
+
+      host.addEventListener('wheel', function (e) {
+        if (document.fullscreenElement !== host) return;
+        e.preventDefault();
+        var rect = host.getBoundingClientRect();
+        var cx = e.clientX - rect.left, cy = e.clientY - rect.top;
+        var factor = e.deltaY < 0 ? 1.1 : 0.9;
+        var ns = Math.min(Math.max(scale * factor, 0.3), 12);
+        
+        tx = cx - (cx - tx) * (ns / scale);
+        ty = cy - (cy - ty) * (ns / scale);
+        scale = ns;
+        apply();
+      }, { passive: false });
+
+      host.addEventListener('mousedown', function (e) {
+        if (document.fullscreenElement !== host) return;
+        panning = true; sx = e.clientX; sy = e.clientY; stx = tx; sty = ty;
+        svg.classList.add('grabbing');
+      });
+      window.addEventListener('mousemove', function (e) {
+        if (!panning) return;
+        tx = stx + (e.clientX - sx); ty = sty + (e.clientY - sy); apply();
+      });
+      window.addEventListener('mouseup', function () {
+        panning = false; svg.classList.remove('grabbing');
+      });
+      document.addEventListener('fullscreenchange', reset);
     });
   }
   
