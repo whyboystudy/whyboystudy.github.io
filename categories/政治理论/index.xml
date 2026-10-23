@@ -14,41 +14,67 @@
         <description>&lt;p&gt;这是一份「哲学概论」的知识梳理，源自我桌面上那张哲学思维导图。公考政治理论里，哲学部分最怕记混两条线：一条是&lt;strong&gt;哲学的基本问题&lt;/strong&gt;（物质和意识谁第一性、能不能认识世界），另一条是&lt;strong&gt;马克思主义本身的来龙去脉&lt;/strong&gt;。下面先用一张流程图把主干立起来，再逐块展开。&lt;/p&gt;
 &lt;h2 id=&#34;流程图总览&#34;&gt;流程图总览
 &lt;/h2&gt;&lt;pre class=&#34;mermaid&#34;&gt;
-  flowchart LR
+  %%{init: {&amp;#34;flowchart&amp;#34;: {&amp;#34;nodeSpacing&amp;#34;: 30, &amp;#34;rankSpacing&amp;#34;: 40, &amp;#34;curve&amp;#34;: &amp;#34;basis&amp;#34;}}}%%
+flowchart LR
     root([&amp;#34;哲学概论&amp;#34;])
 
-    subgraph PBQ[&amp;#34;一、哲学的基本问题&amp;#34;]
+    root --&amp;gt; pbq[&amp;#34;一、哲学的基本问题&amp;#34;]
+    root --&amp;gt; marx[&amp;#34;二、马克思主义&amp;#34;]
+
+    pbq --&amp;gt; eng[&amp;#34;恩格斯首次科学概括&amp;lt;br/&amp;gt;哲学基本问题&amp;#34;]
+    pbq --&amp;gt; relation[&amp;#34;思维和存在的关系问题&amp;#34;]
+
+    subgraph GF[&amp;#34; &amp;#34;]
         direction TB
-        eng[&amp;#34;恩格斯第一次科学概括&amp;lt;br/&amp;gt;哲学基本问题&amp;#34;]
-        relation[&amp;#34;思维和存在的关系问题&amp;#34;]
         first[&amp;#34;何者为第一性&amp;#34;]
         material[&amp;#34;唯物主义&amp;#34;]
         matKey[&amp;#34;物质第一性·意识第二性&amp;#34;]
-        ancient[&amp;#34;古代朴素唯物主义&amp;lt;br/&amp;gt;金木水火土气等具体形态&amp;#34;]
-        modern[&amp;#34;近代形而上学唯物主义&amp;lt;br/&amp;gt;原子是世界本原&amp;lt;br/&amp;gt;局限：机械性·形而上学性·不彻底性&amp;#34;]
-        dialectical[&amp;#34;辩证唯物主义和历史唯物主义&amp;lt;br/&amp;gt;唯物论与辩证法·自然观与历史观统一&amp;#34;]
+        ancient[&amp;#34;古代朴素唯物主义&amp;#34;]
+        modern[&amp;#34;近代形而上学唯物主义&amp;#34;]
+        dialectical[&amp;#34;辩证唯物主义和历史唯物主义&amp;#34;]
         ideal[&amp;#34;唯心主义&amp;#34;]
         ideKey[&amp;#34;意识第一性·物质第二性&amp;#34;]
-        subj[&amp;#34;主观唯心主义&amp;lt;br/&amp;gt;人·我·心·感觉·观念·意志&amp;#34;]
-        obj[&amp;#34;客观唯心主义&amp;lt;br/&amp;gt;道·理·上帝·绝对精神&amp;#34;]
+        subj[&amp;#34;主观唯心主义&amp;#34;]
+        obj[&amp;#34;客观唯心主义&amp;#34;]
+        first --&amp;gt; material &amp;amp; ideal
+        material --&amp;gt; matKey &amp;amp; ancient &amp;amp; modern &amp;amp; dialectical
+        ideal --&amp;gt; ideKey &amp;amp; subj &amp;amp; obj
+    end
+
+    subgraph GS[&amp;#34; &amp;#34;]
+        direction TB
         same[&amp;#34;二者有无同一性&amp;#34;]
         knowable[&amp;#34;可知论&amp;#34;]
         unknowable[&amp;#34;不可知论&amp;#34;]
+        same --&amp;gt; knowable &amp;amp; unknowable
     end
+    relation --&amp;gt; first &amp;amp; same
 
-    subgraph MARX[&amp;#34;二、马克思主义&amp;#34;]
+    subgraph GSCI[&amp;#34; &amp;#34;]
         direction TB
         sci[&amp;#34;自然科学基础&amp;#34;]
         cell[&amp;#34;细胞学说&amp;#34;]
         energy[&amp;#34;能量守恒和转化定律&amp;#34;]
         evolve[&amp;#34;达尔文进化论&amp;#34;]
+        sci --&amp;gt; cell &amp;amp; energy &amp;amp; evolve
+    end
+    subgraph GSRC[&amp;#34; &amp;#34;]
+        direction TB
         source[&amp;#34;直接理论来源&amp;#34;]
         german[&amp;#34;德国古典哲学&amp;#34;]
         british[&amp;#34;英国古典政治经济学&amp;#34;]
         utopian[&amp;#34;英法空想社会主义&amp;#34;]
+        source --&amp;gt; german &amp;amp; british &amp;amp; utopian
+    end
+    subgraph GCLS[&amp;#34; &amp;#34;]
+        direction TB
         classBase[&amp;#34;阶级基础&amp;#34;]
         prole[&amp;#34;无产阶级的产生和发展&amp;#34;]
         anti[&amp;#34;《反杜林论》&amp;#34;]
+        classBase --&amp;gt; prole &amp;amp; anti
+    end
+    subgraph GTHR[&amp;#34; &amp;#34;]
+        direction TB
         three[&amp;#34;三大组成部分&amp;#34;]
         phil[&amp;#34;马克思主义哲学&amp;#34;]
         diaMat[&amp;#34;辩证唯物主义&amp;#34;]
@@ -58,47 +84,45 @@
         capital[&amp;#34;《资本论》&amp;#34;]
         sciSocial[&amp;#34;科学社会主义&amp;#34;]
         manifesto[&amp;#34;《共产党宣言》&amp;#34;]
+        three --&amp;gt; phil &amp;amp; polit &amp;amp; sciSocial
+        phil --&amp;gt; diaMat &amp;amp; hisMat
+        hisMat --&amp;gt; antiIdeo
+        polit --&amp;gt; capital
+        sciSocial --&amp;gt; manifesto
+    end
+    subgraph GFEAT[&amp;#34; &amp;#34;]
+        direction TB
         feature[&amp;#34;基本特征&amp;#34;]
         practice[&amp;#34;实践性&amp;#34;]
         science[&amp;#34;科学性&amp;#34;]
         revolution[&amp;#34;革命性&amp;#34;]
         people[&amp;#34;人民性&amp;#34;]
         develop[&amp;#34;发展性&amp;#34;]
+        feature --&amp;gt; practice &amp;amp; science &amp;amp; revolution &amp;amp; people &amp;amp; develop
     end
-
-    root --&amp;gt; PBQ
-    root --&amp;gt; MARX
-
-    PBQ --&amp;gt; eng &amp;amp; relation
-    relation --&amp;gt; first &amp;amp; same
-    first --&amp;gt; material &amp;amp; ideal
-    material --&amp;gt; matKey &amp;amp; ancient &amp;amp; modern &amp;amp; dialectical
-    ideal --&amp;gt; ideKey &amp;amp; subj &amp;amp; obj
-    same --&amp;gt; knowable &amp;amp; unknowable
-
-    MARX --&amp;gt; sci &amp;amp; source &amp;amp; classBase &amp;amp; three &amp;amp; feature
-    sci --&amp;gt; cell &amp;amp; energy &amp;amp; evolve
-    source --&amp;gt; german &amp;amp; british &amp;amp; utopian
-    classBase --&amp;gt; prole &amp;amp; anti
-    three --&amp;gt; phil &amp;amp; polit &amp;amp; sciSocial
-    phil --&amp;gt; diaMat &amp;amp; hisMat
-    hisMat --&amp;gt; antiIdeo
-    polit --&amp;gt; capital
-    sciSocial --&amp;gt; manifesto
-    feature --&amp;gt; practice &amp;amp; science &amp;amp; revolution &amp;amp; people &amp;amp; develop
+    marx --&amp;gt; sci &amp;amp; source &amp;amp; classBase &amp;amp; three &amp;amp; feature
 
     classDef rootC fill:#2c3e50,stroke:#1b2631,color:#fff,font-weight:bold
+    classDef pbqC fill:#fef9e7,stroke:#e67e22,color:#7e5109,font-weight:bold
+    classDef marxC fill:#e8f8f5,stroke:#16a085,color:#0e6655,font-weight:bold
     classDef key fill:#e74c3c,stroke:#c0392b,color:#fff,font-weight:bold
     classDef cite fill:#3498db,stroke:#2471a3,color:#fff,font-weight:bold
     class root rootC
+    class pbq pbqC
+    class marx marxC
     class matKey,ideKey,source,three,practice,people key
     class anti,antiIdeo,capital,manifesto cite
-    style PBQ fill:#fef9e7,stroke:#e67e22,color:#7e5109
-    style MARX fill:#e8f8f5,stroke:#16a085,color:#0e6655
+    style GF fill:none,stroke:none
+    style GS fill:none,stroke:none
+    style GSCI fill:none,stroke:none
+    style GSRC fill:none,stroke:none
+    style GCLS fill:none,stroke:none
+    style GTHR fill:none,stroke:none
+    style GFEAT fill:none,stroke:none
 &lt;/pre&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;图例&lt;/strong&gt;：深蓝灰＝根节点；橙框＝哲学的基本问题；青绿框＝马克思主义；&lt;font color=&#34;#e74c3c&#34;&gt;&lt;strong&gt;红&lt;/strong&gt;&lt;/font&gt;＝核心关键词（物质/意识第一性、直接理论来源、三大组成部分、实践性、人民性）；&lt;font color=&#34;#3498db&#34;&gt;&lt;strong&gt;蓝&lt;/strong&gt;&lt;/font&gt;＝代表著作（《反杜林论》《德意志意识形态》《资本论》《共产党宣言》）。点击图右上角「⛶ 全屏」可放大查看。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;图例&lt;/strong&gt;：深蓝灰＝根节点（深蓝填充）；浅黄＝一、哲学的基本问题（标题）；浅青＝二、马克思主义（标题）；&lt;font color=&#34;#e74c3c&#34;&gt;&lt;strong&gt;红&lt;/strong&gt;&lt;/font&gt;＝核心关键词（物质/意识第一性、直接理论来源、三大组成部分、实践性、人民性）；&lt;font color=&#34;#3498db&#34;&gt;&lt;strong&gt;蓝&lt;/strong&gt;&lt;/font&gt;＝代表著作（《反杜林论》《德意志意识形态》《资本论》《共产党宣言》）。点击图右上角「⛶ 全屏」可放大查看。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;哲学的基本问题&#34;&gt;哲学的基本问题
 &lt;/h2&gt;&lt;p&gt;恩格斯在哲学史上第一次科学地对哲学基本问题作出完整概括和论证。这个问题就是&lt;strong&gt;思维和存在的关系问题&lt;/strong&gt;，它又拆成两个方面。&lt;/p&gt;
