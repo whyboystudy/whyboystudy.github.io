@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://whyboystudy.github.io/categories/%E6%95%99%E7%A8%8B/'>
 
-<link rel="stylesheet" href="/scss/style.min.34810a1e06905390b98253f6b0ceb824b2b182f7a4db326b9523787fdf9db594.css"><meta property='og:title' content="教程">
+<link rel="stylesheet" href="/scss/style.min.5f857ace3a05efea87308efd99f2807d2d3c1c878374a7316cd011d560433d1f.css"><meta property='og:title' content="教程">
 <meta property='og:description' content="手把手实操记录，跟着做就能跑通~~~">
 <meta property='og:url' content='https://whyboystudy.github.io/categories/%E6%95%99%E7%A8%8B/'>
 <meta property='og:site_name' content='美味芝士'>
@@ -634,44 +634,7 @@
 </script>
 
 
-<style>
-  .mermaid { position: relative; }
-  .mermaid-fs-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    z-index: 6;
-    border: 1px solid var(--card-border, #ddd);
-    background: var(--card-background, #fff);
-    color: var(--body-text-color, #333);
-    border-radius: 6px;
-    padding: 2px 8px;
-    font-size: 12px;
-    line-height: 1.4;
-    cursor: pointer;
-    opacity: .55;
-    transition: opacity .2s;
-  }
-  .mermaid-fs-btn:hover { opacity: 1; }
-  .mermaid:fullscreen {
-    background: var(--card-background, #fff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 0;
-  }
-   
-  .mermaid:fullscreen svg {
-    width: 100% !important;
-    height: 100% !important;
-    max-width: none !important;
-    max-height: none !important;
-    transform-origin: 0 0;
-    cursor: grab;
-  }
-  .mermaid:fullscreen svg.grabbing { cursor: grabbing; }
-</style>
+
 <script>
 (function () {
   if (!document.querySelector('.mermaid')) return;
@@ -713,7 +676,6 @@
         var cx = e.clientX - rect.left, cy = e.clientY - rect.top;
         var factor = e.deltaY < 0 ? 1.1 : 0.9;
         var ns = Math.min(Math.max(scale * factor, 0.3), 12);
-        
         tx = cx - (cx - tx) * (ns / scale);
         ty = cy - (cy - ty) * (ns / scale);
         scale = ns;
@@ -735,7 +697,6 @@
       document.addEventListener('fullscreenchange', reset);
     });
   }
-  
   var tries = 0;
   var timer = setInterval(function () {
     tries++;
