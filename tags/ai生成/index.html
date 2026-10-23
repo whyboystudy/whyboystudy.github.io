@@ -785,49 +785,6 @@
 
 
 
-<script>
-(function () {
-  function setupSeriesPager() {
-    document.querySelectorAll('.series-panel__list').forEach(function (ul) {
-      var items = Array.prototype.slice.call(ul.querySelectorAll(':scope > li'));
-      if (items.length <= 10) return;
-      var pageSize = parseInt(ul.getAttribute('data-page-size'), 10) || 10;
-      var total = items.length;
-      var pages = Math.ceil(total / pageSize);
-      var current = 1;
-
-      function render() {
-        var start = (current - 1) * pageSize;
-        items.forEach(function (li, i) {
-          li.style.display = (i >= start && i < start + pageSize) ? '' : 'none';
-        });
-        prevBtn.disabled = current === 1;
-        nextBtn.disabled = current === pages;
-        label.textContent = current + ' / ' + pages;
-      }
-
-      var nav = document.createElement('div');
-      nav.className = 'series-panel__pager';
-      var prevBtn = document.createElement('button');
-      prevBtn.type = 'button';
-      prevBtn.textContent = '上一页';
-      prevBtn.addEventListener('click', function () { if (current > 1) { current--; render(); } });
-      var nextBtn = document.createElement('button');
-      nextBtn.type = 'button';
-      nextBtn.textContent = '下一页';
-      nextBtn.addEventListener('click', function () { if (current < pages) { current++; render(); } });
-      var label = document.createElement('span');
-      nav.appendChild(prevBtn);
-      nav.appendChild(label);
-      nav.appendChild(nextBtn);
-      ul.insertAdjacentElement('afterend', nav);
-      render();
-    });
-  }
-  if (document.readyState !== 'loading') setupSeriesPager();
-  else document.addEventListener('DOMContentLoaded', setupSeriesPager);
-})();
-</script>
 
 <style>
     .highlight {
