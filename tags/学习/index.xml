@@ -6,5 +6,10 @@
         <description>Recent content in 学习 on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language><atom:link href="https://whyboystudy.github.io/tags/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+        <image>
+            <url>https://whyboystudy.github.io/img/avatar.png</url>
+            <title>美味芝士</title>
+            <link>https://whyboystudy.github.io/</link>
+        </image>
     </channel>
 </rss>
