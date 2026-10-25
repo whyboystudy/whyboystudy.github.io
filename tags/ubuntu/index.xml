@@ -6,12 +6,509 @@
         <description>Recent content in Ubuntu on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 25 Oct 2026 08:23:08 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Sun, 25 Oct 2026 16:39:24 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
         <image>
             <url>https://whyboystudy.github.io/img/avatar.png</url>
             <title>美味芝士</title>
             <link>https://whyboystudy.github.io/</link>
         </image><item>
+        <title>Ubuntu VPS 搭建 XFCE 远程桌面：从 xrdp 安装到秒断修复、中文输入与 WorkBuddy 实战</title>
+        <link>https://whyboystudy.github.io/post/tutorial/xfce-rdp-ubuntu/</link>
+        <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://whyboystudy.github.io/post/tutorial/xfce-rdp-ubuntu/</guid>
+        <description>&lt;p&gt;在一台只有 2~4G 内存的 Ubuntu VPS 上想要图形界面，GNOME/KDE 太重、跑起来又卡又容易崩。XFCE 是更现实的选择：轻量、稳定、依赖少。本文记录一套能长期稳定跑起来的组合 &lt;strong&gt;xrdp + XFCE&lt;/strong&gt;，以及我在真机上踩过的每一个坑——尤其是「连上秒断」「中文输入法不生效」「snap 版浏览器起不来」「WorkBuddy 闪退」这几类。所有命令都来自实际操作，可直接照抄。&lt;/p&gt;
+&lt;p&gt;环境假设：Ubuntu 22.04/24.04，全新 VPS，已能 SSH 登录，root 权限。&lt;/p&gt;
+&lt;h2 id=&#34;先想清楚为什么是-xrdp--xfce&#34;&gt;先想清楚：为什么是 xrdp + XFCE
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;XFCE 轻量&lt;/strong&gt;：空闲内存占用几百 MB 量级，在低配 VPS 上能留足余量给浏览器和应用。GNOME 在最小安装服务器上经常直接弹出 &amp;ldquo;Oh no! Something has gone wrong&amp;rdquo; 崩溃。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;xrdp 原生 RDP&lt;/strong&gt;：Windows / macOS / 手机都有现成的远程桌面客户端，不用额外装 VNC viewer。默认端口 3389。&lt;/li&gt;
+&lt;li&gt;关键结论：&lt;strong&gt;xrdp 默认会去调 GNOME，而最小安装里没有完整的 GNOME，所以必须显式强制 XFCE&lt;/strong&gt;，否则一定崩。这是后面所有配置的前提。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;第一步创建专用登录用户&#34;&gt;第一步：创建专用登录用户
+&lt;/h2&gt;&lt;p&gt;不要直接用 root 登录远程桌面，单独建一个普通用户（本文用 &lt;code&gt;napnap&lt;/code&gt;，uid 1001）。很多桌面组件在 root 下行为异常，且安全风险大。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 交互式创建（会提示设密码）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo adduser napnap
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 给 sudo 权限（方便后面装软件）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo usermod -aG sudo napnap
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果用非交互方式：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo useradd -m -s /bin/bash napnap
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo passwd napnap
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo usermod -aG sudo napnap
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;记一下 uid，后面排查会用到：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;id napnap
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# uid=1001(napnap) gid=1001(napnap) ...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;第二步安装-xfce&#34;&gt;第二步：安装 XFCE
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y xfce4 xfce4-goodies
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;xfce4-goodies&lt;/code&gt; 是可选组件包（终端、电源管理、截图等小工具），建议装上，体验完整很多。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;必装的配套：dbus-x11。&lt;/strong&gt; 这一步很多人漏掉，后果就是后面「秒断」。XFCE 启动依赖 D-Bus 会话总线，&lt;code&gt;dbus-x11&lt;/code&gt; 提供 &lt;code&gt;dbus-launch&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y dbus-x11
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;第三步安装-xrdp&#34;&gt;第三步：安装 xrdp
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y xrdp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; --now xrdp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl status xrdp --no-pager
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;装完确认两点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;服务 &lt;code&gt;active (running)&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;3389 在监听：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo ss -tlnp &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep &lt;span class=&#34;m&#34;&gt;3389&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# LISTEN 0 2 *:3389 *:* users:((&amp;#34;xrdp&amp;#34;,pid=...,fd=11))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果开了防火墙（ufw），放行端口：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo ufw allow 3389/tcp
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;云厂商侧（AWS 安全组 / 腾讯云安全组等）也要放行 3389 入站，否则客户端会一直「无法连接」。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;登录用户的会话文件&lt;/strong&gt;：在 &lt;code&gt;napnap&lt;/code&gt; 家目录放一个 &lt;code&gt;.xsession&lt;/code&gt;，告诉 xrdp 用 XFCE 会话：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;xfce4-session&amp;#34;&lt;/span&gt; &amp;gt; /home/napnap/.xsession
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chown napnap:napnap /home/napnap/.xsession
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;即使后面用 &lt;code&gt;startwm.sh&lt;/code&gt; 直接 &lt;code&gt;exec startxfce4&lt;/code&gt;，这个文件也建议保留，能避免 xrdp 找不到会话类型时回退到 GNOME。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;第四步改-startwmsh解决连上秒断&#34;&gt;第四步：改 startwm.sh——解决「连上秒断」
+&lt;/h2&gt;&lt;p&gt;这是整篇文章最关键的坑。&lt;strong&gt;不改这里，连上去会黑屏一下立刻回到登录界面&lt;/strong&gt;，日志里写着 &lt;code&gt;Window manager exited quickly (0 secs)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;xrdp 真正执行的是 &lt;code&gt;/etc/xrdp/startwm.sh&lt;/code&gt;。默认脚本在最小安装下起不来 XFCE。把整文件替换成下面这个经过验证可用的版本：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 1. 补回 Xsession 会做的基础环境（语言、编码）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -r /etc/default/locale &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  . /etc/default/locale
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; LANG LANGUAGE
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 2. XFCE / D-Bus 用户总线依赖 XDG_RUNTIME_DIR，没有就建&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -z &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$XDG_RUNTIME_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nv&#34;&gt;XDG_RUNTIME_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/run/user/&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;id -u&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; XDG_RUNTIME_DIR
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -d &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$XDG_RUNTIME_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; mkdir -p &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$XDG_RUNTIME_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 3. 阻止 systemd 误判窗管退出、清掉可能失效的旧 dbus 地址&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;unset&lt;/span&gt; SESSION_MANAGER
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;unset&lt;/span&gt; DBUS_SESSION_BUS_ADDRESS
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 4. 强制用 XFCE，并把所有输出重定向到日志方便排查&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; startxfce4 &amp;gt; /home/napnap/startxfce4.log 2&amp;gt;&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;写入方式（root）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cp /etc/xrdp/startwm.sh /etc/xrdp/startwm.sh.bak   &lt;span class=&#34;c1&#34;&gt;# 先备份&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo tee /etc/xrdp/startwm.sh &amp;gt; /dev/null &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;&amp;#39;EOF&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;if [ -r /etc/default/locale ]; then
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;  . /etc/default/locale
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;  export LANG LANGUAGE
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;fi
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;if [ -z &amp;#34;$XDG_RUNTIME_DIR&amp;#34; ]; then
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;  XDG_RUNTIME_DIR=/run/user/$(id -u)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;  export XDG_RUNTIME_DIR
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;  [ -d &amp;#34;$XDG_RUNTIME_DIR&amp;#34; ] || mkdir -p &amp;#34;$XDG_RUNTIME_DIR&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;fi
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;unset SESSION_MANAGER
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;unset DBUS_SESSION_BUS_ADDRESS
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;exec startxfce4 &amp;gt; /home/napnap/startxfce4.log 2&amp;gt;&amp;amp;1
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod +x /etc/xrdp/startwm.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;为什么这样写能防秒断&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;exec startxfce4&lt;/code&gt; 替代默认的 &lt;code&gt;startwm&lt;/code&gt; 调用链，直接把 XFCE 顶上来，不让 xrdp 去碰 GNOME。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;XDG_RUNTIME_DIR&lt;/code&gt; 不设置的话，XFCE 的很多组件（通知、电源、面板插件）找不到用户运行时目录，瞬间退出。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unset DBUS_SESSION_BUS_ADDRESS&lt;/code&gt; 之后，XFCE 会用第二步装的 &lt;code&gt;dbus-x11&lt;/code&gt; 重新拉起一条干净的会话总线；&lt;strong&gt;前提是 &lt;code&gt;dbus-x11&lt;/code&gt; 已装&lt;/strong&gt;，否则又会 0 秒退。&lt;/li&gt;
+&lt;li&gt;把所有输出重定向到 &lt;code&gt;/home/napnap/startxfce4.log&lt;/code&gt; 是排错神器：一旦桌面起不来，SSH 里 &lt;code&gt;tail /home/napnap/startxfce4.log&lt;/code&gt; 看真实报错，比猜快十倍。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;另一种写法是用 &lt;code&gt;exec dbus-launch --exit-with-session startxfce4&lt;/code&gt;，显式由 dbus-launch 托管会话。本文的 &lt;code&gt;unset + exec startxfce4&lt;/code&gt; 在装了 &lt;code&gt;dbus-x11&lt;/code&gt; 时同样稳定，且日志更干净，故采用它。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;改完重启 xrdp 让配置生效：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl restart xrdp
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;第五步用客户端连上去&#34;&gt;第五步：用客户端连上去
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Windows：自带「远程桌面连接」（mstsc），计算机填 &lt;code&gt;VPS_IP:3389&lt;/code&gt;，用户名 &lt;code&gt;napnap&lt;/code&gt;，输密码。&lt;/li&gt;
+&lt;li&gt;首次连接如果秒断，等几秒重连一次——xrdp 重启后首连偶尔会瞬时抖动。&lt;/li&gt;
+&lt;li&gt;连上后如果桌面能停留，说明核心配置已通，下面都是体验优化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;第六步性能优化降分辨率关合成特效&#34;&gt;第六步：性能优化——降分辨率、关合成特效
+&lt;/h2&gt;&lt;p&gt;低配 VPS 上远程桌面最容易卡。两招见效最快：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. 降分辨率&lt;/strong&gt;。云桌面里同时跑 XFCE + 浏览器 + 应用，1080p 很吃带宽和内存。Windows 远程桌面客户端里「显示」选项把分辨率调到 1366×768 或 1280×720，颜色深度 16/24 位即可。也可以在 xrdp 登录界面前的高级选项里设。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 关掉窗口合成特效（Compositor）&lt;/strong&gt;。XFCE 的窗口半透明、阴影、动画依赖合成器，在虚拟 X 会话里既卡又容易花屏。关掉：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;图形操作：菜单 → 设置 → 窗口管理器微调（Window Manager Tweaks）→ 「合成器」标签页 → 取消勾选「启用显示合成」（Enable display compositing）。&lt;/li&gt;
+&lt;li&gt;命令行（需当前已登录桌面会话）：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;xfconf-query -c xfwm4 -p /general/use_compositing -s &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;注意：&lt;code&gt;xfconf-query&lt;/code&gt; 依赖当前会话的 D-Bus，必须在一个已经起来的 XFCE 会话里跑；纯 SSH 下会报 D-Bus 错误，那是正常的，去桌面里点界面关即可。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;第七步浏览器用-chrome-deb-替代-snap-版-firefox&#34;&gt;第七步：浏览器——用 Chrome deb 替代 snap 版 Firefox
+&lt;/h2&gt;&lt;p&gt;Ubuntu 24.04 的 &lt;code&gt;apt install firefox&lt;/code&gt; 实际装的是 &lt;strong&gt;snap 版&lt;/strong&gt;，而 xrdp 会话不在 snap 的 cgroup 里，启动会直接报错：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;session-*.scope is not a snap cgroup
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;所以别用 snap 版 Firefox。先卸干净，再装 Chrome 的 deb 包：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 卸掉 snap firefox（如果装过）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo snap remove --purge firefox 2&amp;gt;/dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt remove --purge -y firefox 2&amp;gt;/dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 装 Chrome 稳定版 deb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y ./google-chrome-stable_current_amd64.deb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;装完在 XFCE 菜单 → 互联网 里就能打开 Chrome。deb 版不受 snap cgroup 限制，远程桌面里正常起。&lt;/p&gt;
+&lt;h2 id=&#34;第八步在云桌面里装-workbuddy&#34;&gt;第八步：在云桌面里装 WorkBuddy
+&lt;/h2&gt;&lt;p&gt;WorkBuddy 是 Electron 应用。官网下载页没给 Ubuntu/Fedora 的入口（只写了「到系统应用商店下载」），但官方其实构建了 deb/rpm，就挂在自家 CDN 上，通过更新接口就能拿到最新下载地址。先确认架构：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;uname -m   &lt;span class=&#34;c1&#34;&gt;# x86_64 → 用 x64；aarch64 → 用 arm64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Ubuntu / Debian 系（deb）&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 从官方更新接口取最新 deb 下载地址（需要 jq；没有就浏览器打开该 URL 复制 url 字段）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;curl -s &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://copilot.tencent.com/v2/update?platform=workbuddy-linux-x64-deb&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; jq -r &lt;span class=&#34;s1&#34;&gt;&amp;#39;.url&amp;#39;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -L -O &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$url&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sha256sum WorkBuddy-linux-x64-deb-*.deb   &lt;span class=&#34;c1&#34;&gt;# 见下方「哈希对不上的提醒」&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install ./WorkBuddy-linux-x64-deb-*.deb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;apt install&lt;/code&gt; 会自动解析标准库依赖（libgtk-3-0、libnss3、libsecret-1-0 等），装到 &lt;code&gt;/opt/WorkBuddy&lt;/code&gt;，二进制在 &lt;code&gt;/opt/WorkBuddy/workbuddy&lt;/code&gt;，并自动注册 &lt;code&gt;/usr/bin/workbuddy&lt;/code&gt;、把 &lt;code&gt;chrome-sandbox&lt;/code&gt; 设为 4755（setuid）。装完从菜单或终端敲 &lt;code&gt;workbuddy&lt;/code&gt; 即可启动。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Fedora / RHEL 系（rpm）&lt;/strong&gt;：换 rpm 通道，其余同理：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;curl -s &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://copilot.tencent.com/v2/update?platform=workbuddy-linux-x64-rpm&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; jq -r &lt;span class=&#34;s1&#34;&gt;&amp;#39;.url&amp;#39;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -L -O &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$url&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo dnf install ./WorkBuddy-linux-x64-rpm-*.rpm
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;ARM 机器把 platform 里的 &lt;code&gt;x64&lt;/code&gt; 换成 &lt;code&gt;arm64&lt;/code&gt; 即可（通道：&lt;code&gt;workbuddy-linux-arm64-deb&lt;/code&gt; / &lt;code&gt;workbuddy-linux-arm64-rpm&lt;/code&gt;）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;关于「第三方镜像失效」&lt;/strong&gt;：之前 &lt;code&gt;mirror.workbuddy.cn&lt;/code&gt; 这类博客里的地址是假的。正道是用上面的官方更新接口&lt;strong&gt;动态取地址，不要硬编码 URL&lt;/strong&gt;（链接里的构建号每次发版都变）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;哈希对不上的提醒&lt;/strong&gt;：接口 JSON 里的 &lt;code&gt;sha256hash&lt;/code&gt; 字段实测和下载文件对不上（疑似算的不是这个文件），下载后自己 &lt;code&gt;sha256sum&lt;/code&gt; 留档即可，别拿接口的值当校验标准。另外应用内更新在 Linux 上是死循环（提示去官网下、官网又没 Linux 入口），所以升级就重跑一遍上面的接口取新包。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;启动与「闪退」处理&lt;/strong&gt;。在虚拟 X 会话里，Electron/Chromium 常栽在两处：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;chrome-sandbox&lt;/code&gt; 权限不对 → FATAL sandbox 错误。修复：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chown root:root /opt/WorkBuddy/chrome-sandbox
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod &lt;span class=&#34;m&#34;&gt;4755&lt;/span&gt; /opt/WorkBuddy/chrome-sandbox   &lt;span class=&#34;c1&#34;&gt;# 即 -rwsr-xr-x&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;官方 deb 的 postinst 安装时会把 &lt;code&gt;chrome-sandbox&lt;/code&gt; 设成 4755，干净安装一般能直接启动；若某次安装/升级后权限不对、或你是手动解包的方式装的，闪退复发时按上面重设一次即可。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;没有 GPU / &lt;code&gt;/dev/shm&lt;/code&gt; 太小 → 渲染进程崩。启动参数加上：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/opt/WorkBuddy/workbuddy --no-sandbox --disable-gpu --disable-dev-shm-usage
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;为了方便，做一个包装脚本放进 PATH，以后终端敲 &lt;code&gt;workbuddy&lt;/code&gt; 就带参数：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo tee /usr/local/bin/workbuddy &amp;gt; /dev/null &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;&amp;#39;EOF&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;exec /opt/WorkBuddy/workbuddy --no-sandbox --disable-gpu --disable-dev-shm-usage &amp;#34;$@&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod +x /usr/local/bin/workbuddy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;桌面菜单的 &lt;code&gt;.desktop&lt;/code&gt; 里 &lt;code&gt;Exec=&lt;/code&gt; 也要指向带参数的命令，否则双击图标仍可能闪退。&lt;/p&gt;
+&lt;h2 id=&#34;第九步中文输入法-fcitx5&#34;&gt;第九步：中文输入法 fcitx5
+&lt;/h2&gt;&lt;p&gt;XFCE 默认没有中文输入。装 fcitx5：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 先确认没装旧的 / 冲突的，避免环境变量打架&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# （如已装 ibus，可保留，但本文统一用 fcitx5）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install -y fcitx5 fcitx5-chinese-addons fcitx5-frontend-all im-config
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;im-config -n fcitx5
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;关键坑：xrdp 的 startwm.sh 不会读 &lt;code&gt;~/.profile&lt;/code&gt;&lt;/strong&gt;，所以平时写在 &lt;code&gt;~/.profile&lt;/code&gt; / &lt;code&gt;~/.xinitrc&lt;/code&gt; 里的输入法环境变量在远程桌面里根本不生效。必须把这几行&lt;strong&gt;写进 &lt;code&gt;/etc/xrdp/startwm.sh&lt;/code&gt;&lt;/strong&gt;，放在 &lt;code&gt;exec startxfce4&lt;/code&gt; 之前（见第四步）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;GTK_IM_MODULE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;fcitx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;QT_IM_MODULE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;fcitx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XMODIFIERS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;@im&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;fcitx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;SDL_IM_MODULE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;fcitx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;改完 &lt;code&gt;startwm.sh&lt;/code&gt; 再 &lt;code&gt;sudo systemctl restart xrdp&lt;/code&gt;，重连后：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;桌面右上角托盘出现 fcitx 图标；&lt;/li&gt;
+&lt;li&gt;右键图标 → 配置（Configure）→ 加「拼音」或「双拼」输入法；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Ctrl + 空格&lt;/code&gt; 切换中英文。托盘里也能手动点选输入法。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;WorkBuddy 能帮忙修&lt;/strong&gt;：如果在云桌面里怎么都切不出中文，WorkBuddy 会弹提示「可以让 WorkBuddy 修复输入法问题」，直接让它跑一遍修复即可，省得自己逐个排查环境变量。本质就是确保 fcitx5 的 &lt;code&gt;GTK_IM_MODULE / QT_IM_MODULE / XMODIFIERS&lt;/code&gt; 在远程会话里真正生效——所以前面才强调要把这几行写进 &lt;code&gt;startwm.sh&lt;/code&gt;，而不是只留在 &lt;code&gt;~/.profile&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;第十步会话管理与排错避免logout-后登不上&#34;&gt;第十步：会话管理与排错——避免「logout 后登不上」
+&lt;/h2&gt;&lt;p&gt;xrdp 默认「断线不杀会话」。如果反复重启 xrdp，旧 &lt;code&gt;xrdp-sesman&lt;/code&gt; 进程不一定被杀干净，会留下&lt;strong&gt;多个 sesman 实例和孤儿 Xorg 会话&lt;/strong&gt;（&lt;code&gt;:10&lt;/code&gt;、&lt;code&gt;:11&lt;/code&gt; 之类），多个 sesman 抢同一个会话 socket，结果就是 logout 后再也登不上、卡在登录界面。&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;/etc/xrdp/sesman.ini&lt;/code&gt; 打开「断开即杀」，让每次登录都是干净新会话：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo sed -i -E &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/^(KillDisconnected=).*/\1true/; s/^(DisconnectedTimeLimit=).*/\10/&amp;#39;&lt;/span&gt; /etc/xrdp/sesman.ini
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo grep -iE &lt;span class=&#34;s2&#34;&gt;&amp;#34;KillDisconnected|DisconnectedTimeLimit&amp;#34;&lt;/span&gt; /etc/xrdp/sesman.ini
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 应输出 KillDisconnected=true 和 DisconnectedTimeLimit=0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl restart xrdp
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;万一已经出现「登不上」，SSH 里清一遍残留再重启：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl stop xrdp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo pkill -9 -f xrdp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sleep &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rm -f /var/run/xrdp/sesman.sock /tmp/.X11-unix/X10 /tmp/.X11-unix/X11
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl start xrdp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 验证：应只剩 1 个 xrdp + 1 个 xrdp-sesman，没有孤儿 Xorg :10/:11&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ps aux &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -E &lt;span class=&#34;s2&#34;&gt;&amp;#34;xrdp|Xorg&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v grep
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;常见问题排查&#34;&gt;常见问题排查
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;客户端一直「无法连接 / 连不上」&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;3389 没监听：&lt;code&gt;sudo ss -tlnp | grep 3389&lt;/code&gt;；服务没起就 &lt;code&gt;sudo systemctl restart xrdp&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;防火墙/安全组没放行 3389 入站（最常见）。&lt;/li&gt;
+&lt;li&gt;VPS 是内网 IP，没绑公网弹性 IP 或没做端口映射。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;连上后秒断（黑屏一下回登录界面）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;看日志：&lt;code&gt;sudo tail -n 30 /var/log/xrdp-sesman.log&lt;/code&gt; 若有 &lt;code&gt;exited quickly (0 secs)&lt;/code&gt;，就是 startwm.sh 问题。&lt;/li&gt;
+&lt;li&gt;看 &lt;code&gt;tail -n 50 /home/napnap/startxfce4.log&lt;/code&gt; 的真实报错。&lt;/li&gt;
+&lt;li&gt;确认 &lt;code&gt;dbus-x11&lt;/code&gt; 已装、&lt;code&gt;XDG_RUNTIME_DIR&lt;/code&gt; 那段已写进 startwm.sh。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;桌面能进但很卡&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;降分辨率到 1280×720 / 1366×768。&lt;/li&gt;
+&lt;li&gt;关掉窗口合成特效（见第六步）。&lt;/li&gt;
+&lt;li&gt;内存紧张就加 swap 兜底：&lt;code&gt;sudo fallocate -l 2G /swapfile &amp;amp;&amp;amp; sudo chmod 600 /swapfile &amp;amp;&amp;amp; sudo mkswap /swapfile &amp;amp;&amp;amp; sudo swapon /swapfile &amp;amp;&amp;amp; echo &#39;/swapfile none swap sw 0 0&#39; | sudo tee -a /etc/fstab&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;中文输入法切不出来&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;确认 &lt;code&gt;GTK_IM_MODULE/QT_IM_MODULE/XMODIFIERS&lt;/code&gt; 已写进 &lt;code&gt;startwm.sh&lt;/code&gt;（不是 &lt;code&gt;~/.profile&lt;/code&gt;），并重连。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;im-config -n fcitx5&lt;/code&gt; 后重启会话；托盘里确认输入法已添加。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;浏览器起不来（snap cgroup 报错）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;卸 snap 版 Firefox，改装 Chrome deb（见第七步）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;WorkBuddy 闪退&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;重设 &lt;code&gt;chrome-sandbox&lt;/code&gt; 为 4755，或用 &lt;code&gt;--no-sandbox --disable-gpu --disable-dev-shm-usage&lt;/code&gt; 启动（见第八步）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;整套下来，一台 2~4G 的 Ubuntu VPS 就能当一个长期稳定、带中文输入、能开浏览器和 WorkBuddy 的云桌面用。核心就三句话：&lt;strong&gt;强制 XFCE 别让 xrdp 碰 GNOME、startwm.sh 把 dbus 和 XDG_RUNTIME_DIR 补好防秒断、snap 类应用换成 deb 版&lt;/strong&gt;。剩下的都是性能与体验的微调。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Ubuntu 下 Google Chrome 的安装、卸载与验证</title>
         <link>https://whyboystudy.github.io/post/tutorial/ubuntu-chrome/</link>
         <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
