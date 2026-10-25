@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="在 Ubuntu 上安装 Google Chrome 的两种可靠方式（官方仓库 / 直接装 deb），以及安装后如何验证、如何彻底卸载清理，附无图形界面的服务器验证方法">
+<title>Ubuntu 下 Google Chrome 的安装、卸载与验证</title>
+
+<link rel='canonical' href='https://whyboystudy.github.io/post/tutorial/ubuntu-chrome/'>
+
+<link rel="stylesheet" href="/scss/style.min.5f857ace3a05efea87308efd99f2807d2d3c1c878374a7316cd011d560433d1f.css"><meta property='og:title' content="Ubuntu 下 Google Chrome 的安装、卸载与验证">
+<meta property='og:description' content="在 Ubuntu 上安装 Google Chrome 的两种可靠方式（官方仓库 / 直接装 deb），以及安装后如何验证、如何彻底卸载清理，附无图形界面的服务器验证方法">
+<meta property='og:url' content='https://whyboystudy.github.io/post/tutorial/ubuntu-chrome/'>
+<meta property='og:site_name' content='美味芝士'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ubuntu' /><meta property='article:tag' content='chrome' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='运维' /><meta property='article:published_time' content='2026-10-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-25T08:23:08&#43;08:00'/>
+<meta name="twitter:title" content="Ubuntu 下 Google Chrome 的安装、卸载与验证">
+<meta name="twitter:description" content="在 Ubuntu 上安装 Google Chrome 的两种可靠方式（官方仓库 / 直接装 deb），以及安装后如何验证、如何彻底卸载清理，附无图形界面的服务器验证方法">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c222babdbdc5d500.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🚀</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">美味芝士</a></h1>
+            <h2 class="site-description">技术分享与生活记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    
+                    <a 
+                        href='https://space.bilibili.com/389116170'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    
+                    <a 
+                        href='https://github.com/whyboystudy'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    
+                    <a 
+                        href='/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="alternate"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    
+                    <a 
+                        href='https://x.com/WhyTastyCheese'
+                        target="_blank"
+                        title="X"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E%E6%88%91/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/catestags/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类&amp;标签</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>全部文章</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索 | Search</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/blogroll/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>部落卷</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        <li >
+            <a href='/random/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>随机文章</span>
+            </a>
+        </li>
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                <form action="/search/" class="search-form widget" >
+        <p>
+            <label>搜索</label>
+            <input name="keyword" required placeholder="输入关键词..." />
+        
+            <button title="搜索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一安装前准备">一、安装前准备</a></li>
+    <li><a href="#二方法一通过官方仓库安装推荐">二、方法一：通过官方仓库安装（推荐）</a></li>
+    <li><a href="#三方法二直接下载-deb-包安装">三、方法二：直接下载 deb 包安装</a></li>
+    <li><a href="#四验证安装是否正确">四、验证安装是否正确</a>
+      <ol>
+        <li><a href="#无图形界面的服务器验证headless">无图形界面的服务器验证（headless）</a></li>
+      </ol>
+    </li>
+    <li><a href="#五卸载与彻底清理">五、卸载与彻底清理</a>
+      <ol>
+        <li><a href="#1-卸载主程序">1. 卸载主程序</a></li>
+        <li><a href="#2-清理仓库方式留下的源与密钥">2. 清理仓库方式留下的源与密钥</a></li>
+        <li><a href="#3-删除用户个人数据可选">3. 删除用户个人数据（可选）</a></li>
+      </ol>
+    </li>
+    <li><a href="#六常见问题">六、常见问题</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+            
+                <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">归档</h2>
+
+        
+        
+        
+
+        <div class="archive-tags">
+            
+                    <a href="/archives/#2026" class="archive-tag">
+                        <span class="year">2026</span>
+                        <span class="count">14</span>
+                    </a>
+                
+            
+        </div>
+    </section>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%95%99%E7%A8%8B/" style="background-color: #4361a8; color: #fff;">
+                教程
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/tutorial/ubuntu-chrome/">Ubuntu 下 Google Chrome 的安装、卸载与验证</a>
+        </h2>
+
+        
+        <h3 class="article-subtitle">
+            在 Ubuntu 上安装 Google Chrome 的两种可靠方式（官方仓库 / 直接装 deb），以及安装后如何验证、如何彻底卸载清理，附无图形界面的服务器验证方法
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-10-25T00:00:00Z'>2026-10-25</time>
+            </div>
+        
+
+        
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+        
+        <div id="viewCount">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <time class="article-time--reading">
+                
+                <span id="vercount_value_page_pv">loading... </span>次
+            </time>
+        </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>Chrome 在 Ubuntu 上的官方包名叫 <code>google-chrome-stable</code>。它不在 Ubuntu 默认软件源里，所以得从 Google 自己的源或 deb 包安装。下面按「先装对 → 再验证 → 最后能干净卸载」的顺序写，照着做即可。</p>
+<p>文中命令以 <strong>Ubuntu 20.04 / 22.04 / 24.04（amd64）</strong> 为准，需要 <code>sudo</code> 权限。其他 Debian 系发行版（如 Linux Mint、Pop!_OS）步骤基本一致。</p>
+<h2 id="一安装前准备">一、安装前准备
+</h2><ol>
+<li>确认系统是 64 位：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">uname -m
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出 x86_64 即可，Chrome 仅提供 64 位 Linux 版</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>能访问外网（deb 与密钥都从 <code>dl.google.com</code> 下载）。国内网络若慢，可换镜像或挂代理，但<strong>不要</strong>从第三方站下载 deb，避免被植入篡改包。</li>
+<li>更新一下本地包索引（可选，但能减少依赖冲突）：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="二方法一通过官方仓库安装推荐">二、方法一：通过官方仓库安装（推荐）
+</h2><p>仓库方式会把 Google 的签名密钥和源加入系统，之后 <code>sudo apt upgrade</code> 就能跟着一起升级 Chrome，省去手动重装。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 创建存放密钥的目录（/etc/apt/keyrings 是推荐位置）</span>
+</span></span><span class="line"><span class="cl">sudo install -m <span class="m">0755</span> -d /etc/apt/keyrings
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 下载 Google 签名公钥并转成 gpg 二进制格式</span>
+</span></span><span class="line"><span class="cl">sudo wget -q -O - https://dl.google.com/linux/linux_signing_key.pub <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <span class="p">|</span> sudo gpg --dearmor -o /etc/apt/keyrings/google-chrome.gpg
+</span></span><span class="line"><span class="cl">sudo chmod a+r /etc/apt/keyrings/google-chrome.gpg
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 写入软件源（stable 通道）</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  http://dl.google.com/linux/chrome/deb/ stable main&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <span class="p">|</span> sudo tee /etc/apt/sources.list.d/google-chrome.list &gt; /dev/null
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 更新索引并安装</span>
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install -y google-chrome-stable
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果第 2 步 <code>gpg --dearmor</code> 提示找不到 <code>gpg</code>，先装一下：<code>sudo apt install -y gnupg</code>。</p>
+<h2 id="三方法二直接下载-deb-包安装">三、方法二：直接下载 deb 包安装
+</h2><p>不想加源、只想一次性装好，用这个方法最快。缺点是不能随系统自动更新，升级得重新下载。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 下载最新稳定版 deb</span>
+</span></span><span class="line"><span class="cl">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 安装（apt 会自动处理依赖，包括拉取 libnss3 等）</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y ./google-chrome-stable_current_amd64.deb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 装完可删除下载的 deb</span>
+</span></span><span class="line"><span class="cl">rm -f google-chrome-stable_current_amd64.deb
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注意 <code>./</code> 不能省：直接 <code>apt install 文件名.deb</code> 会被当成「从源里找叫这个名字的包」而报错，加上 <code>./</code> 才表示「本地文件路径」。</p>
+</blockquote>
+<h2 id="四验证安装是否正确">四、验证安装是否正确
+</h2><p>装完后别急着用，先确认装的是 Google 官方版本、路径也在预期位置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. 看版本号（能正常输出版本即安装成功）</span>
+</span></span><span class="line"><span class="cl">google-chrome-stable --version
+</span></span><span class="line"><span class="cl"><span class="c1"># 例：Google Chrome 130.0.6723.58</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 看可执行文件装到哪了</span>
+</span></span><span class="line"><span class="cl">which google-chrome-stable
+</span></span><span class="line"><span class="cl"><span class="c1"># 正常返回：/usr/bin/google-chrome-stable</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 校验签名来源（确认是 Google 的包，而非第三方）</span>
+</span></span><span class="line"><span class="cl">apt-cache policy google-chrome-stable
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出里应有 *** 标记来自 dl.google.com/linux/chrome/deb 的行</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>有图形界面时，直接按 <code>Super</code> 键搜 &ldquo;Chrome&rdquo; 或在终端运行 <code>google-chrome-stable &amp;</code> 即可启动。</p>
+<h3 id="无图形界面的服务器验证headless">无图形界面的服务器验证（headless）
+</h3><p>服务器通常没桌面，无法开窗口，用无头模式跑一个最小验证：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 连 GPU / 沙箱都不需要，能正常拉回页面 DOM 即代表可用</span>
+</span></span><span class="line"><span class="cl">google-chrome-stable --headless --no-sandbox --disable-gpu <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --dump-dom https://www.google.com <span class="p">|</span> head -n <span class="m">5</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>--no-sandbox</code> 在 root 用户或受限容器里常是必需的；正常桌面用户不必加。如果报错 <code>error while loading shared libraries</code>，多半缺依赖，执行 <code>sudo apt install -y libnss3 libatk-bridge2.0-0 libgtk-3-0</code> 补齐即可。</p>
+<h2 id="五卸载与彻底清理">五、卸载与彻底清理
+</h2><h3 id="1-卸载主程序">1. 卸载主程序
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 仅移除程序，保留个人配置</span>
+</span></span><span class="line"><span class="cl">sudo apt remove google-chrome-stable
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 连配置文件一起删（purge）</span>
+</span></span><span class="line"><span class="cl">sudo apt purge google-chrome-stable
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 清理因依赖它而装、现已无用的包</span>
+</span></span><span class="line"><span class="cl">sudo apt autoremove
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-清理仓库方式留下的源与密钥">2. 清理仓库方式留下的源与密钥
+</h3><p>如果你用的是「方法一」，卸载后最好把源和密钥一并删掉，否则 <code>apt update</code> 仍会去连 Google 的源：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo rm -f /etc/apt/sources.list.d/google-chrome.list
+</span></span><span class="line"><span class="cl">sudo rm -f /etc/apt/keyrings/google-chrome.gpg
+</span></span><span class="line"><span class="cl">sudo apt update   <span class="c1"># 确认不再报 Google 源相关错误</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-删除用户个人数据可选">3. 删除用户个人数据（可选）
+</h3><p>浏览器缓存、登录态等存在用户目录，上面步骤不会动它。需要彻底清空：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -rf ~/.config/google-chrome
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="六常见问题">六、常见问题
+</h2><p><strong>Q：安装时提示 <code>N: Download is performed unsandboxed as root</code>？</strong>
+只是 apt 的提示信息，不是错误，deb 已正常装好，可忽略。</p>
+<p><strong>Q：启动时报 <code>Failed to move to new namespace</code>？</strong>
+沙箱在容器 / 某些内核配置下会失败，加 <code>--no-sandbox</code> 启动，或在服务器场景直接用上面的 headless 命令。</p>
+<p><strong>Q：想装测试版 / 开发版？</strong>
+包名分别是 <code>google-chrome-beta</code> 和 <code>google-chrome-unstable</code>，用同样的方式把 <code>google-chrome-stable</code> 换成对应名字即可。</p>
+<p><strong>Q：怎么确认没装成第三方改包？</strong>
+用 <code>apt-cache policy google-chrome-stable</code> 看版本来源是否来自 <code>dl.google.com/linux/chrome/deb</code>，再核对 <code>apt-key list</code> 或 <code>/etc/apt/keyrings/google-chrome.gpg</code> 的指纹是否与 Google 官方公布一致。</p>
+<hr>
+<p>按上面的顺序，安装、验证、卸载都能干净走通。日常使用推荐「方法一」的仓库方式，升级省心；一次性临时用选「方法二」更快。</p>
+
+        </section>
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ubuntu/">Ubuntu</a>
+        
+            <a href="/tags/chrome/">Chrome</a>
+        
+            <a href="/tags/linux/">Linux</a>
+        
+            <a href="/tags/%E8%BF%90%E7%BB%B4/">运维</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2026-10-25 08:23
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        
+        <div class="related-content--item">
+            <a href="/post/tutorial/cloudflare-r2/">Cloudflare R2 实战指南：建桶、上传、缓存与防盗链</a>
+        </div>
+        
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.0.1/weibo"],"lang":"zh-CN","locale":{"admin":"美味芝士","placeholder":"留下你的评论吧～"},"pageview":true,"requiredMeta":["name","email"],"serverURL":"https://comment.whyboy.cc.cd"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2026 美味芝士
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.2">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    .back-top-btn {
+        position: fixed;
+        right: 370px;
+        bottom: 100px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--card-background, #fff);
+        border: 1px solid var(--card-border, #e5e7eb);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s ease;
+    }
+    .back-top-btn.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    .back-top-btn:hover {
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+    .back-top-btn svg {
+        width: 22px;
+        height: 22px;
+        stroke: var(--body-text-color, #333);
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+</style>
+
+<script>
+(function () {
+    if (!document.querySelector('.article-page')) return;
+
+    var btn = document.createElement('div');
+    btn.className = 'back-top-btn';
+    btn.title = '返回顶部';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
+
+    document.body.appendChild(btn);
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    btn.addEventListener('click', backToTop);
+
+    var ticking = false;
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+            var y = window.scrollY || document.documentElement.scrollTop;
+            if (y > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+            ticking = false;
+        });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+
+
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+
+    showHideView();
+</script>
+
+
+
+<script>
+(function () {
+  if (!document.querySelector('.mermaid')) return;
+  function setupFs() {
+    document.querySelectorAll('.mermaid').forEach(function (host) {
+      if (host.dataset.fs) return;
+      host.dataset.fs = '1';
+      host.style.position = 'relative';
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'mermaid-fs-btn';
+      btn.textContent = '⛶ 全屏';
+      btn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (!document.fullscreenElement) {
+          var r = host.requestFullscreen || host.webkitRequestFullscreen;
+          if (r) r.call(host);
+        } else {
+          var x = document.exitFullscreen || document.webkitExitFullscreen;
+          if (x) x.call(document);
+        }
+      });
+      host.appendChild(btn);
+
+      var svg = host.querySelector('svg');
+      if (!svg) return;
+
+      var scale = 1, tx = 0, ty = 0, panning = false, sx = 0, sy = 0, stx = 0, sty = 0;
+      function apply() {
+        svg.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+      }
+      function reset() { scale = 1; tx = 0; ty = 0; apply(); }
+
+      host.addEventListener('wheel', function (e) {
+        if (document.fullscreenElement !== host) return;
+        e.preventDefault();
+        var rect = host.getBoundingClientRect();
+        var cx = e.clientX - rect.left, cy = e.clientY - rect.top;
+        var factor = e.deltaY < 0 ? 1.1 : 0.9;
+        var ns = Math.min(Math.max(scale * factor, 0.3), 12);
+        tx = cx - (cx - tx) * (ns / scale);
+        ty = cy - (cy - ty) * (ns / scale);
+        scale = ns;
+        apply();
+      }, { passive: false });
+
+      host.addEventListener('mousedown', function (e) {
+        if (document.fullscreenElement !== host) return;
+        panning = true; sx = e.clientX; sy = e.clientY; stx = tx; sty = ty;
+        svg.classList.add('grabbing');
+      });
+      window.addEventListener('mousemove', function (e) {
+        if (!panning) return;
+        tx = stx + (e.clientX - sx); ty = sty + (e.clientY - sy); apply();
+      });
+      window.addEventListener('mouseup', function () {
+        panning = false; svg.classList.remove('grabbing');
+      });
+      document.addEventListener('fullscreenchange', reset);
+    });
+  }
+  var tries = 0;
+  var timer = setInterval(function () {
+    tries++;
+    if (document.querySelectorAll('.mermaid svg').length || tries > 40) {
+      clearInterval(timer);
+      setupFs();
+    }
+  }, 200);
+})();
+</script>
+
+
+
+
+<style>
+    .highlight {
+         
+        max-height: 400px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 78px;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#fff));
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #f0f0f5;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+    function initCodeMoreBox() {
+        let codeBlocks = document.querySelectorAll(".highlight");
+        if (!codeBlocks) {
+            return;
+        }
+        codeBlocks.forEach(codeBlock => {
+            
+            if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+                return;
+            }
+            
+            
+            let codeMoreBox = document.createElement('div');
+            codeMoreBox.classList.add('code-more-box');
+            
+            let codeMoreBtn = document.createElement('span');
+            codeMoreBtn.classList.add('code-more-btn');
+            codeMoreBtn.addEventListener('click', () => {
+                codeBlock.classList.add('code-show');
+                codeMoreBox.style.display = 'none';
+                
+                window.dispatchEvent(new Event('resize'))
+            })
+            
+            let img = document.createElement('img');
+            img.classList.add('code-more-img');
+            img.src = "https://whyboystudy.github.io/icons/codeMore.png"
+            
+            codeMoreBtn.appendChild(img);
+            codeMoreBox.appendChild(codeMoreBtn);
+            codeBlock.appendChild(codeMoreBox)
+        })
+    }
+
+    initCodeMoreBox();
+</script>
+
+    </body>
+</html>
