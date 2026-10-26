@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Linux on 美味芝士</title>
-        <link>https://whyboystudy.github.io/tags/linux/</link>
+        <link>https://www.whysoso.com/tags/linux/</link>
         <description>Recent content in Linux on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 25 Oct 2026 08:23:08 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Sun, 25 Oct 2026 08:23:08 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
         <image>
-            <url>https://whyboystudy.github.io/img/avatar.png</url>
+            <url>https://www.whysoso.com/img/avatar.png</url>
             <title>美味芝士</title>
-            <link>https://whyboystudy.github.io/</link>
+            <link>https://www.whysoso.com/</link>
         </image><item>
         <title>Ubuntu 下 Google Chrome 的安装、卸载与验证</title>
-        <link>https://whyboystudy.github.io/post/tutorial/ubuntu-chrome/</link>
+        <link>https://www.whysoso.com/post/tutorial/ubuntu-chrome/</link>
         <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://whyboystudy.github.io/post/tutorial/ubuntu-chrome/</guid>
+        <guid>https://www.whysoso.com/post/tutorial/ubuntu-chrome/</guid>
         <description>&lt;p&gt;Chrome 在 Ubuntu 上的官方包名叫 &lt;code&gt;google-chrome-stable&lt;/code&gt;。它不在 Ubuntu 默认软件源里，所以得从 Google 自己的源或 deb 包安装。下面按「先装对 → 再验证 → 最后能干净卸载」的顺序写，照着做即可。&lt;/p&gt;
 &lt;p&gt;文中命令以 &lt;strong&gt;Ubuntu 20.04 / 22.04 / 24.04（amd64）&lt;/strong&gt; 为准，需要 &lt;code&gt;sudo&lt;/code&gt; 权限。其他 Debian 系发行版（如 Linux Mint、Pop!_OS）步骤基本一致。&lt;/p&gt;
 &lt;h2 id=&#34;一安装前准备&#34;&gt;一、安装前准备

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Github-Pages on 美味芝士</title>
-        <link>https://whyboystudy.github.io/tags/github-pages/</link>
+        <link>https://www.whysoso.com/tags/github-pages/</link>
         <description>Recent content in Github-Pages on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 26 Oct 2026 20:45:56 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/github-pages/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Mon, 26 Oct 2026 21:09:58 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/github-pages/index.xml" rel="self" type="application/rss+xml" />
         <image>
-            <url>https://whyboystudy.github.io/img/avatar.png</url>
+            <url>https://www.whysoso.com/img/avatar.png</url>
             <title>美味芝士</title>
-            <link>https://whyboystudy.github.io/</link>
+            <link>https://www.whysoso.com/</link>
         </image><item>
         <title>给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录</title>
-        <link>https://whyboystudy.github.io/post/tutorial/github-pages-custom-domain/</link>
+        <link>https://www.whysoso.com/post/tutorial/github-pages-custom-domain/</link>
         <pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://whyboystudy.github.io/post/tutorial/github-pages-custom-domain/</guid>
-        <description>&lt;p&gt;GitHub Pages 默认给你一个 &lt;code&gt;用户名.github.io&lt;/code&gt; 的地址，能用但不够「像自己的站」。想用 &lt;code&gt;whysoso.com&lt;/code&gt; 这种自己的域名访问，需要在两处动手：&lt;strong&gt;GitHub 仓库里声明自定义域名&lt;/strong&gt; + &lt;strong&gt;域名注册商处加 DNS 解析&lt;/strong&gt;。本文用我刚实操的 &lt;code&gt;whysoso.com → whyboystudy.github.io&lt;/code&gt; 为例，把每一步和踩过的坑写清楚，所有记录都能照抄。&lt;/p&gt;
+        <guid>https://www.whysoso.com/post/tutorial/github-pages-custom-domain/</guid>
+        <description>&lt;p&gt;GitHub Pages 默认给你一个 &lt;code&gt;用户名.github.io&lt;/code&gt; 的地址，能用但不够「像自己的站」。想用 &lt;code&gt;www.whysoso.com&lt;/code&gt; 这种自己的域名访问，需要在两处动手：&lt;strong&gt;GitHub 仓库里声明自定义域名&lt;/strong&gt; + &lt;strong&gt;域名注册商处加 DNS 解析&lt;/strong&gt;。本文用我刚实操的 &lt;code&gt;www.whysoso.com → whyboystudy.github.io&lt;/code&gt; 为例（根域 &lt;code&gt;whysoso.com&lt;/code&gt; 也加了 A 记录、并设为跳转到 www），把每一步和踩过的坑写清楚，所有记录都能照抄。&lt;/p&gt;
 &lt;p&gt;环境假设：你已有一个能正常访问的 GitHub Pages 站点（用户页 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt; 或项目页），且手里有一个已注册、DNS 可管理的域名。&lt;/p&gt;
 &lt;h2 id=&#34;先想清楚根域名还是子域名&#34;&gt;先想清楚：根域名还是子域名
 &lt;/h2&gt;&lt;ul&gt;
@@ -177,8 +177,8 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;baseURL&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://whysoso.com/&amp;#34;&lt;/span&gt;   &lt;span class=&#34;c&#34;&gt;# 绑根域&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 或 baseURL = &amp;#34;https://www.whysoso.com/&amp;#34;   # 绑 www&lt;/span&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;baseURL&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://www.whysoso.com/&amp;#34;&lt;/span&gt;   &lt;span class=&#34;c&#34;&gt;# 绑 www（本文实际用的）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 或 baseURL = &amp;#34;https://whysoso.com/&amp;#34;   # 绑根域&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;改完重新 &lt;code&gt;hugo&lt;/code&gt; 生成并推送（GitHub Pages 通常由 push 触发 Actions 自动部署）。生成后确认站点里跳转、资源引用都走新域名。&lt;/p&gt;
@@ -198,7 +198,7 @@ GitHub Pages 的免费证书靠对 &lt;code&gt;whysoso.com&lt;/code&gt; / &lt;co
 &lt;p&gt;&lt;strong&gt;2FA 与授权（顺带一提）&lt;/strong&gt;
 如果你是用 WorkBuddy 的 GitHub 连接器来自动建 PR / 改仓库，GitHub 已强制开启两步验证（2FA），连接器走 OAuth 或 Personal Access Token 授权；连不上先查网络能否稳定访问 github.com（OAuth 要跳 github.com 再跳回，中间断一丝就授权失败）。&lt;/p&gt;
 &lt;h2 id=&#34;实战小结&#34;&gt;实战小结
-&lt;/h2&gt;&lt;p&gt;本文案例的完整链路：&lt;code&gt;whysoso.com&lt;/code&gt; 在 Spaceship 注册 → NS 指向 Cloudflare（DNS 托管在 Cloudflare）→ Cloudflare 加 4 条 A（根域）+ 1 条 CNAME（www）→ GitHub Pages 填 &lt;code&gt;whysoso.com&lt;/code&gt; → 证书签发后 Enforce HTTPS → Hugo &lt;code&gt;baseURL&lt;/code&gt; 改为 &lt;code&gt;https://whysoso.com/&lt;/code&gt; 并重新部署。核心就三句话：&lt;strong&gt;GitHub 里声明域名、注册商里把 DNS 指到那 4 个 IP、证书出来再强制 HTTPS&lt;/strong&gt;。Cloudflare 用户记住「先灰云后橙云、SSL 用 Full」即可避开九成问题。&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;本文案例的完整链路：&lt;code&gt;whysoso.com&lt;/code&gt; 在 Spaceship 注册 → NS 指向 Cloudflare（DNS 托管在 Cloudflare）→ Cloudflare 加 4 条 A（根域）+ 1 条 CNAME（www）→ GitHub Pages 填 &lt;code&gt;www.whysoso.com&lt;/code&gt;（根域 &lt;code&gt;whysoso.com&lt;/code&gt; 设为跳转到 www）→ 证书签发后 Enforce HTTPS → Hugo &lt;code&gt;baseURL&lt;/code&gt; 改为 &lt;code&gt;https://www.whysoso.com/&lt;/code&gt; 并重新部署。核心就三句话：&lt;strong&gt;GitHub 里声明域名、注册商里把 DNS 指到那 4 个 IP、证书出来再强制 HTTPS&lt;/strong&gt;。Cloudflare 用户记住「先灰云后橙云、SSL 用 Full」即可避开九成问题。&lt;/p&gt;
 </description>
         </item>
         

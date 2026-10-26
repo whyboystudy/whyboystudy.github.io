@@ -4,13 +4,13 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="把 GitHub Pages 默认的 *.github.io 换成自己的域名（根域名或子域名）的完整流程——GitHub 仓库里填自定义域名、去注册商加 A / CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改和 Cloudflare 代理的常见坑">
 <title>给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录</title>
 
-<link rel='canonical' href='https://whyboystudy.github.io/post/tutorial/github-pages-custom-domain/'>
+<link rel='canonical' href='https://www.whysoso.com/post/tutorial/github-pages-custom-domain/'>
 
 <link rel="stylesheet" href="/scss/style.min.5f857ace3a05efea87308efd99f2807d2d3c1c878374a7316cd011d560433d1f.css"><meta property='og:title' content="给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录">
 <meta property='og:description' content="把 GitHub Pages 默认的 *.github.io 换成自己的域名（根域名或子域名）的完整流程——GitHub 仓库里填自定义域名、去注册商加 A / CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改和 Cloudflare 代理的常见坑">
-<meta property='og:url' content='https://whyboystudy.github.io/post/tutorial/github-pages-custom-domain/'>
+<meta property='og:url' content='https://www.whysoso.com/post/tutorial/github-pages-custom-domain/'>
 <meta property='og:site_name' content='美味芝士'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='github-pages' /><meta property='article:tag' content='域名' /><meta property='article:tag' content='dns' /><meta property='article:tag' content='cloudflare' /><meta property='article:tag' content='hugo' /><meta property='article:tag' content='spaceship' /><meta property='article:published_time' content='2026-10-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-26T20:45:56&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='github-pages' /><meta property='article:tag' content='域名' /><meta property='article:tag' content='dns' /><meta property='article:tag' content='cloudflare' /><meta property='article:tag' content='hugo' /><meta property='article:tag' content='spaceship' /><meta property='article:published_time' content='2026-10-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-26T21:09:58&#43;08:00'/>
 <meta name="twitter:title" content="给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录">
 <meta name="twitter:description" content="把 GitHub Pages 默认的 *.github.io 换成自己的域名（根域名或子域名）的完整流程——GitHub 仓库里填自定义域名、去注册商加 A / CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改和 Cloudflare 代理的常见坑">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -517,7 +517,7 @@
     <section class="article-content">
     
     
-    <p>GitHub Pages 默认给你一个 <code>用户名.github.io</code> 的地址，能用但不够「像自己的站」。想用 <code>whysoso.com</code> 这种自己的域名访问，需要在两处动手：<strong>GitHub 仓库里声明自定义域名</strong> + <strong>域名注册商处加 DNS 解析</strong>。本文用我刚实操的 <code>whysoso.com → whyboystudy.github.io</code> 为例，把每一步和踩过的坑写清楚，所有记录都能照抄。</p>
+    <p>GitHub Pages 默认给你一个 <code>用户名.github.io</code> 的地址，能用但不够「像自己的站」。想用 <code>www.whysoso.com</code> 这种自己的域名访问，需要在两处动手：<strong>GitHub 仓库里声明自定义域名</strong> + <strong>域名注册商处加 DNS 解析</strong>。本文用我刚实操的 <code>www.whysoso.com → whyboystudy.github.io</code> 为例（根域 <code>whysoso.com</code> 也加了 A 记录、并设为跳转到 www），把每一步和踩过的坑写清楚，所有记录都能照抄。</p>
 <p>环境假设：你已有一个能正常访问的 GitHub Pages 站点（用户页 <code>&lt;用户名&gt;.github.io</code> 或项目页），且手里有一个已注册、DNS 可管理的域名。</p>
 <h2 id="先想清楚根域名还是子域名">先想清楚：根域名还是子域名
 </h2><ul>
@@ -677,8 +677,8 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">baseURL</span> <span class="p">=</span> <span class="s2">&#34;https://whysoso.com/&#34;</span>   <span class="c"># 绑根域</span>
-</span></span><span class="line"><span class="cl"><span class="c"># 或 baseURL = &#34;https://www.whysoso.com/&#34;   # 绑 www</span>
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">baseURL</span> <span class="p">=</span> <span class="s2">&#34;https://www.whysoso.com/&#34;</span>   <span class="c"># 绑 www（本文实际用的）</span>
+</span></span><span class="line"><span class="cl"><span class="c"># 或 baseURL = &#34;https://whysoso.com/&#34;   # 绑根域</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>改完重新 <code>hugo</code> 生成并推送（GitHub Pages 通常由 push 触发 Actions 自动部署）。生成后确认站点里跳转、资源引用都走新域名。</p>
@@ -698,7 +698,7 @@ GitHub Pages 的免费证书靠对 <code>whysoso.com</code> / <code>www</code> �
 <p><strong>2FA 与授权（顺带一提）</strong>
 如果你是用 WorkBuddy 的 GitHub 连接器来自动建 PR / 改仓库，GitHub 已强制开启两步验证（2FA），连接器走 OAuth 或 Personal Access Token 授权；连不上先查网络能否稳定访问 github.com（OAuth 要跳 github.com 再跳回，中间断一丝就授权失败）。</p>
 <h2 id="实战小结">实战小结
-</h2><p>本文案例的完整链路：<code>whysoso.com</code> 在 Spaceship 注册 → NS 指向 Cloudflare（DNS 托管在 Cloudflare）→ Cloudflare 加 4 条 A（根域）+ 1 条 CNAME（www）→ GitHub Pages 填 <code>whysoso.com</code> → 证书签发后 Enforce HTTPS → Hugo <code>baseURL</code> 改为 <code>https://whysoso.com/</code> 并重新部署。核心就三句话：<strong>GitHub 里声明域名、注册商里把 DNS 指到那 4 个 IP、证书出来再强制 HTTPS</strong>。Cloudflare 用户记住「先灰云后橙云、SSL 用 Full」即可避开九成问题。</p>
+</h2><p>本文案例的完整链路：<code>whysoso.com</code> 在 Spaceship 注册 → NS 指向 Cloudflare（DNS 托管在 Cloudflare）→ Cloudflare 加 4 条 A（根域）+ 1 条 CNAME（www）→ GitHub Pages 填 <code>www.whysoso.com</code>（根域 <code>whysoso.com</code> 设为跳转到 www）→ 证书签发后 Enforce HTTPS → Hugo <code>baseURL</code> 改为 <code>https://www.whysoso.com/</code> 并重新部署。核心就三句话：<strong>GitHub 里声明域名、注册商里把 DNS 指到那 4 个 IP、证书出来再强制 HTTPS</strong>。Cloudflare 用户记住「先灰云后橙云、SSL 用 Full」即可避开九成问题。</p>
 
         </section>
 
@@ -743,7 +743,7 @@ GitHub Pages 的免费证书靠对 <code>whysoso.com</code> / <code>www</code> �
 
 
         <span>
-            最后更新于 2026-10-26 20:45
+            最后更新于 2026-10-26 21:09
         </span>
     </section></footer>
 
@@ -1156,7 +1156,7 @@ GitHub Pages 的免费证书靠对 <code>whysoso.com</code> / <code>www</code> �
             
             let img = document.createElement('img');
             img.classList.add('code-more-img');
-            img.src = "https://whyboystudy.github.io/icons/codeMore.png"
+            img.src = "https://www.whysoso.com/icons/codeMore.png"
             
             codeMoreBtn.appendChild(img);
             codeMoreBox.appendChild(codeMoreBtn);

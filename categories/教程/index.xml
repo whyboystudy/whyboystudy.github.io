@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>教程 on 美味芝士</title>
-        <link>https://whyboystudy.github.io/categories/%E6%95%99%E7%A8%8B/</link>
+        <link>https://www.whysoso.com/categories/%E6%95%99%E7%A8%8B/</link>
         <description>Recent content in 教程 on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language><atom:link href="https://whyboystudy.github.io/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+        <language>zh-cn</language><atom:link href="https://www.whysoso.com/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
         <image>
-            <url>https://whyboystudy.github.io/img/avatar.png</url>
+            <url>https://www.whysoso.com/img/avatar.png</url>
             <title>美味芝士</title>
-            <link>https://whyboystudy.github.io/</link>
+            <link>https://www.whysoso.com/</link>
         </image><item>
         <title>给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录</title>
-        <link>https://whyboystudy.github.io/post/tutorial/github-pages-custom-domain/</link>
+        <link>https://www.whysoso.com/post/tutorial/github-pages-custom-domain/</link>
         <pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://whyboystudy.github.io/post/tutorial/github-pages-custom-domain/</guid>
-        <description>&lt;p&gt;GitHub Pages 默认给你一个 &lt;code&gt;用户名.github.io&lt;/code&gt; 的地址，能用但不够「像自己的站」。想用 &lt;code&gt;whysoso.com&lt;/code&gt; 这种自己的域名访问，需要在两处动手：&lt;strong&gt;GitHub 仓库里声明自定义域名&lt;/strong&gt; + &lt;strong&gt;域名注册商处加 DNS 解析&lt;/strong&gt;。本文用我刚实操的 &lt;code&gt;whysoso.com → whyboystudy.github.io&lt;/code&gt; 为例，把每一步和踩过的坑写清楚，所有记录都能照抄。&lt;/p&gt;
+        <guid>https://www.whysoso.com/post/tutorial/github-pages-custom-domain/</guid>
+        <description>&lt;p&gt;GitHub Pages 默认给你一个 &lt;code&gt;用户名.github.io&lt;/code&gt; 的地址，能用但不够「像自己的站」。想用 &lt;code&gt;www.whysoso.com&lt;/code&gt; 这种自己的域名访问，需要在两处动手：&lt;strong&gt;GitHub 仓库里声明自定义域名&lt;/strong&gt; + &lt;strong&gt;域名注册商处加 DNS 解析&lt;/strong&gt;。本文用我刚实操的 &lt;code&gt;www.whysoso.com → whyboystudy.github.io&lt;/code&gt; 为例（根域 &lt;code&gt;whysoso.com&lt;/code&gt; 也加了 A 记录、并设为跳转到 www），把每一步和踩过的坑写清楚，所有记录都能照抄。&lt;/p&gt;
 &lt;p&gt;环境假设：你已有一个能正常访问的 GitHub Pages 站点（用户页 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt; 或项目页），且手里有一个已注册、DNS 可管理的域名。&lt;/p&gt;
 &lt;h2 id=&#34;先想清楚根域名还是子域名&#34;&gt;先想清楚：根域名还是子域名
 &lt;/h2&gt;&lt;ul&gt;
@@ -176,8 +176,8 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;baseURL&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://whysoso.com/&amp;#34;&lt;/span&gt;   &lt;span class=&#34;c&#34;&gt;# 绑根域&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 或 baseURL = &amp;#34;https://www.whysoso.com/&amp;#34;   # 绑 www&lt;/span&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;baseURL&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://www.whysoso.com/&amp;#34;&lt;/span&gt;   &lt;span class=&#34;c&#34;&gt;# 绑 www（本文实际用的）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 或 baseURL = &amp;#34;https://whysoso.com/&amp;#34;   # 绑根域&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;改完重新 &lt;code&gt;hugo&lt;/code&gt; 生成并推送（GitHub Pages 通常由 push 触发 Actions 自动部署）。生成后确认站点里跳转、资源引用都走新域名。&lt;/p&gt;
@@ -197,15 +197,15 @@ GitHub Pages 的免费证书靠对 &lt;code&gt;whysoso.com&lt;/code&gt; / &lt;co
 &lt;p&gt;&lt;strong&gt;2FA 与授权（顺带一提）&lt;/strong&gt;
 如果你是用 WorkBuddy 的 GitHub 连接器来自动建 PR / 改仓库，GitHub 已强制开启两步验证（2FA），连接器走 OAuth 或 Personal Access Token 授权；连不上先查网络能否稳定访问 github.com（OAuth 要跳 github.com 再跳回，中间断一丝就授权失败）。&lt;/p&gt;
 &lt;h2 id=&#34;实战小结&#34;&gt;实战小结
-&lt;/h2&gt;&lt;p&gt;本文案例的完整链路：&lt;code&gt;whysoso.com&lt;/code&gt; 在 Spaceship 注册 → NS 指向 Cloudflare（DNS 托管在 Cloudflare）→ Cloudflare 加 4 条 A（根域）+ 1 条 CNAME（www）→ GitHub Pages 填 &lt;code&gt;whysoso.com&lt;/code&gt; → 证书签发后 Enforce HTTPS → Hugo &lt;code&gt;baseURL&lt;/code&gt; 改为 &lt;code&gt;https://whysoso.com/&lt;/code&gt; 并重新部署。核心就三句话：&lt;strong&gt;GitHub 里声明域名、注册商里把 DNS 指到那 4 个 IP、证书出来再强制 HTTPS&lt;/strong&gt;。Cloudflare 用户记住「先灰云后橙云、SSL 用 Full」即可避开九成问题。&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;本文案例的完整链路：&lt;code&gt;whysoso.com&lt;/code&gt; 在 Spaceship 注册 → NS 指向 Cloudflare（DNS 托管在 Cloudflare）→ Cloudflare 加 4 条 A（根域）+ 1 条 CNAME（www）→ GitHub Pages 填 &lt;code&gt;www.whysoso.com&lt;/code&gt;（根域 &lt;code&gt;whysoso.com&lt;/code&gt; 设为跳转到 www）→ 证书签发后 Enforce HTTPS → Hugo &lt;code&gt;baseURL&lt;/code&gt; 改为 &lt;code&gt;https://www.whysoso.com/&lt;/code&gt; 并重新部署。核心就三句话：&lt;strong&gt;GitHub 里声明域名、注册商里把 DNS 指到那 4 个 IP、证书出来再强制 HTTPS&lt;/strong&gt;。Cloudflare 用户记住「先灰云后橙云、SSL 用 Full」即可避开九成问题。&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Ubuntu VPS 搭建 XFCE 远程桌面：从 xrdp 安装到秒断修复、中文输入与 WorkBuddy 实战</title>
-        <link>https://whyboystudy.github.io/post/tutorial/xfce-rdp-ubuntu/</link>
+        <link>https://www.whysoso.com/post/tutorial/xfce-rdp-ubuntu/</link>
         <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://whyboystudy.github.io/post/tutorial/xfce-rdp-ubuntu/</guid>
+        <guid>https://www.whysoso.com/post/tutorial/xfce-rdp-ubuntu/</guid>
         <description>&lt;p&gt;在一台只有 2~4G 内存的 Ubuntu VPS 上想要图形界面，GNOME/KDE 太重、跑起来又卡又容易崩。XFCE 是更现实的选择：轻量、稳定、依赖少。本文记录一套能长期稳定跑起来的组合 &lt;strong&gt;xrdp + XFCE&lt;/strong&gt;，以及我在真机上踩过的每一个坑——尤其是「连上秒断」「中文输入法不生效」「snap 版浏览器起不来」「WorkBuddy 闪退」这几类。所有命令都来自实际操作，可直接照抄。&lt;/p&gt;
 &lt;p&gt;环境假设：Ubuntu 22.04/24.04，全新 VPS，已能 SSH 登录，root 权限。&lt;/p&gt;
 &lt;h2 id=&#34;先想清楚为什么是-xrdp--xfce&#34;&gt;先想清楚：为什么是 xrdp + XFCE
@@ -699,10 +699,10 @@ GitHub Pages 的免费证书靠对 &lt;code&gt;whysoso.com&lt;/code&gt; / &lt;co
         </item>
         <item>
         <title>Ubuntu 下 Google Chrome 的安装、卸载与验证</title>
-        <link>https://whyboystudy.github.io/post/tutorial/ubuntu-chrome/</link>
+        <link>https://www.whysoso.com/post/tutorial/ubuntu-chrome/</link>
         <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://whyboystudy.github.io/post/tutorial/ubuntu-chrome/</guid>
+        <guid>https://www.whysoso.com/post/tutorial/ubuntu-chrome/</guid>
         <description>&lt;p&gt;Chrome 在 Ubuntu 上的官方包名叫 &lt;code&gt;google-chrome-stable&lt;/code&gt;。它不在 Ubuntu 默认软件源里，所以得从 Google 自己的源或 deb 包安装。下面按「先装对 → 再验证 → 最后能干净卸载」的顺序写，照着做即可。&lt;/p&gt;
 &lt;p&gt;文中命令以 &lt;strong&gt;Ubuntu 20.04 / 22.04 / 24.04（amd64）&lt;/strong&gt; 为准，需要 &lt;code&gt;sudo&lt;/code&gt; 权限。其他 Debian 系发行版（如 Linux Mint、Pop!_OS）步骤基本一致。&lt;/p&gt;
 &lt;h2 id=&#34;一安装前准备&#34;&gt;一、安装前准备
@@ -908,10 +908,10 @@ GitHub Pages 的免费证书靠对 &lt;code&gt;whysoso.com&lt;/code&gt; / &lt;co
         </item>
         <item>
         <title>Cloudflare R2 实战指南：建桶、上传、缓存与防盗链</title>
-        <link>https://whyboystudy.github.io/post/tutorial/cloudflare-r2/</link>
+        <link>https://www.whysoso.com/post/tutorial/cloudflare-r2/</link>
         <pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://whyboystudy.github.io/post/tutorial/cloudflare-r2/</guid>
+        <guid>https://www.whysoso.com/post/tutorial/cloudflare-r2/</guid>
         <description>&lt;p&gt;R2 是 Cloudflare 的对象存储，兼容 S3 接口，最大的卖点是没有出网流量费。很多人第一次用它，是因为把图片、视频放在别处被流量费咬了一口，换过来之后发现账单只剩存储和请求两项。&lt;/p&gt;
 &lt;p&gt;这篇文章按实际操作顺序写：建桶、传文件、绑域名、配缓存、加防盗链，最后是日常运维和排错。文中价格与免费额度以 Cloudflare 官方文档为准，具体以控制台显示为实。&lt;/p&gt;
 &lt;h2 id=&#34;先搞清楚-r2-的计费模型&#34;&gt;先搞清楚 R2 的计费模型

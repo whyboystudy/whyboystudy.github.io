@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Xfce on 美味芝士</title>
-        <link>https://whyboystudy.github.io/tags/xfce/</link>
+        <link>https://www.whysoso.com/tags/xfce/</link>
         <description>Recent content in Xfce on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 25 Oct 2026 16:39:24 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/xfce/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Sun, 25 Oct 2026 16:39:24 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/xfce/index.xml" rel="self" type="application/rss+xml" />
         <image>
-            <url>https://whyboystudy.github.io/img/avatar.png</url>
+            <url>https://www.whysoso.com/img/avatar.png</url>
             <title>美味芝士</title>
-            <link>https://whyboystudy.github.io/</link>
+            <link>https://www.whysoso.com/</link>
         </image><item>
         <title>Ubuntu VPS 搭建 XFCE 远程桌面：从 xrdp 安装到秒断修复、中文输入与 WorkBuddy 实战</title>
-        <link>https://whyboystudy.github.io/post/tutorial/xfce-rdp-ubuntu/</link>
+        <link>https://www.whysoso.com/post/tutorial/xfce-rdp-ubuntu/</link>
         <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://whyboystudy.github.io/post/tutorial/xfce-rdp-ubuntu/</guid>
+        <guid>https://www.whysoso.com/post/tutorial/xfce-rdp-ubuntu/</guid>
         <description>&lt;p&gt;在一台只有 2~4G 内存的 Ubuntu VPS 上想要图形界面，GNOME/KDE 太重、跑起来又卡又容易崩。XFCE 是更现实的选择：轻量、稳定、依赖少。本文记录一套能长期稳定跑起来的组合 &lt;strong&gt;xrdp + XFCE&lt;/strong&gt;，以及我在真机上踩过的每一个坑——尤其是「连上秒断」「中文输入法不生效」「snap 版浏览器起不来」「WorkBuddy 闪退」这几类。所有命令都来自实际操作，可直接照抄。&lt;/p&gt;
 &lt;p&gt;环境假设：Ubuntu 22.04/24.04，全新 VPS，已能 SSH 登录，root 权限。&lt;/p&gt;
 &lt;h2 id=&#34;先想清楚为什么是-xrdp--xfce&#34;&gt;先想清楚：为什么是 xrdp + XFCE

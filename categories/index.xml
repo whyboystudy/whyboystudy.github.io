@@ -2,15 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on 美味芝士</title>
-        <link>https://whyboystudy.github.io/categories/</link>
+        <link>https://www.whysoso.com/categories/</link>
         <description>Recent content in Categories on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate></lastBuildDate><atom:link href="https://whyboystudy.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate></lastBuildDate><atom:link href="https://www.whysoso.com/categories/index.xml" rel="self" type="application/rss+xml" />
         <image>
-            <url>https://whyboystudy.github.io/img/avatar.png</url>
+            <url>https://www.whysoso.com/img/avatar.png</url>
             <title>美味芝士</title>
-            <link>https://whyboystudy.github.io/</link>
+            <link>https://www.whysoso.com/</link>
         </image>
     </channel>
 </rss>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>缓存 on 美味芝士</title>
-        <link>https://whyboystudy.github.io/tags/%E7%BC%93%E5%AD%98/</link>
+        <link>https://www.whysoso.com/tags/%E7%BC%93%E5%AD%98/</link>
         <description>Recent content in 缓存 on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Wed, 21 Oct 2026 09:13:23 +0800</lastBuildDate><atom:link href="https://whyboystudy.github.io/tags/%E7%BC%93%E5%AD%98/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Wed, 21 Oct 2026 09:13:23 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/%E7%BC%93%E5%AD%98/index.xml" rel="self" type="application/rss+xml" />
         <image>
-            <url>https://whyboystudy.github.io/img/avatar.png</url>
+            <url>https://www.whysoso.com/img/avatar.png</url>
             <title>美味芝士</title>
-            <link>https://whyboystudy.github.io/</link>
+            <link>https://www.whysoso.com/</link>
         </image><item>
         <title>Cloudflare R2 实战指南：建桶、上传、缓存与防盗链</title>
-        <link>https://whyboystudy.github.io/post/tutorial/cloudflare-r2/</link>
+        <link>https://www.whysoso.com/post/tutorial/cloudflare-r2/</link>
         <pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate>
         
-        <guid>https://whyboystudy.github.io/post/tutorial/cloudflare-r2/</guid>
+        <guid>https://www.whysoso.com/post/tutorial/cloudflare-r2/</guid>
         <description>&lt;p&gt;R2 是 Cloudflare 的对象存储，兼容 S3 接口，最大的卖点是没有出网流量费。很多人第一次用它，是因为把图片、视频放在别处被流量费咬了一口，换过来之后发现账单只剩存储和请求两项。&lt;/p&gt;
 &lt;p&gt;这篇文章按实际操作顺序写：建桶、传文件、绑域名、配缓存、加防盗链，最后是日常运维和排错。文中价格与免费额度以 Cloudflare 官方文档为准，具体以控制台显示为实。&lt;/p&gt;
 &lt;h2 id=&#34;先搞清楚-r2-的计费模型&#34;&gt;先搞清楚 R2 的计费模型

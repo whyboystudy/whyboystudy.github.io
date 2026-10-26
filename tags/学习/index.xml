@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>学习 on 美味芝士</title>
-        <link>https://whyboystudy.github.io/tags/%E5%AD%A6%E4%B9%A0/</link>
+        <link>https://www.whysoso.com/tags/%E5%AD%A6%E4%B9%A0/</link>
         <description>Recent content in 学习 on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language><atom:link href="https://whyboystudy.github.io/tags/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+        <language>zh-cn</language><atom:link href="https://www.whysoso.com/tags/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
         <image>
-            <url>https://whyboystudy.github.io/img/avatar.png</url>
+            <url>https://www.whysoso.com/img/avatar.png</url>
             <title>美味芝士</title>
-            <link>https://whyboystudy.github.io/</link>
+            <link>https://www.whysoso.com/</link>
         </image>
     </channel>
 </rss>
