@@ -6,7 +6,7 @@
         <description>Recent content in Cloudflare on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 26 Oct 2026 21:09:58 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/cloudflare/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Mon, 26 Oct 2026 21:25:28 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/cloudflare/index.xml" rel="self" type="application/rss+xml" />
         <image>
             <url>https://www.whysoso.com/img/avatar.png</url>
             <title>美味芝士</title>
@@ -191,8 +191,13 @@ GitHub Pages 的免费证书靠对 &lt;code&gt;whysoso.com&lt;/code&gt; / &lt;co
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;根域 + www 都想用&lt;/strong&gt;
 根域 4 条 A，再加一条 &lt;code&gt;www&lt;/code&gt; 的 CNAME → &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt;，然后在 GitHub Pages 的 Custom domain 里把 &lt;code&gt;www&lt;/code&gt; 设成首选域（勾选 &amp;ldquo;Enforce HTTPS&amp;rdquo; 上方那项），访问 &lt;code&gt;whysoso.com&lt;/code&gt; 会自动跳 &lt;code&gt;www&lt;/code&gt;（或反之，按你设的首选域）。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;CNAME 文件被覆盖&lt;/strong&gt;
-有些部署流程（尤其是用自定义 Action 或第三方构建）会清掉仓库根目录的 CNAME 文件，导致自定义域丢失、跳回 &lt;code&gt;.github.io&lt;/code&gt;。确保构建产物里保留 CNAME，或在部署步骤里重新写入。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;CNAME 文件被部署流程清掉，自定义域每次都被重置为空（最高频）&lt;/strong&gt;
+这是 Hugo + GitHub Actions 部署最容易踩的坑，本文作者的 &lt;code&gt;whysoso.com&lt;/code&gt; 就栽在这。你在仓库 &lt;strong&gt;Settings → Pages&lt;/strong&gt; 填自定义域名后，GitHub 会把域名写进&lt;strong&gt;发布分支根目录的 &lt;code&gt;CNAME&lt;/code&gt; 文件&lt;/strong&gt;来记住它。但如果部署用的是 &lt;code&gt;peaceiris/actions-gh-pages&lt;/code&gt; 这类「只发布 &lt;code&gt;PUBLISH_DIR&lt;/code&gt;（如 &lt;code&gt;./public&lt;/code&gt;）并清空分支上其他文件」的 Action，而你的 &lt;code&gt;public/&lt;/code&gt; 里&lt;strong&gt;没有 CNAME&lt;/strong&gt;，那每次 Action 一跑，GitHub 刚写好的 &lt;code&gt;CNAME&lt;/code&gt; 就被干净的构建产物覆盖掉 → GitHub 找不到 CNAME → 自定义域被清空、跳回 &lt;code&gt;*.github.io&lt;/code&gt;。现象就是「每次 Action 跑完，Custom domain 变成空」。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;修法&lt;/strong&gt;：在 Hugo 源码的 &lt;strong&gt;&lt;code&gt;static/CNAME&lt;/code&gt;&lt;/strong&gt; 里写一行你的域名（如 &lt;code&gt;www.whysoso.com&lt;/code&gt;，不要多余的空格或空行）。Hugo 构建时会把 &lt;code&gt;static/&lt;/code&gt; 原样拷贝到 &lt;code&gt;public/&lt;/code&gt; 根，于是 &lt;code&gt;public/CNAME&lt;/code&gt; 每次都进发布分支，域名就稳了。两点注意：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果你的工作流 &lt;code&gt;EXTERNAL_REPOSITORY&lt;/code&gt; 指向另一个仓库（比如把站点部署到 &lt;code&gt;用户名.github.io&lt;/code&gt;，本仓库只放源码），CNAME 会落到那个仓库的发布分支——正是 GitHub Pages 读取它的地方，无需在 whyblog 本仓库根放 CNAME。&lt;/li&gt;
+&lt;li&gt;带 CNAME 的那次部署跑完后，回 Settings → Pages 把自定义域&lt;strong&gt;重填一次&lt;/strong&gt;即可；之后因为分支里一直有 CNAME，再也不会被部署冲掉。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;域名还没注册就去加解析&lt;/strong&gt;
 解析记录只对「已注册且 NS 已委派」的域名有意义。域名未注册时加记录无处生效。先确认 RDAP / whois 里域名已存在（本文 &lt;code&gt;whysoso.com&lt;/code&gt; 是当天在 Spaceship 注册、NS 指向 Cloudflare 后才配的）。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;2FA 与授权（顺带一提）&lt;/strong&gt;

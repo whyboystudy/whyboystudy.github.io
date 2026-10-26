@@ -10,7 +10,7 @@
 <meta property='og:description' content="把 GitHub Pages 默认的 *.github.io 换成自己的域名（根域名或子域名）的完整流程——GitHub 仓库里填自定义域名、去注册商加 A / CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改和 Cloudflare 代理的常见坑">
 <meta property='og:url' content='https://www.whysoso.com/post/tutorial/github-pages-custom-domain/'>
 <meta property='og:site_name' content='美味芝士'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='github-pages' /><meta property='article:tag' content='域名' /><meta property='article:tag' content='dns' /><meta property='article:tag' content='cloudflare' /><meta property='article:tag' content='hugo' /><meta property='article:tag' content='spaceship' /><meta property='article:published_time' content='2026-10-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-26T21:09:58&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='github-pages' /><meta property='article:tag' content='域名' /><meta property='article:tag' content='dns' /><meta property='article:tag' content='cloudflare' /><meta property='article:tag' content='hugo' /><meta property='article:tag' content='spaceship' /><meta property='article:published_time' content='2026-10-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-26T21:25:28&#43;08:00'/>
 <meta name="twitter:title" content="给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录">
 <meta name="twitter:description" content="把 GitHub Pages 默认的 *.github.io 换成自己的域名（根域名或子域名）的完整流程——GitHub 仓库里填自定义域名、去注册商加 A / CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改和 Cloudflare 代理的常见坑">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -691,8 +691,13 @@ GitHub Pages 的免费证书靠对 <code>whysoso.com</code> / <code>www</code> �
 </ul>
 <p><strong>根域 + www 都想用</strong>
 根域 4 条 A，再加一条 <code>www</code> 的 CNAME → <code>&lt;用户名&gt;.github.io</code>，然后在 GitHub Pages 的 Custom domain 里把 <code>www</code> 设成首选域（勾选 &ldquo;Enforce HTTPS&rdquo; 上方那项），访问 <code>whysoso.com</code> 会自动跳 <code>www</code>（或反之，按你设的首选域）。</p>
-<p><strong>CNAME 文件被覆盖</strong>
-有些部署流程（尤其是用自定义 Action 或第三方构建）会清掉仓库根目录的 CNAME 文件，导致自定义域丢失、跳回 <code>.github.io</code>。确保构建产物里保留 CNAME，或在部署步骤里重新写入。</p>
+<p><strong>CNAME 文件被部署流程清掉，自定义域每次都被重置为空（最高频）</strong>
+这是 Hugo + GitHub Actions 部署最容易踩的坑，本文作者的 <code>whysoso.com</code> 就栽在这。你在仓库 <strong>Settings → Pages</strong> 填自定义域名后，GitHub 会把域名写进<strong>发布分支根目录的 <code>CNAME</code> 文件</strong>来记住它。但如果部署用的是 <code>peaceiris/actions-gh-pages</code> 这类「只发布 <code>PUBLISH_DIR</code>（如 <code>./public</code>）并清空分支上其他文件」的 Action，而你的 <code>public/</code> 里<strong>没有 CNAME</strong>，那每次 Action 一跑，GitHub 刚写好的 <code>CNAME</code> 就被干净的构建产物覆盖掉 → GitHub 找不到 CNAME → 自定义域被清空、跳回 <code>*.github.io</code>。现象就是「每次 Action 跑完，Custom domain 变成空」。</p>
+<p><strong>修法</strong>：在 Hugo 源码的 <strong><code>static/CNAME</code></strong> 里写一行你的域名（如 <code>www.whysoso.com</code>，不要多余的空格或空行）。Hugo 构建时会把 <code>static/</code> 原样拷贝到 <code>public/</code> 根，于是 <code>public/CNAME</code> 每次都进发布分支，域名就稳了。两点注意：</p>
+<ul>
+<li>如果你的工作流 <code>EXTERNAL_REPOSITORY</code> 指向另一个仓库（比如把站点部署到 <code>用户名.github.io</code>，本仓库只放源码），CNAME 会落到那个仓库的发布分支——正是 GitHub Pages 读取它的地方，无需在 whyblog 本仓库根放 CNAME。</li>
+<li>带 CNAME 的那次部署跑完后，回 Settings → Pages 把自定义域<strong>重填一次</strong>即可；之后因为分支里一直有 CNAME，再也不会被部署冲掉。</li>
+</ul>
 <p><strong>域名还没注册就去加解析</strong>
 解析记录只对「已注册且 NS 已委派」的域名有意义。域名未注册时加记录无处生效。先确认 RDAP / whois 里域名已存在（本文 <code>whysoso.com</code> 是当天在 Spaceship 注册、NS 指向 Cloudflare 后才配的）。</p>
 <p><strong>2FA 与授权（顺带一提）</strong>
@@ -743,7 +748,7 @@ GitHub Pages 的免费证书靠对 <code>whysoso.com</code> / <code>www</code> �
 
 
         <span>
-            最后更新于 2026-10-26 21:09
+            最后更新于 2026-10-26 21:25
         </span>
     </section></footer>
 
