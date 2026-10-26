@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="把 GitHub Pages 默认的 *.github.io 换成自己的域名（根域名或子域名）的完整流程——GitHub 仓库里填自定义域名、去注册商加 A / CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改和 Cloudflare 代理的常见坑">
-<title>给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="把 GitHub Pages 默认的 *.github.io 换成自己的子域名（如 www.whysoso.com）的完整流程——GitHub 仓库里填自定义域名、去注册商加 CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改、CNAME 防止被部署清空和 Cloudflare 代理的常见坑">
+<title>给 GitHub Pages 绑定自己的子域名：从仓库设置到 DNS 解析、HTTPS 全记录</title>
 
 <link rel='canonical' href='https://www.whysoso.com/post/tutorial/github-pages-custom-domain/'>
 
-<link rel="stylesheet" href="/scss/style.min.5f857ace3a05efea87308efd99f2807d2d3c1c878374a7316cd011d560433d1f.css"><meta property='og:title' content="给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录">
-<meta property='og:description' content="把 GitHub Pages 默认的 *.github.io 换成自己的域名（根域名或子域名）的完整流程——GitHub 仓库里填自定义域名、去注册商加 A / CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改和 Cloudflare 代理的常见坑">
+<link rel="stylesheet" href="/scss/style.min.5f857ace3a05efea87308efd99f2807d2d3c1c878374a7316cd011d560433d1f.css"><meta property='og:title' content="给 GitHub Pages 绑定自己的子域名：从仓库设置到 DNS 解析、HTTPS 全记录">
+<meta property='og:description' content="把 GitHub Pages 默认的 *.github.io 换成自己的子域名（如 www.whysoso.com）的完整流程——GitHub 仓库里填自定义域名、去注册商加 CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改、CNAME 防止被部署清空和 Cloudflare 代理的常见坑">
 <meta property='og:url' content='https://www.whysoso.com/post/tutorial/github-pages-custom-domain/'>
 <meta property='og:site_name' content='美味芝士'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='github-pages' /><meta property='article:tag' content='域名' /><meta property='article:tag' content='dns' /><meta property='article:tag' content='cloudflare' /><meta property='article:tag' content='hugo' /><meta property='article:tag' content='spaceship' /><meta property='article:published_time' content='2026-10-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-26T21:25:28&#43;08:00'/>
-<meta name="twitter:title" content="给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录">
-<meta name="twitter:description" content="把 GitHub Pages 默认的 *.github.io 换成自己的域名（根域名或子域名）的完整流程——GitHub 仓库里填自定义域名、去注册商加 A / CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改和 Cloudflare 代理的常见坑">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='github-pages' /><meta property='article:tag' content='域名' /><meta property='article:tag' content='dns' /><meta property='article:tag' content='cloudflare' /><meta property='article:tag' content='hugo' /><meta property='article:tag' content='spaceship' /><meta property='article:published_time' content='2026-10-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-26T21:42:42&#43;08:00'/>
+<meta name="twitter:title" content="给 GitHub Pages 绑定自己的子域名：从仓库设置到 DNS 解析、HTTPS 全记录">
+<meta name="twitter:description" content="把 GitHub Pages 默认的 *.github.io 换成自己的子域名（如 www.whysoso.com）的完整流程——GitHub 仓库里填自定义域名、去注册商加 CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改、CNAME 防止被部署清空和 Cloudflare 代理的常见坑">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -381,16 +381,16 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#先想清楚根域名还是子域名">先想清楚：根域名还是子域名</a></li>
     <li><a href="#第一步github-仓库里填自定义域名">第一步：GitHub 仓库里填自定义域名</a></li>
-    <li><a href="#第二步去注册商加-dns-记录">第二步：去注册商加 DNS 记录</a>
+    <li><a href="#第二步注册商加-dns-记录">第二步：注册商加 DNS 记录</a>
       <ol>
-        <li><a href="#方案-a域名在-spaceshipspaceship-自己托管-dns">方案 A：域名在 Spaceship（Spaceship 自己托管 DNS）</a></li>
+        <li><a href="#方案-a域名在-spaceship自托管-dns">方案 A：域名在 Spaceship（自托管 DNS）</a></li>
         <li><a href="#方案-b域名在-cloudflare或-ns-已指向-cloudflare">方案 B：域名在 Cloudflare（或 NS 已指向 Cloudflare）</a></li>
       </ol>
     </li>
-    <li><a href="#第三步验证解析生效--开启强制-https">第三步：验证解析生效 + 开启强制 HTTPS</a></li>
-    <li><a href="#第四步hugo-站点配套改-baseurl-并重新部署">第四步：Hugo 站点配套改 baseURL 并重新部署</a></li>
+    <li><a href="#第三步验证生效--开启-https">第三步：验证生效 + 开启 HTTPS</a></li>
+    <li><a href="#第四步hugo-改-baseurl-并重新部署">第四步：Hugo 改 baseURL 并重新部署</a></li>
+    <li><a href="#第五步防止部署清空自定义域名cname">第五步：防止部署清空自定义域名（CNAME）</a></li>
     <li><a href="#常见坑">常见坑</a></li>
     <li><a href="#实战小结">实战小结</a></li>
   </ol>
@@ -452,12 +452,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/post/tutorial/github-pages-custom-domain/">给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录</a>
+            <a href="/post/tutorial/github-pages-custom-domain/">给 GitHub Pages 绑定自己的子域名：从仓库设置到 DNS 解析、HTTPS 全记录</a>
         </h2>
 
         
         <h3 class="article-subtitle">
-            把 GitHub Pages 默认的 *.github.io 换成自己的域名（根域名或子域名）的完整流程——GitHub 仓库里填自定义域名、去注册商加 A / CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改和 Cloudflare 代理的常见坑
+            把 GitHub Pages 默认的 *.github.io 换成自己的子域名（如 www.whysoso.com）的完整流程——GitHub 仓库里填自定义域名、去注册商加 CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改、CNAME 防止被部署清空和 Cloudflare 代理的常见坑
         </h3>
         
     </div>
@@ -494,7 +494,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -517,80 +517,26 @@
     <section class="article-content">
     
     
-    <p>GitHub Pages 默认给你一个 <code>用户名.github.io</code> 的地址，能用但不够「像自己的站」。想用 <code>www.whysoso.com</code> 这种自己的域名访问，需要在两处动手：<strong>GitHub 仓库里声明自定义域名</strong> + <strong>域名注册商处加 DNS 解析</strong>。本文用我刚实操的 <code>www.whysoso.com → whyboystudy.github.io</code> 为例（根域 <code>whysoso.com</code> 也加了 A 记录、并设为跳转到 www），把每一步和踩过的坑写清楚，所有记录都能照抄。</p>
-<p>环境假设：你已有一个能正常访问的 GitHub Pages 站点（用户页 <code>&lt;用户名&gt;.github.io</code> 或项目页），且手里有一个已注册、DNS 可管理的域名。</p>
-<h2 id="先想清楚根域名还是子域名">先想清楚：根域名还是子域名
-</h2><ul>
-<li><strong>根域名（apex）</strong> <code>whysoso.com</code>：直接把顶级域绑上来，最简洁。需要加 <strong>4 条 A 记录</strong>。</li>
-<li><strong>子域名</strong> <code>www.whysoso.com</code> 或 <code>blog.whysoso.com</code>：最灵活，一条 CNAME 搞定，不影响根域干别的。</li>
-<li>两者可同时绑（根域 + www 都指向 Pages），在 GitHub 里指定一个「首选域」即可。</li>
-</ul>
-<p>下文两种都给，按你买的域名和偏好选。</p>
+    <p>GitHub Pages 默认给 <code>*.github.io</code> 地址，想换成自己的子域名（如 <code>www.whysoso.com</code>）只需两步：<strong>GitHub 仓库里声明自定义域名</strong> + <strong>注册商加 DNS 解析</strong>。本文用 <code>www.whysoso.com → whyboystudy.github.io</code> 实操为例，记录完整流程与踩坑。</p>
 <h2 id="第一步github-仓库里填自定义域名">第一步：GitHub 仓库里填自定义域名
-</h2><p>进你的 Pages 仓库（用户页就是 <code>&lt;用户名&gt;.github.io</code> 这个仓库）→ <strong>Settings → Pages → Custom domain</strong>，输入目标域名，比如：</p>
-<ul>
-<li>绑根域就填 <code>whysoso.com</code></li>
-<li>绑子域就填 <code>www.whysoso.com</code> 或 <code>blog.whysoso.com</code></li>
-</ul>
-<p>点 <strong>Save</strong>。</p>
+</h2><p>进 Pages 仓库（用户页即 <code>&lt;用户名&gt;.github.io</code>）→ <strong>Settings → Pages → Custom domain</strong>，输入子域名（如 <code>www.whysoso.com</code>），点 Save。</p>
+<p>GitHub 会自动在发布分支根目录生成 <strong>CNAME 文件</strong>（内容即你的域名），这是它识别自定义域的依据，别手删。</p>
+<p>此时先别勾 <strong>Enforce HTTPS</strong>——证书未签发前强制会陷入重定向循环。</p>
+<h2 id="第二步注册商加-dns-记录">第二步：注册商加 DNS 记录
+</h2><p>子域名只需加 <strong>1 条 CNAME 记录</strong>，指向 <code>&lt;用户名&gt;.github.io</code>（本文即 <code>whyboystudy.github.io</code>）。</p>
 <blockquote>
-<p>GitHub 会自动在仓库根目录生成一个 <strong>CNAME 文件</strong>（内容就是你的域名）。这个文件别手删——它是 GitHub 识别「该仓库用自定义域」的依据；如果你用自定义发布源（如 <code>docs/</code> 或别的分支）也要保证它一直在。</p>
+<p>记录要加在真正托管 DNS 的那家：看域名的 NS 指向谁。本文 <code>whysoso.com</code> 注册在 Spaceship，但 NS 已指向 Cloudflare，所以记录在 Cloudflare 加。</p>
 </blockquote>
-<p>此时先别急着勾「Enforce HTTPS」。证书还没签发，提前强制 HTTPS 会陷入重定向循环。</p>
-<h2 id="第二步去注册商加-dns-记录">第二步：去注册商加 DNS 记录
-</h2><p>这一步是把域名「指」向 GitHub Pages 的服务器。GitHub Pages 的地址固定是下面这 4 个 IP（长期稳定，不是某个会变的机器）：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">185.199.108.153
-</span></span><span class="line"><span class="cl">185.199.109.153
-</span></span><span class="line"><span class="cl">185.199.110.153
-</span></span><span class="line"><span class="cl">185.199.111.153
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>绑根域名</strong> <code>whysoso.com</code>：加 4 条 <strong>A 记录</strong>，分别指向上面 4 个 IP。
-<strong>绑子域名</strong> <code>www.whysoso.com</code> / <code>blog.whysoso.com</code>：加 1 条 <strong>CNAME 记录</strong>，指向 <code>&lt;用户名&gt;.github.io</code>（本文即 <code>whyboystudy.github.io</code>）。</p>
-<blockquote>
-<p>关键：DNS 记录要加在<strong>真正托管你域名 DNS 的那家</strong>。很多人域名在 A 家注册、却把 NS 指向了 B 家（Cloudflare 最常见），那记录就得在 B 家加，在 A 家加不生效。判断方法：看域名的 NS（nameserver）指向谁。本文案例 <code>whysoso.com</code> 注册在 Spaceship，但 NS 已指向 Cloudflare，所以记录是在 Cloudflare 加的。</p>
-</blockquote>
-<h3 id="方案-a域名在-spaceshipspaceship-自己托管-dns">方案 A：域名在 Spaceship（Spaceship 自己托管 DNS）
+<h3 id="方案-a域名在-spaceship自托管-dns">方案 A：域名在 Spaceship（自托管 DNS）
 </h3><ol>
-<li>登录 Spaceship → <strong>Domains</strong> → 找到域名 → <strong>Manage</strong>。</li>
-<li>进 <strong>Advanced DNS / DNS Manager</strong>（高级 DNS）。</li>
-<li>根域加 4 条 A 记录（每条只改 Value）：
-<ul>
-<li>Type <code>A</code>，Host <code>@</code>（代表根域），Value <code>185.199.108.153</code>，TTL <code>Automatic</code></li>
-<li>同上，Value 依次换 <code>185.199.109.153</code> / <code>185.199.110.153</code> / <code>185.199.111.153</code></li>
-</ul>
-</li>
-<li>子域加 1 条 CNAME：
-<ul>
-<li>Type <code>CNAME</code>，Host <code>www</code>（或 <code>blog</code>），Value <code>whyboystudy.github.io</code>，TTL <code>Automatic</code></li>
-</ul>
-</li>
-<li>每条 Save。</li>
+<li><strong>Domains → 域名 → Manage → Advanced DNS</strong>。</li>
+<li>加 1 条 CNAME：Type <code>CNAME</code>，Host <code>www</code>，Value <code>whyboystudy.github.io</code>，TTL <code>Automatic</code>。</li>
 </ol>
 <h3 id="方案-b域名在-cloudflare或-ns-已指向-cloudflare">方案 B：域名在 Cloudflare（或 NS 已指向 Cloudflare）
 </h3><ol>
-<li>登录 Cloudflare → 选域名 → 左侧 <strong>DNS → Records</strong>。</li>
-<li>点 <strong>Add record</strong>。</li>
-<li>根域加 4 条 A 记录：
-<ul>
-<li>Type <code>A</code>，Name <code>whysoso.com</code>（界面显示 <code>@</code>），IPv4 address <code>185.199.108.153</code>，TTL <code>Auto</code></li>
-<li>重复三条，地址换 <code>185.199.109.153</code> / <code>185.199.110.153</code> / <code>185.199.111.153</code></li>
-</ul>
-</li>
-<li>子域加 1 条 CNAME：
-<ul>
-<li>Type <code>CNAME</code>，Name <code>www</code>（或 <code>blog</code>），Target <code>whyboystudy.github.io</code>，TTL <code>Auto</code></li>
-</ul>
-</li>
-<li><strong>Proxy status（代理状态）先设成 DNS only（灰云 ☁️）</strong>，别用橙云。原因见下方「常见坑」。</li>
+<li>选域名 → 左侧 <strong>DNS → Records → Add record</strong>。</li>
+<li>加 1 条 CNAME：Type <code>CNAME</code>，Name <code>www</code>，Target <code>whyboystudy.github.io</code>，TTL <code>Auto</code>。</li>
+<li><strong>Proxy status 先设 DNS only（灰云）</strong>，原因见常见坑。</li>
 </ol>
 <p>照抄填的记录表（Cloudflare 版，本文实际用的）：</p>
 <div class="table-wrapper"><table>
@@ -598,35 +544,11 @@
 			<tr>
 					<th>Type</th>
 					<th>Name</th>
-					<th>目标 / 地址</th>
+					<th>目标</th>
 					<th>Proxy</th>
 			</tr>
 	</thead>
 	<tbody>
-			<tr>
-					<td>A</td>
-					<td>whysoso.com</td>
-					<td>185.199.108.153</td>
-					<td>DNS only（灰云）</td>
-			</tr>
-			<tr>
-					<td>A</td>
-					<td>whysoso.com</td>
-					<td>185.199.109.153</td>
-					<td>DNS only（灰云）</td>
-			</tr>
-			<tr>
-					<td>A</td>
-					<td>whysoso.com</td>
-					<td>185.199.110.153</td>
-					<td>DNS only（灰云）</td>
-			</tr>
-			<tr>
-					<td>A</td>
-					<td>whysoso.com</td>
-					<td>185.199.111.153</td>
-					<td>DNS only（灰云）</td>
-			</tr>
 			<tr>
 					<td>CNAME</td>
 					<td>www</td>
@@ -635,75 +557,47 @@
 			</tr>
 	</tbody>
 </table></div>
-<h2 id="第三步验证解析生效--开启强制-https">第三步：验证解析生效 + 开启强制 HTTPS
-</h2><p>DNS 改动全球生效要几分钟到几小时（TTL 内通常很快）。验证：</p>
+<h2 id="第三步验证生效--开启-https">第三步：验证生效 + 开启 HTTPS
+</h2><p>DNS 全球生效需几分钟到几小时。验证：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 根域应返回 GitHub Pages 的 4 个 IP 之一</span>
-</span></span><span class="line"><span class="cl">nslookup -type<span class="o">=</span>A whysoso.com
-</span></span><span class="line"><span class="cl"><span class="c1"># 子域应返回 CNAME 链到 &lt;用户名&gt;.github.io，并最终解析到那 4 个 IP</span>
-</span></span><span class="line"><span class="cl">nslookup -type<span class="o">=</span>CNAME www.whysoso.com
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># macOS / Linux 也可用 dig</span>
-</span></span><span class="line"><span class="cl">dig +short whysoso.com
-</span></span><span class="line"><span class="cl">dig +short www.whysoso.com
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nslookup -type<span class="o">=</span>CNAME www.whysoso.com  <span class="c1"># 应链到 whyboystudy.github.io</span>
+</span></span><span class="line"><span class="cl">dig +short www.whysoso.com            <span class="c1"># macOS / Linux 也可用</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>看到对应 IP 或 <code>whyboystudy.github.io</code> 就说明解析通了。本文实测 <code>whysoso.com</code> 直接返回全部 4 个 IP、<code>www.whysoso.com</code> 的 CNAME 链为 <code>whyboystudy.github.io → 185.199.108~111.153</code>，即生效。</p>
-<p>回到 GitHub <strong>Settings → Pages</strong>：</p>
+</div><p>本文实测 www 的 CNAME 链为 <code>whyboystudy.github.io → 185.199.108~111.153</code>，即生效。</p>
+<p>回到 GitHub <strong>Settings → Pages</strong>：等 DNS check 变绿勾 → GitHub 自动签发免费证书 → 证书就绪后勾 <strong>Enforce HTTPS</strong>。</p>
+<h2 id="第四步hugo-改-baseurl-并重新部署">第四步：Hugo 改 baseURL 并重新部署
+</h2><p><code>hugo.yaml</code> / <code>config.toml</code> 里的 <code>baseURL</code> 必须同步，否则站内链接、RSS、sitemap 仍是 <code>.github.io</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">baseURL</span> <span class="p">=</span> <span class="s2">&#34;https://www.whysoso.com/&#34;</span>   <span class="c"># 本文实际用</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>改完重新生成并推送（push 触发 Actions 自动部署）。</p>
+<h2 id="第五步防止部署清空自定义域名cname">第五步：防止部署清空自定义域名（CNAME）
+</h2><p>如果你用 GitHub Actions 部署（如 <code>peaceiris/actions-gh-pages</code>），会出现「每次 Action 跑完 Custom domain 变成空、跳回 <code>*.github.io</code>」——这是最高频的坑，本文 <code>www.whysoso.com</code> 就栽在这。</p>
+<p><strong>原因</strong>：在 Settings → Pages 填域名后，GitHub 把域名写进<strong>发布分支根目录的 <code>CNAME</code> 文件</strong>来记住它。但这类 Action 是「用 <code>PUBLISH_DIR</code>（如 <code>./public</code>）强制覆盖发布分支、清掉其他文件」，而你的 <code>public/</code> 里<strong>没有 CNAME</strong> → 每次部署把 GitHub 写好的 CNAME 冲掉 → 域名被清空。</p>
+<p><strong>修法</strong>：在 Hugo 源码的 <strong><code>static/CNAME</code></strong> 写一行域名（如 <code>www.whysoso.com</code>，不要多余空格或空行）。Hugo 构建时把 <code>static/</code> 原样拷到 <code>public/</code>，于是 <code>public/CNAME</code> 每次都进发布分支，域名就稳了。</p>
+<p>注意：</p>
 <ul>
-<li>等「DNS check」变成绿勾（GitHub 检测到你的解析指向了它）。</li>
-<li>之后 GitHub 自动签发<strong>免费证书</strong>（几分钟到半小时）。</li>
-<li>证书就绪后，勾上 <strong>Enforce HTTPS</strong>（强制 HTTPS）。</li>
+<li>若工作流 <code>EXTERNAL_REPOSITORY</code> 指向另一个仓库（本仓库只放源码、部署到 <code>用户名.github.io</code>），CNAME 落到那个仓库的发布分支——正是 Pages 读取的地方，无需在本仓库根放 CNAME。</li>
+<li>带 CNAME 的部署跑完后，回 Settings → Pages 把自定义域<strong>重填一次</strong>；之后分支里一直有 CNAME，再也不会被冲掉。</li>
 </ul>
-<blockquote>
-<p>证书没签发前别勾 Enforce HTTPS，否则会重定向循环。若长时间不签发，多半是 DNS 记录还没完全生效，或你的 Cloudflare 代理挡住了 GitHub 的证书校验（见下）。</p>
-</blockquote>
-<h2 id="第四步hugo-站点配套改-baseurl-并重新部署">第四步：Hugo 站点配套改 baseURL 并重新部署
-</h2><p>如果你像我一样用 Hugo，域名换了之后 <code>config.toml</code> / <code>hugo.toml</code> 里的 <code>baseURL</code> 必须同步，否则站内链接、RSS、sitemap 还是 <code>.github.io</code>：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">baseURL</span> <span class="p">=</span> <span class="s2">&#34;https://www.whysoso.com/&#34;</span>   <span class="c"># 绑 www（本文实际用的）</span>
-</span></span><span class="line"><span class="cl"><span class="c"># 或 baseURL = &#34;https://whysoso.com/&#34;   # 绑根域</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>改完重新 <code>hugo</code> 生成并推送（GitHub Pages 通常由 push 触发 Actions 自动部署）。生成后确认站点里跳转、资源引用都走新域名。</p>
 <h2 id="常见坑">常见坑
-</h2><p><strong>Cloudflare 代理（橙云）导致证书签发失败 / HTTPS 循环</strong>
-GitHub Pages 的免费证书靠对 <code>whysoso.com</code> / <code>www</code> 的 HTTP 校验来签发。Cloudflare 开橙云（代理）后会把流量先过 Cloudflare，可能干扰校验，证书一直签不下来。做法：</p>
-<ul>
-<li>加记录时先用 <strong>DNS only（灰云）</strong>，等 GitHub 证书签发成功、站点能正常开，再按需把代理开回橙云（CDN 加速）。</li>
-<li>Cloudflare 的 <strong>SSL/TLS 模式设成 Full（而非 Flexible）</strong>。Flexible 下 Cloudflare 到源站走 HTTP，和 GitHub 的 HTTPS 互相重定向成死循环；Full 才正确。</li>
-</ul>
-<p><strong>根域 + www 都想用</strong>
-根域 4 条 A，再加一条 <code>www</code> 的 CNAME → <code>&lt;用户名&gt;.github.io</code>，然后在 GitHub Pages 的 Custom domain 里把 <code>www</code> 设成首选域（勾选 &ldquo;Enforce HTTPS&rdquo; 上方那项），访问 <code>whysoso.com</code> 会自动跳 <code>www</code>（或反之，按你设的首选域）。</p>
-<p><strong>CNAME 文件被部署流程清掉，自定义域每次都被重置为空（最高频）</strong>
-这是 Hugo + GitHub Actions 部署最容易踩的坑，本文作者的 <code>whysoso.com</code> 就栽在这。你在仓库 <strong>Settings → Pages</strong> 填自定义域名后，GitHub 会把域名写进<strong>发布分支根目录的 <code>CNAME</code> 文件</strong>来记住它。但如果部署用的是 <code>peaceiris/actions-gh-pages</code> 这类「只发布 <code>PUBLISH_DIR</code>（如 <code>./public</code>）并清空分支上其他文件」的 Action，而你的 <code>public/</code> 里<strong>没有 CNAME</strong>，那每次 Action 一跑，GitHub 刚写好的 <code>CNAME</code> 就被干净的构建产物覆盖掉 → GitHub 找不到 CNAME → 自定义域被清空、跳回 <code>*.github.io</code>。现象就是「每次 Action 跑完，Custom domain 变成空」。</p>
-<p><strong>修法</strong>：在 Hugo 源码的 <strong><code>static/CNAME</code></strong> 里写一行你的域名（如 <code>www.whysoso.com</code>，不要多余的空格或空行）。Hugo 构建时会把 <code>static/</code> 原样拷贝到 <code>public/</code> 根，于是 <code>public/CNAME</code> 每次都进发布分支，域名就稳了。两点注意：</p>
-<ul>
-<li>如果你的工作流 <code>EXTERNAL_REPOSITORY</code> 指向另一个仓库（比如把站点部署到 <code>用户名.github.io</code>，本仓库只放源码），CNAME 会落到那个仓库的发布分支——正是 GitHub Pages 读取它的地方，无需在 whyblog 本仓库根放 CNAME。</li>
-<li>带 CNAME 的那次部署跑完后，回 Settings → Pages 把自定义域<strong>重填一次</strong>即可；之后因为分支里一直有 CNAME，再也不会被部署冲掉。</li>
-</ul>
-<p><strong>域名还没注册就去加解析</strong>
-解析记录只对「已注册且 NS 已委派」的域名有意义。域名未注册时加记录无处生效。先确认 RDAP / whois 里域名已存在（本文 <code>whysoso.com</code> 是当天在 Spaceship 注册、NS 指向 Cloudflare 后才配的）。</p>
-<p><strong>2FA 与授权（顺带一提）</strong>
-如果你是用 WorkBuddy 的 GitHub 连接器来自动建 PR / 改仓库，GitHub 已强制开启两步验证（2FA），连接器走 OAuth 或 Personal Access Token 授权；连不上先查网络能否稳定访问 github.com（OAuth 要跳 github.com 再跳回，中间断一丝就授权失败）。</p>
+</h2><p><strong>Cloudflare 代理（橙云）导致证书签发失败</strong>
+加记录时先 <strong>DNS only（灰云）</strong>，等证书签发、站点正常后再按需开橙云（CDN 加速）。Cloudflare 的 <strong>SSL/TLS 模式设 Full（非 Flexible）</strong>，否则与 GitHub 的 HTTPS 互重定向成死循环。</p>
+<p><strong>域名未注册就加解析</strong>
+记录只对已注册、NS 已委派的域名生效。先确认 RDAP / whois 域名已存在（本文 <code>whysoso.com</code> 是当天在 Spaceship 注册、NS 指向 Cloudflare 后才配的）。</p>
 <h2 id="实战小结">实战小结
-</h2><p>本文案例的完整链路：<code>whysoso.com</code> 在 Spaceship 注册 → NS 指向 Cloudflare（DNS 托管在 Cloudflare）→ Cloudflare 加 4 条 A（根域）+ 1 条 CNAME（www）→ GitHub Pages 填 <code>www.whysoso.com</code>（根域 <code>whysoso.com</code> 设为跳转到 www）→ 证书签发后 Enforce HTTPS → Hugo <code>baseURL</code> 改为 <code>https://www.whysoso.com/</code> 并重新部署。核心就三句话：<strong>GitHub 里声明域名、注册商里把 DNS 指到那 4 个 IP、证书出来再强制 HTTPS</strong>。Cloudflare 用户记住「先灰云后橙云、SSL 用 Full」即可避开九成问题。</p>
+</h2><p><code>whysoso.com</code> 注册于 Spaceship → NS 指向 Cloudflare → Cloudflare 加 1 条 CNAME（www → <code>whyboystudy.github.io</code>）→ GitHub Pages 填 <code>www.whysoso.com</code> → 证书签发后 Enforce HTTPS → Hugo <code>baseURL</code> 改 <code>https://www.whysoso.com/</code> 并重部署 → <code>static/CNAME</code> 锁定域名不被部署清空。核心三句：<strong>GitHub 声明域名、注册商 DNS 加 CNAME 指到 <code>&lt;用户名&gt;.github.io</code>、证书出来再强制 HTTPS</strong>。Cloudflare 用户记「先灰云后橙云、SSL 用 Full」即可。</p>
 
         </section>
 
@@ -748,7 +642,7 @@ GitHub Pages 的免费证书靠对 <code>whysoso.com</code> / <code>www</code> �
 
 
         <span>
-            最后更新于 2026-10-26 21:25
+            最后更新于 2026-10-26 21:42
         </span>
     </section></footer>
 

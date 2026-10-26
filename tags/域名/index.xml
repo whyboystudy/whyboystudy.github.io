@@ -6,91 +6,37 @@
         <description>Recent content in 域名 on 美味芝士</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 26 Oct 2026 21:25:28 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/%E5%9F%9F%E5%90%8D/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Mon, 26 Oct 2026 21:42:42 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/%E5%9F%9F%E5%90%8D/index.xml" rel="self" type="application/rss+xml" />
         <image>
             <url>https://www.whysoso.com/img/avatar.png</url>
             <title>美味芝士</title>
             <link>https://www.whysoso.com/</link>
         </image><item>
-        <title>给 GitHub Pages 绑定自己的域名：从仓库设置到 DNS 解析、HTTPS 全记录</title>
+        <title>给 GitHub Pages 绑定自己的子域名：从仓库设置到 DNS 解析、HTTPS 全记录</title>
         <link>https://www.whysoso.com/post/tutorial/github-pages-custom-domain/</link>
         <pubDate>Mon, 26 Oct 2026 00:00:00 +0000</pubDate>
         
         <guid>https://www.whysoso.com/post/tutorial/github-pages-custom-domain/</guid>
-        <description>&lt;p&gt;GitHub Pages 默认给你一个 &lt;code&gt;用户名.github.io&lt;/code&gt; 的地址，能用但不够「像自己的站」。想用 &lt;code&gt;www.whysoso.com&lt;/code&gt; 这种自己的域名访问，需要在两处动手：&lt;strong&gt;GitHub 仓库里声明自定义域名&lt;/strong&gt; + &lt;strong&gt;域名注册商处加 DNS 解析&lt;/strong&gt;。本文用我刚实操的 &lt;code&gt;www.whysoso.com → whyboystudy.github.io&lt;/code&gt; 为例（根域 &lt;code&gt;whysoso.com&lt;/code&gt; 也加了 A 记录、并设为跳转到 www），把每一步和踩过的坑写清楚，所有记录都能照抄。&lt;/p&gt;
-&lt;p&gt;环境假设：你已有一个能正常访问的 GitHub Pages 站点（用户页 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt; 或项目页），且手里有一个已注册、DNS 可管理的域名。&lt;/p&gt;
-&lt;h2 id=&#34;先想清楚根域名还是子域名&#34;&gt;先想清楚：根域名还是子域名
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;根域名（apex）&lt;/strong&gt; &lt;code&gt;whysoso.com&lt;/code&gt;：直接把顶级域绑上来，最简洁。需要加 &lt;strong&gt;4 条 A 记录&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;子域名&lt;/strong&gt; &lt;code&gt;www.whysoso.com&lt;/code&gt; 或 &lt;code&gt;blog.whysoso.com&lt;/code&gt;：最灵活，一条 CNAME 搞定，不影响根域干别的。&lt;/li&gt;
-&lt;li&gt;两者可同时绑（根域 + www 都指向 Pages），在 GitHub 里指定一个「首选域」即可。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;下文两种都给，按你买的域名和偏好选。&lt;/p&gt;
+        <description>&lt;p&gt;GitHub Pages 默认给 &lt;code&gt;*.github.io&lt;/code&gt; 地址，想换成自己的子域名（如 &lt;code&gt;www.whysoso.com&lt;/code&gt;）只需两步：&lt;strong&gt;GitHub 仓库里声明自定义域名&lt;/strong&gt; + &lt;strong&gt;注册商加 DNS 解析&lt;/strong&gt;。本文用 &lt;code&gt;www.whysoso.com → whyboystudy.github.io&lt;/code&gt; 实操为例，记录完整流程与踩坑。&lt;/p&gt;
 &lt;h2 id=&#34;第一步github-仓库里填自定义域名&#34;&gt;第一步：GitHub 仓库里填自定义域名
-&lt;/h2&gt;&lt;p&gt;进你的 Pages 仓库（用户页就是 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt; 这个仓库）→ &lt;strong&gt;Settings → Pages → Custom domain&lt;/strong&gt;，输入目标域名，比如：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;绑根域就填 &lt;code&gt;whysoso.com&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;绑子域就填 &lt;code&gt;www.whysoso.com&lt;/code&gt; 或 &lt;code&gt;blog.whysoso.com&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;点 &lt;strong&gt;Save&lt;/strong&gt;。&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;进 Pages 仓库（用户页即 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt;）→ &lt;strong&gt;Settings → Pages → Custom domain&lt;/strong&gt;，输入子域名（如 &lt;code&gt;www.whysoso.com&lt;/code&gt;），点 Save。&lt;/p&gt;
+&lt;p&gt;GitHub 会自动在发布分支根目录生成 &lt;strong&gt;CNAME 文件&lt;/strong&gt;（内容即你的域名），这是它识别自定义域的依据，别手删。&lt;/p&gt;
+&lt;p&gt;此时先别勾 &lt;strong&gt;Enforce HTTPS&lt;/strong&gt;——证书未签发前强制会陷入重定向循环。&lt;/p&gt;
+&lt;h2 id=&#34;第二步注册商加-dns-记录&#34;&gt;第二步：注册商加 DNS 记录
+&lt;/h2&gt;&lt;p&gt;子域名只需加 &lt;strong&gt;1 条 CNAME 记录&lt;/strong&gt;，指向 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt;（本文即 &lt;code&gt;whyboystudy.github.io&lt;/code&gt;）。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;GitHub 会自动在仓库根目录生成一个 &lt;strong&gt;CNAME 文件&lt;/strong&gt;（内容就是你的域名）。这个文件别手删——它是 GitHub 识别「该仓库用自定义域」的依据；如果你用自定义发布源（如 &lt;code&gt;docs/&lt;/code&gt; 或别的分支）也要保证它一直在。&lt;/p&gt;
+&lt;p&gt;记录要加在真正托管 DNS 的那家：看域名的 NS 指向谁。本文 &lt;code&gt;whysoso.com&lt;/code&gt; 注册在 Spaceship，但 NS 已指向 Cloudflare，所以记录在 Cloudflare 加。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;此时先别急着勾「Enforce HTTPS」。证书还没签发，提前强制 HTTPS 会陷入重定向循环。&lt;/p&gt;
-&lt;h2 id=&#34;第二步去注册商加-dns-记录&#34;&gt;第二步：去注册商加 DNS 记录
-&lt;/h2&gt;&lt;p&gt;这一步是把域名「指」向 GitHub Pages 的服务器。GitHub Pages 的地址固定是下面这 4 个 IP（长期稳定，不是某个会变的机器）：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;185.199.108.153
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;185.199.109.153
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;185.199.110.153
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;185.199.111.153
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;strong&gt;绑根域名&lt;/strong&gt; &lt;code&gt;whysoso.com&lt;/code&gt;：加 4 条 &lt;strong&gt;A 记录&lt;/strong&gt;，分别指向上面 4 个 IP。
-&lt;strong&gt;绑子域名&lt;/strong&gt; &lt;code&gt;www.whysoso.com&lt;/code&gt; / &lt;code&gt;blog.whysoso.com&lt;/code&gt;：加 1 条 &lt;strong&gt;CNAME 记录&lt;/strong&gt;，指向 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt;（本文即 &lt;code&gt;whyboystudy.github.io&lt;/code&gt;）。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;关键：DNS 记录要加在&lt;strong&gt;真正托管你域名 DNS 的那家&lt;/strong&gt;。很多人域名在 A 家注册、却把 NS 指向了 B 家（Cloudflare 最常见），那记录就得在 B 家加，在 A 家加不生效。判断方法：看域名的 NS（nameserver）指向谁。本文案例 &lt;code&gt;whysoso.com&lt;/code&gt; 注册在 Spaceship，但 NS 已指向 Cloudflare，所以记录是在 Cloudflare 加的。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;方案-a域名在-spaceshipspaceship-自己托管-dns&#34;&gt;方案 A：域名在 Spaceship（Spaceship 自己托管 DNS）
+&lt;h3 id=&#34;方案-a域名在-spaceship自托管-dns&#34;&gt;方案 A：域名在 Spaceship（自托管 DNS）
 &lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;登录 Spaceship → &lt;strong&gt;Domains&lt;/strong&gt; → 找到域名 → &lt;strong&gt;Manage&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;进 &lt;strong&gt;Advanced DNS / DNS Manager&lt;/strong&gt;（高级 DNS）。&lt;/li&gt;
-&lt;li&gt;根域加 4 条 A 记录（每条只改 Value）：
-&lt;ul&gt;
-&lt;li&gt;Type &lt;code&gt;A&lt;/code&gt;，Host &lt;code&gt;@&lt;/code&gt;（代表根域），Value &lt;code&gt;185.199.108.153&lt;/code&gt;，TTL &lt;code&gt;Automatic&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;同上，Value 依次换 &lt;code&gt;185.199.109.153&lt;/code&gt; / &lt;code&gt;185.199.110.153&lt;/code&gt; / &lt;code&gt;185.199.111.153&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;子域加 1 条 CNAME：
-&lt;ul&gt;
-&lt;li&gt;Type &lt;code&gt;CNAME&lt;/code&gt;，Host &lt;code&gt;www&lt;/code&gt;（或 &lt;code&gt;blog&lt;/code&gt;），Value &lt;code&gt;whyboystudy.github.io&lt;/code&gt;，TTL &lt;code&gt;Automatic&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;每条 Save。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Domains → 域名 → Manage → Advanced DNS&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;加 1 条 CNAME：Type &lt;code&gt;CNAME&lt;/code&gt;，Host &lt;code&gt;www&lt;/code&gt;，Value &lt;code&gt;whyboystudy.github.io&lt;/code&gt;，TTL &lt;code&gt;Automatic&lt;/code&gt;。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;方案-b域名在-cloudflare或-ns-已指向-cloudflare&#34;&gt;方案 B：域名在 Cloudflare（或 NS 已指向 Cloudflare）
 &lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;登录 Cloudflare → 选域名 → 左侧 &lt;strong&gt;DNS → Records&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;点 &lt;strong&gt;Add record&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;根域加 4 条 A 记录：
-&lt;ul&gt;
-&lt;li&gt;Type &lt;code&gt;A&lt;/code&gt;，Name &lt;code&gt;whysoso.com&lt;/code&gt;（界面显示 &lt;code&gt;@&lt;/code&gt;），IPv4 address &lt;code&gt;185.199.108.153&lt;/code&gt;，TTL &lt;code&gt;Auto&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;重复三条，地址换 &lt;code&gt;185.199.109.153&lt;/code&gt; / &lt;code&gt;185.199.110.153&lt;/code&gt; / &lt;code&gt;185.199.111.153&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;子域加 1 条 CNAME：
-&lt;ul&gt;
-&lt;li&gt;Type &lt;code&gt;CNAME&lt;/code&gt;，Name &lt;code&gt;www&lt;/code&gt;（或 &lt;code&gt;blog&lt;/code&gt;），Target &lt;code&gt;whyboystudy.github.io&lt;/code&gt;，TTL &lt;code&gt;Auto&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Proxy status（代理状态）先设成 DNS only（灰云 ☁️）&lt;/strong&gt;，别用橙云。原因见下方「常见坑」。&lt;/li&gt;
+&lt;li&gt;选域名 → 左侧 &lt;strong&gt;DNS → Records → Add record&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;加 1 条 CNAME：Type &lt;code&gt;CNAME&lt;/code&gt;，Name &lt;code&gt;www&lt;/code&gt;，Target &lt;code&gt;whyboystudy.github.io&lt;/code&gt;，TTL &lt;code&gt;Auto&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Proxy status 先设 DNS only（灰云）&lt;/strong&gt;，原因见常见坑。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;照抄填的记录表（Cloudflare 版，本文实际用的）：&lt;/p&gt;
 &lt;table&gt;
@@ -98,35 +44,11 @@
 			&lt;tr&gt;
 					&lt;th&gt;Type&lt;/th&gt;
 					&lt;th&gt;Name&lt;/th&gt;
-					&lt;th&gt;目标 / 地址&lt;/th&gt;
+					&lt;th&gt;目标&lt;/th&gt;
 					&lt;th&gt;Proxy&lt;/th&gt;
 			&lt;/tr&gt;
 	&lt;/thead&gt;
 	&lt;tbody&gt;
-			&lt;tr&gt;
-					&lt;td&gt;A&lt;/td&gt;
-					&lt;td&gt;whysoso.com&lt;/td&gt;
-					&lt;td&gt;185.199.108.153&lt;/td&gt;
-					&lt;td&gt;DNS only（灰云）&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;A&lt;/td&gt;
-					&lt;td&gt;whysoso.com&lt;/td&gt;
-					&lt;td&gt;185.199.109.153&lt;/td&gt;
-					&lt;td&gt;DNS only（灰云）&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;A&lt;/td&gt;
-					&lt;td&gt;whysoso.com&lt;/td&gt;
-					&lt;td&gt;185.199.110.153&lt;/td&gt;
-					&lt;td&gt;DNS only（灰云）&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;A&lt;/td&gt;
-					&lt;td&gt;whysoso.com&lt;/td&gt;
-					&lt;td&gt;185.199.111.153&lt;/td&gt;
-					&lt;td&gt;DNS only（灰云）&lt;/td&gt;
-			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td&gt;CNAME&lt;/td&gt;
 					&lt;td&gt;www&lt;/td&gt;
@@ -135,75 +57,47 @@
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h2 id=&#34;第三步验证解析生效--开启强制-https&#34;&gt;第三步：验证解析生效 + 开启强制 HTTPS
-&lt;/h2&gt;&lt;p&gt;DNS 改动全球生效要几分钟到几小时（TTL 内通常很快）。验证：&lt;/p&gt;
+&lt;h2 id=&#34;第三步验证生效--开启-https&#34;&gt;第三步：验证生效 + 开启 HTTPS
+&lt;/h2&gt;&lt;p&gt;DNS 全球生效需几分钟到几小时。验证：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 根域应返回 GitHub Pages 的 4 个 IP 之一&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nslookup -type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;A whysoso.com
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 子域应返回 CNAME 链到 &amp;lt;用户名&amp;gt;.github.io，并最终解析到那 4 个 IP&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nslookup -type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;CNAME www.whysoso.com
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# macOS / Linux 也可用 dig&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dig +short whysoso.com
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dig +short www.whysoso.com
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nslookup -type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;CNAME www.whysoso.com  &lt;span class=&#34;c1&#34;&gt;# 应链到 whyboystudy.github.io&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dig +short www.whysoso.com            &lt;span class=&#34;c1&#34;&gt;# macOS / Linux 也可用&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;看到对应 IP 或 &lt;code&gt;whyboystudy.github.io&lt;/code&gt; 就说明解析通了。本文实测 &lt;code&gt;whysoso.com&lt;/code&gt; 直接返回全部 4 个 IP、&lt;code&gt;www.whysoso.com&lt;/code&gt; 的 CNAME 链为 &lt;code&gt;whyboystudy.github.io → 185.199.108~111.153&lt;/code&gt;，即生效。&lt;/p&gt;
-&lt;p&gt;回到 GitHub &lt;strong&gt;Settings → Pages&lt;/strong&gt;：&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;本文实测 www 的 CNAME 链为 &lt;code&gt;whyboystudy.github.io → 185.199.108~111.153&lt;/code&gt;，即生效。&lt;/p&gt;
+&lt;p&gt;回到 GitHub &lt;strong&gt;Settings → Pages&lt;/strong&gt;：等 DNS check 变绿勾 → GitHub 自动签发免费证书 → 证书就绪后勾 &lt;strong&gt;Enforce HTTPS&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;第四步hugo-改-baseurl-并重新部署&#34;&gt;第四步：Hugo 改 baseURL 并重新部署
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;hugo.yaml&lt;/code&gt; / &lt;code&gt;config.toml&lt;/code&gt; 里的 &lt;code&gt;baseURL&lt;/code&gt; 必须同步，否则站内链接、RSS、sitemap 仍是 &lt;code&gt;.github.io&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;baseURL&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://www.whysoso.com/&amp;#34;&lt;/span&gt;   &lt;span class=&#34;c&#34;&gt;# 本文实际用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;改完重新生成并推送（push 触发 Actions 自动部署）。&lt;/p&gt;
+&lt;h2 id=&#34;第五步防止部署清空自定义域名cname&#34;&gt;第五步：防止部署清空自定义域名（CNAME）
+&lt;/h2&gt;&lt;p&gt;如果你用 GitHub Actions 部署（如 &lt;code&gt;peaceiris/actions-gh-pages&lt;/code&gt;），会出现「每次 Action 跑完 Custom domain 变成空、跳回 &lt;code&gt;*.github.io&lt;/code&gt;」——这是最高频的坑，本文 &lt;code&gt;www.whysoso.com&lt;/code&gt; 就栽在这。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;原因&lt;/strong&gt;：在 Settings → Pages 填域名后，GitHub 把域名写进&lt;strong&gt;发布分支根目录的 &lt;code&gt;CNAME&lt;/code&gt; 文件&lt;/strong&gt;来记住它。但这类 Action 是「用 &lt;code&gt;PUBLISH_DIR&lt;/code&gt;（如 &lt;code&gt;./public&lt;/code&gt;）强制覆盖发布分支、清掉其他文件」，而你的 &lt;code&gt;public/&lt;/code&gt; 里&lt;strong&gt;没有 CNAME&lt;/strong&gt; → 每次部署把 GitHub 写好的 CNAME 冲掉 → 域名被清空。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;修法&lt;/strong&gt;：在 Hugo 源码的 &lt;strong&gt;&lt;code&gt;static/CNAME&lt;/code&gt;&lt;/strong&gt; 写一行域名（如 &lt;code&gt;www.whysoso.com&lt;/code&gt;，不要多余空格或空行）。Hugo 构建时把 &lt;code&gt;static/&lt;/code&gt; 原样拷到 &lt;code&gt;public/&lt;/code&gt;，于是 &lt;code&gt;public/CNAME&lt;/code&gt; 每次都进发布分支，域名就稳了。&lt;/p&gt;
+&lt;p&gt;注意：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;等「DNS check」变成绿勾（GitHub 检测到你的解析指向了它）。&lt;/li&gt;
-&lt;li&gt;之后 GitHub 自动签发&lt;strong&gt;免费证书&lt;/strong&gt;（几分钟到半小时）。&lt;/li&gt;
-&lt;li&gt;证书就绪后，勾上 &lt;strong&gt;Enforce HTTPS&lt;/strong&gt;（强制 HTTPS）。&lt;/li&gt;
+&lt;li&gt;若工作流 &lt;code&gt;EXTERNAL_REPOSITORY&lt;/code&gt; 指向另一个仓库（本仓库只放源码、部署到 &lt;code&gt;用户名.github.io&lt;/code&gt;），CNAME 落到那个仓库的发布分支——正是 Pages 读取的地方，无需在本仓库根放 CNAME。&lt;/li&gt;
+&lt;li&gt;带 CNAME 的部署跑完后，回 Settings → Pages 把自定义域&lt;strong&gt;重填一次&lt;/strong&gt;；之后分支里一直有 CNAME，再也不会被冲掉。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;证书没签发前别勾 Enforce HTTPS，否则会重定向循环。若长时间不签发，多半是 DNS 记录还没完全生效，或你的 Cloudflare 代理挡住了 GitHub 的证书校验（见下）。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;第四步hugo-站点配套改-baseurl-并重新部署&#34;&gt;第四步：Hugo 站点配套改 baseURL 并重新部署
-&lt;/h2&gt;&lt;p&gt;如果你像我一样用 Hugo，域名换了之后 &lt;code&gt;config.toml&lt;/code&gt; / &lt;code&gt;hugo.toml&lt;/code&gt; 里的 &lt;code&gt;baseURL&lt;/code&gt; 必须同步，否则站内链接、RSS、sitemap 还是 &lt;code&gt;.github.io&lt;/code&gt;：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-toml&#34; data-lang=&#34;toml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;baseURL&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://www.whysoso.com/&amp;#34;&lt;/span&gt;   &lt;span class=&#34;c&#34;&gt;# 绑 www（本文实际用的）&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 或 baseURL = &amp;#34;https://whysoso.com/&amp;#34;   # 绑根域&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;改完重新 &lt;code&gt;hugo&lt;/code&gt; 生成并推送（GitHub Pages 通常由 push 触发 Actions 自动部署）。生成后确认站点里跳转、资源引用都走新域名。&lt;/p&gt;
 &lt;h2 id=&#34;常见坑&#34;&gt;常见坑
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Cloudflare 代理（橙云）导致证书签发失败 / HTTPS 循环&lt;/strong&gt;
-GitHub Pages 的免费证书靠对 &lt;code&gt;whysoso.com&lt;/code&gt; / &lt;code&gt;www&lt;/code&gt; 的 HTTP 校验来签发。Cloudflare 开橙云（代理）后会把流量先过 Cloudflare，可能干扰校验，证书一直签不下来。做法：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;加记录时先用 &lt;strong&gt;DNS only（灰云）&lt;/strong&gt;，等 GitHub 证书签发成功、站点能正常开，再按需把代理开回橙云（CDN 加速）。&lt;/li&gt;
-&lt;li&gt;Cloudflare 的 &lt;strong&gt;SSL/TLS 模式设成 Full（而非 Flexible）&lt;/strong&gt;。Flexible 下 Cloudflare 到源站走 HTTP，和 GitHub 的 HTTPS 互相重定向成死循环；Full 才正确。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;根域 + www 都想用&lt;/strong&gt;
-根域 4 条 A，再加一条 &lt;code&gt;www&lt;/code&gt; 的 CNAME → &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt;，然后在 GitHub Pages 的 Custom domain 里把 &lt;code&gt;www&lt;/code&gt; 设成首选域（勾选 &amp;ldquo;Enforce HTTPS&amp;rdquo; 上方那项），访问 &lt;code&gt;whysoso.com&lt;/code&gt; 会自动跳 &lt;code&gt;www&lt;/code&gt;（或反之，按你设的首选域）。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;CNAME 文件被部署流程清掉，自定义域每次都被重置为空（最高频）&lt;/strong&gt;
-这是 Hugo + GitHub Actions 部署最容易踩的坑，本文作者的 &lt;code&gt;whysoso.com&lt;/code&gt; 就栽在这。你在仓库 &lt;strong&gt;Settings → Pages&lt;/strong&gt; 填自定义域名后，GitHub 会把域名写进&lt;strong&gt;发布分支根目录的 &lt;code&gt;CNAME&lt;/code&gt; 文件&lt;/strong&gt;来记住它。但如果部署用的是 &lt;code&gt;peaceiris/actions-gh-pages&lt;/code&gt; 这类「只发布 &lt;code&gt;PUBLISH_DIR&lt;/code&gt;（如 &lt;code&gt;./public&lt;/code&gt;）并清空分支上其他文件」的 Action，而你的 &lt;code&gt;public/&lt;/code&gt; 里&lt;strong&gt;没有 CNAME&lt;/strong&gt;，那每次 Action 一跑，GitHub 刚写好的 &lt;code&gt;CNAME&lt;/code&gt; 就被干净的构建产物覆盖掉 → GitHub 找不到 CNAME → 自定义域被清空、跳回 &lt;code&gt;*.github.io&lt;/code&gt;。现象就是「每次 Action 跑完，Custom domain 变成空」。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;修法&lt;/strong&gt;：在 Hugo 源码的 &lt;strong&gt;&lt;code&gt;static/CNAME&lt;/code&gt;&lt;/strong&gt; 里写一行你的域名（如 &lt;code&gt;www.whysoso.com&lt;/code&gt;，不要多余的空格或空行）。Hugo 构建时会把 &lt;code&gt;static/&lt;/code&gt; 原样拷贝到 &lt;code&gt;public/&lt;/code&gt; 根，于是 &lt;code&gt;public/CNAME&lt;/code&gt; 每次都进发布分支，域名就稳了。两点注意：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;如果你的工作流 &lt;code&gt;EXTERNAL_REPOSITORY&lt;/code&gt; 指向另一个仓库（比如把站点部署到 &lt;code&gt;用户名.github.io&lt;/code&gt;，本仓库只放源码），CNAME 会落到那个仓库的发布分支——正是 GitHub Pages 读取它的地方，无需在 whyblog 本仓库根放 CNAME。&lt;/li&gt;
-&lt;li&gt;带 CNAME 的那次部署跑完后，回 Settings → Pages 把自定义域&lt;strong&gt;重填一次&lt;/strong&gt;即可；之后因为分支里一直有 CNAME，再也不会被部署冲掉。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;域名还没注册就去加解析&lt;/strong&gt;
-解析记录只对「已注册且 NS 已委派」的域名有意义。域名未注册时加记录无处生效。先确认 RDAP / whois 里域名已存在（本文 &lt;code&gt;whysoso.com&lt;/code&gt; 是当天在 Spaceship 注册、NS 指向 Cloudflare 后才配的）。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2FA 与授权（顺带一提）&lt;/strong&gt;
-如果你是用 WorkBuddy 的 GitHub 连接器来自动建 PR / 改仓库，GitHub 已强制开启两步验证（2FA），连接器走 OAuth 或 Personal Access Token 授权；连不上先查网络能否稳定访问 github.com（OAuth 要跳 github.com 再跳回，中间断一丝就授权失败）。&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Cloudflare 代理（橙云）导致证书签发失败&lt;/strong&gt;
+加记录时先 &lt;strong&gt;DNS only（灰云）&lt;/strong&gt;，等证书签发、站点正常后再按需开橙云（CDN 加速）。Cloudflare 的 &lt;strong&gt;SSL/TLS 模式设 Full（非 Flexible）&lt;/strong&gt;，否则与 GitHub 的 HTTPS 互重定向成死循环。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;域名未注册就加解析&lt;/strong&gt;
+记录只对已注册、NS 已委派的域名生效。先确认 RDAP / whois 域名已存在（本文 &lt;code&gt;whysoso.com&lt;/code&gt; 是当天在 Spaceship 注册、NS 指向 Cloudflare 后才配的）。&lt;/p&gt;
 &lt;h2 id=&#34;实战小结&#34;&gt;实战小结
-&lt;/h2&gt;&lt;p&gt;本文案例的完整链路：&lt;code&gt;whysoso.com&lt;/code&gt; 在 Spaceship 注册 → NS 指向 Cloudflare（DNS 托管在 Cloudflare）→ Cloudflare 加 4 条 A（根域）+ 1 条 CNAME（www）→ GitHub Pages 填 &lt;code&gt;www.whysoso.com&lt;/code&gt;（根域 &lt;code&gt;whysoso.com&lt;/code&gt; 设为跳转到 www）→ 证书签发后 Enforce HTTPS → Hugo &lt;code&gt;baseURL&lt;/code&gt; 改为 &lt;code&gt;https://www.whysoso.com/&lt;/code&gt; 并重新部署。核心就三句话：&lt;strong&gt;GitHub 里声明域名、注册商里把 DNS 指到那 4 个 IP、证书出来再强制 HTTPS&lt;/strong&gt;。Cloudflare 用户记住「先灰云后橙云、SSL 用 Full」即可避开九成问题。&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;whysoso.com&lt;/code&gt; 注册于 Spaceship → NS 指向 Cloudflare → Cloudflare 加 1 条 CNAME（www → &lt;code&gt;whyboystudy.github.io&lt;/code&gt;）→ GitHub Pages 填 &lt;code&gt;www.whysoso.com&lt;/code&gt; → 证书签发后 Enforce HTTPS → Hugo &lt;code&gt;baseURL&lt;/code&gt; 改 &lt;code&gt;https://www.whysoso.com/&lt;/code&gt; 并重部署 → &lt;code&gt;static/CNAME&lt;/code&gt; 锁定域名不被部署清空。核心三句：&lt;strong&gt;GitHub 声明域名、注册商 DNS 加 CNAME 指到 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt;、证书出来再强制 HTTPS&lt;/strong&gt;。Cloudflare 用户记「先灰云后橙云、SSL 用 Full」即可。&lt;/p&gt;
 </description>
         </item>
         
