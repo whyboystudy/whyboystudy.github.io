@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Xrdp on 美味芝士</title>
+        <title>Xrdp on 差不多先生</title>
         <link>https://www.whysoso.com/tags/xrdp/</link>
-        <description>Recent content in Xrdp on 美味芝士</description>
+        <description>Recent content in Xrdp on 差不多先生</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <lastBuildDate>Sun, 25 Oct 2026 16:39:24 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/xrdp/index.xml" rel="self" type="application/rss+xml" />
         <image>
             <url>https://www.whysoso.com/img/avatar.png</url>
-            <title>美味芝士</title>
+            <title>差不多先生</title>
             <link>https://www.whysoso.com/</link>
         </image><item>
         <title>Ubuntu VPS 搭建 XFCE 远程桌面：从 xrdp 安装到秒断修复、中文输入与 WorkBuddy 实战</title>

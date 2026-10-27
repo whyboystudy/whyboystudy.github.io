@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Dns on 美味芝士</title>
+        <title>Dns on 差不多先生</title>
         <link>https://www.whysoso.com/tags/dns/</link>
-        <description>Recent content in Dns on 美味芝士</description>
+        <description>Recent content in Dns on 差不多先生</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <lastBuildDate>Mon, 26 Oct 2026 21:42:42 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/dns/index.xml" rel="self" type="application/rss+xml" />
         <image>
             <url>https://www.whysoso.com/img/avatar.png</url>
-            <title>美味芝士</title>
+            <title>差不多先生</title>
             <link>https://www.whysoso.com/</link>
         </image><item>
         <title>给 GitHub Pages 绑定自己的子域名：从仓库设置到 DNS 解析、HTTPS 全记录</title>
