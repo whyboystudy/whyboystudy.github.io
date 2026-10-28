@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="这里汇集各篇博文的配图，点击任意一张图片即可跳转阅读对应文章。\n这里会自动汇集各篇博文的配图，点击图片即可跳转阅读对应文章。当前博文还没有配图——给文章加上封面或正文插图后，照片墙会自动长出内容。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="这里汇集各篇博文的配图，点击任意一张图片即可跳转阅读对应文章。\n最佳摄影点 杭州法喜寺一日游 2026-10-28 ">
 <title>相册</title>
 
 <link rel='canonical' href='https://www.whysoso.com/album/'>
 
 <link rel="stylesheet" href="/scss/style.min.8170c6a315d5183e1e48b697335cf4b75085a68667d69f1d6c6ae75d1a2d345a.css"><meta property='og:title' content="相册">
-<meta property='og:description' content="这里汇集各篇博文的配图，点击任意一张图片即可跳转阅读对应文章。\n这里会自动汇集各篇博文的配图，点击图片即可跳转阅读对应文章。当前博文还没有配图——给文章加上封面或正文插图后，照片墙会自动长出内容。\n">
+<meta property='og:description' content="这里汇集各篇博文的配图，点击任意一张图片即可跳转阅读对应文章。\n最佳摄影点 杭州法喜寺一日游 2026-10-28 ">
 <meta property='og:url' content='https://www.whysoso.com/album/'>
 <meta property='og:site_name' content='差不多先生'>
 <meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:modified_time' content='2026-10-27T16:28:30&#43;08:00'/>
 <meta name="twitter:title" content="相册">
-<meta name="twitter:description" content="这里汇集各篇博文的配图，点击任意一张图片即可跳转阅读对应文章。\n这里会自动汇集各篇博文的配图，点击图片即可跳转阅读对应文章。当前博文还没有配图——给文章加上封面或正文插图后，照片墙会自动长出内容。\n">
+<meta name="twitter:description" content="这里汇集各篇博文的配图，点击任意一张图片即可跳转阅读对应文章。\n最佳摄影点 杭州法喜寺一日游 2026-10-28 ">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -421,6 +421,45 @@
   
   
   
+    
+      
+      
+      
+      
+      
+      
+        
+      
+    
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+  
+
+  
+  
+
+  
+  
+
+  
+  
+  
 
   
   
@@ -791,10 +830,306 @@
 
   
   
+
+
+
+
+
+
+<div class="album" data-batch="12" data-start="12" data-total="1">
+  <div class="album-grid">
+    
+    <a class="album-grid__item" href="/post/daily/p4/index-1/" title="杭州法喜寺一日游">
+      <div class="album-grid__media">
+        <img src="https://img.napnap.ccwu.cc/57cfd2868bf675a4.webp" alt="最佳摄影点" loading="lazy" decoding="async"
+          >
+      </div>
+      <div class="album-grid__info">
+        <span class="album-grid__caption">最佳摄影点</span>
+        <span class="album-grid__post">杭州法喜寺一日游</span>
+        <time class="album-grid__date" datetime="2026-10-28">2026-10-28</time>
+      </div>
+    </a>
+    
+  </div>
+
+  <script type="application/json" class="album-data">[{"caption":"最佳摄影点","date":"2026-10-28","postTitle":"杭州法喜寺一日游","sizes":"(min-width: 1024px) 310px, 46vw","src":"https://img.napnap.ccwu.cc/57cfd2868bf675a4.webp","srcset":"","url":"/post/daily/p4/index-1/"}]</script>
+</div>
+
+<script>
+(function () {
+  function initAlbum(root) {
+    var grid = root.querySelector('.album-grid');
+    var dataEl = root.querySelector('.album-data');
+    if (!grid || !dataEl) return;
+
+    var items;
+    try { items = JSON.parse(dataEl.textContent); } catch (e) { return; }
+    if (!items || !items.length) return;
+
+    var TOTAL = items.length;
+
+     
+    var cols = 0, colWidth = 0, rowHeight = 0, gap = 0;
+     
+    var mounted = {};
+     
+    var OVERSCAN = 2;
+    var ticking = false;
+
+     
+    function measure() {
+      var styles = window.getComputedStyle(grid);
+      gap = parseFloat(styles.columnGap) || 0;
+
+       
+      var template = styles.gridTemplateColumns;
+      if (template && template !== 'none') {
+        cols = template.split(' ').filter(function (t) { return t && t !== 'none'; }).length;
+      }
+      if (!cols) cols = 2;
+
+       
+      var contentWidth = grid.clientWidth;
+      colWidth = (contentWidth - gap * (cols - 1)) / cols;
+
+      
+
+      var probe = grid.querySelector('.album-grid__item');
+      var infoEl = probe ? probe.querySelector('.album-grid__info') : null;
+      var infoH = 0;
+      if (infoEl) {
+        var ics = window.getComputedStyle(infoEl);
+        var capEl = infoEl.querySelector('.album-grid__caption');
+        var capH = 0;
+        if (capEl) {
+          var ccs = window.getComputedStyle(capEl);
+           
+          var capLines = 1;
+          capH = parseFloat(ccs.minHeight) ||
+                  (parseFloat(ccs.lineHeight) || parseFloat(ccs.fontSize) * 1.4) * capLines ||
+                  0;
+        }
+        var gapPx = parseFloat(ics.rowGap) || parseFloat(ics.gap) || 0;
+        var padY = (parseFloat(ics.paddingTop) || 0) + (parseFloat(ics.paddingBottom) || 0);
+         
+        var oneLine = 0;
+        var postEl = infoEl.querySelector('.album-grid__post');
+        if (postEl) {
+          var pcs = window.getComputedStyle(postEl);
+          oneLine = parseFloat(pcs.lineHeight) || parseFloat(pcs.fontSize) * 1.4 || 0;
+        }
+        infoH = Math.ceil(padY + capH + oneLine * 2 + gapPx * 2);
+      }
+      var mediaH = Math.round(colWidth * 0.75);
+      rowHeight = mediaH + (infoH || 100);
+    }
+
+     
+    function positionOf(index) {
+      var row = Math.floor(index / cols);
+      var col = index % cols;
+      return {
+        left: Math.round(col * (colWidth + gap)),
+        top: Math.round(row * (rowHeight + gap))
+      };
+    }
+
+    function totalHeight() {
+      var rows = Math.ceil(TOTAL / cols);
+      return Math.max(0, rows * rowHeight + (rows - 1) * gap);
+    }
+
+     
+    function buildCard(item) {
+      var a = document.createElement('a');
+      a.className = 'album-grid__item';
+      a.href = item.url;
+      a.title = item.postTitle;
+
+      var media = document.createElement('div');
+      media.className = 'album-grid__media';
+      var img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.caption || '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      if (item.srcset) {
+        img.srcset = item.srcset;
+        if (item.sizes) img.sizes = item.sizes;
+      }
+      media.appendChild(img);
+
+      var info = document.createElement('div');
+      info.className = 'album-grid__info';
+
+      var cap = document.createElement('span');
+      cap.className = 'album-grid__caption';
+      cap.textContent = item.caption || '';
+      info.appendChild(cap);
+
+      var post = document.createElement('span');
+      post.className = 'album-grid__post';
+      post.textContent = item.postTitle || '';
+      info.appendChild(post);
+
+      var date = document.createElement('time');
+      date.className = 'album-grid__date';
+      date.setAttribute('datetime', item.date || '');
+      date.textContent = item.date || '';
+      info.appendChild(date);
+
+      a.appendChild(media);
+      a.appendChild(info);
+      return a;
+    }
+
+     
+    function mount(index) {
+      if (mounted[index]) return;
+      var el = buildCard(items[index]);
+      var pos = positionOf(index);
+      el.style.left = pos.left + 'px';
+      el.style.top = pos.top + 'px';
+      el.style.width = Math.round(colWidth) + 'px';
+      grid.appendChild(el);
+      mounted[index] = el;
+    }
+
+    function unmount(index) {
+      var el = mounted[index];
+      if (!el) return;
+      if (el.parentNode) el.parentNode.removeChild(el);
+      delete mounted[index];
+    }
+
+     
+    function visibleRange() {
+      var rect = grid.getBoundingClientRect();
+      var viewTop = -rect.top;                     
+      var viewBottom = viewTop + window.innerHeight;
+      var step = rowHeight + gap;
+      var maxRow = Math.ceil(TOTAL / cols) - 1;
+
+      
+
+      var last = Math.floor(viewBottom / step) + OVERSCAN;
+      if (last > maxRow) last = maxRow;
+      var first = Math.floor(viewTop / step) - OVERSCAN;
+      if (first < 0) first = 0;
+      if (first > last) first = last;
+      return { first: first, last: last };
+    }
+
+     
+    function renderWindow() {
+      var range = visibleRange();
+      var firstIndex = range.first * cols;
+      var lastIndex = Math.min(TOTAL - 1, (range.last + 1) * cols - 1);
+
+      for (var i = firstIndex; i <= lastIndex; i++) {
+        if (!mounted[i]) mount(i);
+      }
+      for (var key in mounted) {
+        var idx = +key;
+        if (idx < firstIndex || idx > lastIndex) unmount(idx);
+      }
+    }
+
+     
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        renderWindow();
+      });
+    }
+
+    
+
+    var pollTimer = 0;
+    function poll() {
+      var range = visibleRange();
+      var firstIndex = range.first * cols;
+      var lastIndex = Math.min(TOTAL - 1, (range.last + 1) * cols - 1);
+      var need = 0;
+      for (var i = firstIndex; i <= lastIndex; i++) {
+        if (!mounted[i]) { need++; mount(i); }
+      }
+      for (var key in mounted) {
+        var idx = +key;
+        if (idx < firstIndex || idx > lastIndex) unmount(idx);
+      }
+       
+      if (need === 0) {
+        var stable = true;
+        for (var k in mounted) {
+          var ki = +k;
+          if (ki < firstIndex || ki > lastIndex) { stable = false; break; }
+        }
+        if (stable) {
+          clearTimeout(pollTimer);
+          pollTimer = setTimeout(poll, 400);
+        }
+      } else {
+        clearTimeout(pollTimer);
+        pollTimer = setTimeout(poll, 100);
+      }
+    }
+
+     
+    var resizeTimer = 0;
+    function onResize() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        var oldCols = cols;
+        var oldColWidth = colWidth;
+        measure();
+        if (oldCols === cols && Math.abs(oldColWidth - colWidth) < 1) return;
+        for (var key in mounted) unmount(+key);
+        grid.style.height = totalHeight() + 'px';
+        renderWindow();
+      }, 150);
+    }
+
+     
+    grid.classList.add('album-grid--virtual');
+    measure();
+
+     
+    grid.style.height = totalHeight() + 'px';
+
+     
+    var initial = grid.querySelectorAll('.album-grid__item');
+    for (var k = 0; k < initial.length; k++) {
+      var el = initial[k];
+      var pos = positionOf(k);
+      el.style.left = pos.left + 'px';
+      el.style.top = pos.top + 'px';
+      el.style.width = Math.round(colWidth) + 'px';
+      mounted[k] = el;
+    }
+
+    renderWindow();
 
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize, { passive: true });
+    poll();
+  }
 
+  function initAll() {
+    var roots = document.querySelectorAll('.album');
+    for (var i = 0; i < roots.length; i++) initAlbum(roots[i]);
+  }
 
-<p class="album-grid__empty">这里会自动汇集各篇博文的配图，点击图片即可跳转阅读对应文章。当前博文还没有配图——给文章加上封面或正文插图后，照片墙会自动长出内容。</p>
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+  } else {
+    initAll();
+  }
+})();
+</script>
 
 
 
