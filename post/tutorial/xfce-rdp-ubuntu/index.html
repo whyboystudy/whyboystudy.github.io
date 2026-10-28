@@ -10,7 +10,7 @@
 <meta property='og:description' content="在一台低配 Ubuntu VPS 上用 xrdp + XFCE 搭可用远程桌面的完整踩坑记录：用户创建、startwm.sh 防秒断、降分辨率关特效、Chrome 替代 snap 版 Firefox、WorkBuddy 启动与权限处理，以及 fcitx5 中文输入">
 <meta property='og:url' content='https://www.whysoso.com/post/tutorial/xfce-rdp-ubuntu/'>
 <meta property='og:site_name' content='差不多先生'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='xfce' /><meta property='article:tag' content='xrdp' /><meta property='article:tag' content='远程桌面' /><meta property='article:tag' content='ubuntu' /><meta property='article:tag' content='VPS' /><meta property='article:published_time' content='2026-10-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-25T16:39:24&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='xfce' /><meta property='article:tag' content='xrdp' /><meta property='article:tag' content='远程桌面' /><meta property='article:tag' content='ubuntu' /><meta property='article:tag' content='VPS' /><meta property='article:published_time' content='2026-10-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-10-28T09:02:33&#43;08:00'/>
 <meta name="twitter:title" content="Ubuntu VPS 搭建 XFCE 远程桌面：从 xrdp 安装到秒断修复、中文输入与 WorkBuddy 实战">
 <meta name="twitter:description" content="在一台低配 Ubuntu VPS 上用 xrdp + XFCE 搭可用远程桌面的完整踩坑记录：用户创建、startwm.sh 防秒断、降分辨率关特效、Chrome 替代 snap 版 Firefox、WorkBuddy 启动与权限处理，以及 fcitx5 中文输入">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -409,7 +409,11 @@
     <li><a href="#第五步用客户端连上去">第五步：用客户端连上去</a></li>
     <li><a href="#第六步性能优化降分辨率关合成特效">第六步：性能优化——降分辨率、关合成特效</a></li>
     <li><a href="#第七步浏览器用-chrome-deb-替代-snap-版-firefox">第七步：浏览器——用 Chrome deb 替代 snap 版 Firefox</a></li>
-    <li><a href="#第八步在云桌面里装-workbuddy">第八步：在云桌面里装 WorkBuddy</a></li>
+    <li><a href="#第八步在云桌面里装-workbuddy">第八步：在云桌面里装 WorkBuddy</a>
+      <ol>
+        <li><a href="#升级-workbuddy原地更新配置不丢">升级 WorkBuddy（原地更新，配置不丢）</a></li>
+      </ol>
+    </li>
     <li><a href="#第九步中文输入法-fcitx5">第九步：中文输入法 fcitx5</a></li>
     <li><a href="#第十步会话管理与排错避免logout-后登不上">第十步：会话管理与排错——避免「logout 后登不上」</a></li>
     <li><a href="#常见问题排查">常见问题排查</a></li>
@@ -925,6 +929,55 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>桌面菜单的 <code>.desktop</code> 里 <code>Exec=</code> 也要指向带参数的命令，否则双击图标仍可能闪退。</p>
+<h3 id="升级-workbuddy原地更新配置不丢">升级 WorkBuddy（原地更新，配置不丢）
+</h3><p>Linux 版没法在应用内点「检查更新」——第八步提过那是死循环（提示去官网、官网又没 Linux 入口）。所以<strong>升级就是重跑一遍官方更新接口取新包，再用 <code>apt install</code> 原地升级</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 看当前版本</span>
+</span></span><span class="line"><span class="cl">dpkg -l <span class="p">|</span> grep -i workbuddy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 先退出正在运行的 WorkBuddy</span>
+</span></span><span class="line"><span class="cl">pkill -f workbuddy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 取最新 deb 地址并下载（和第八步安装同一条通道）</span>
+</span></span><span class="line"><span class="cl"><span class="nv">url</span><span class="o">=</span><span class="k">$(</span>curl -s <span class="s2">&#34;https://copilot.tencent.com/v2/update?platform=workbuddy-linux-x64-deb&#34;</span> <span class="p">|</span> jq -r <span class="s1">&#39;.url&#39;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$url</span><span class="s2">&#34;</span>          <span class="c1"># 确认拿到链接，不是 null</span>
+</span></span><span class="line"><span class="cl">curl -L -O <span class="s2">&#34;</span><span class="nv">$url</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 原地升级（不会丢配置）</span>
+</span></span><span class="line"><span class="cl">sudo apt install ./WorkBuddy-linux-x64-deb-*.deb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动并核对版本号</span>
+</span></span><span class="line"><span class="cl">workbuddy
+</span></span><span class="line"><span class="cl">dpkg -l <span class="p">|</span> grep -i workbuddy
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>要点：</p>
+<ul>
+<li><strong>配置、登录状态、定时任务都不会丢</strong>。<code>apt install</code> 对已装的同名包执行的是升级，只替换 <code>/opt/WorkBuddy</code> 里的程序文件；你的设置、Agent Mail 授权、GitSpace 同步都在 <code>~/.config</code> 下，不受影响。</li>
+<li>下载的 deb 装完可清掉：<code>rm ~/WorkBuddy-linux-x64-deb-*.deb</code>。</li>
+<li>若 <code>jq</code> 报命令不存在：<code>sudo apt install -y jq</code>。</li>
+<li>升级后双击图标若又报 sandbox 错误（升级偶尔会重置 <code>chrome-sandbox</code> 权限），按第八步那段重设一次 4755 即可；用 <code>/usr/local/bin/workbuddy</code> 包装脚本启动的则自带 <code>--no-sandbox</code>，无需处理。</li>
+</ul>
 <h2 id="第九步中文输入法-fcitx5">第九步：中文输入法 fcitx5
 </h2><p>XFCE 默认没有中文输入。装 fcitx5：</p>
 <div class="highlight"><div class="chroma">
@@ -1081,7 +1134,7 @@
 
 
         <span>
-            最后更新于 2026-10-25 16:39
+            最后更新于 2026-10-28 09:02
         </span>
     </section></footer>
 
