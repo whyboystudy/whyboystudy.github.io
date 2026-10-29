@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>破解 on 差不多先生</title>
+        <link>https://www.whysoso.com/tags/%E7%A0%B4%E8%A7%A3/</link>
+        <description>Recent content in 破解 on 差不多先生</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Thu, 29 Oct 2026 21:27:05 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/tags/%E7%A0%B4%E8%A7%A3/index.xml" rel="self" type="application/rss+xml" />
+        <image>
+            <url>https://www.whysoso.com/img/avatar.png</url>
+            <title>差不多先生</title>
+            <link>https://www.whysoso.com/</link>
+        </image><item>
+        <title>WinRAR 的安装及破解</title>
+        <link>https://www.whysoso.com/post/tutorial/winrar-download/</link>
+        <pubDate>Thu, 29 Oct 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.whysoso.com/post/tutorial/winrar-download/</guid>
+        <description>&lt;img src="https://img.napnap.ccwu.cc/2026/10/29/04fd90c41348aa79.webp" alt="Featured image of post 破解" /&gt;&lt;p&gt;在搜索引擎搜「WinRAR 下载」，排前面的十有八九是第三方下载站：不是捆全家桶，就是偷偷换成「定制版」。这篇教程只讲一件事——&lt;strong&gt;怎么从官方渠道拿到干净的 WinRAR&lt;/strong&gt;，顺带把版本选择、安装和试用期规则一次说清。&lt;/p&gt;
+&lt;h2 id=&#34;1官网下载&#34;&gt;1、官网下载
+&lt;/h2&gt;&lt;p&gt;国际官网直接提供简体中文安装包，不用装任何下载器，点链接就下。&lt;/p&gt;
+&lt;h3 id=&#34;11-下载步骤&#34;&gt;1.1 下载步骤
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开 &lt;a class=&#34;link&#34; href=&#34;https://www.win-rar.com/download.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.win-rar.com/download.html&lt;/a&gt;；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;页面分两块：&lt;strong&gt;Latest English Versions&lt;/strong&gt;（英文版）和 &lt;strong&gt;Latest Localized Versions&lt;/strong&gt;（各语言版本）；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在语言版本列表里找 &lt;strong&gt;WinRAR 7.23 Chinese Simplified 64 bit&lt;/strong&gt;，点击即开始下载。&lt;/p&gt;
+&lt;h3 id=&#34;12-安装步骤&#34;&gt;1.2 安装步骤
+&lt;/h3&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;双击下载好的 &lt;code&gt;winrar-x64-723sc.exe&lt;/code&gt;；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;目标文件夹保持默认（&lt;code&gt;C:\Program Files\WinRAR&lt;/code&gt;）即可，点「安装」；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;关联设置&lt;/strong&gt;这一页建议保持全选——把 RAR/ZIP/7z 等格式都关联上，以后双击压缩包就能直接打开；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;完成后点「确定」，首次打开会弹出「购买/继续试用」窗口，选关闭即可。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;2破解&#34;&gt;2、破解
+&lt;/h2&gt;
+&lt;figure class=&#34;article-figure gallery-image&#34; style=&#34;flex-grow: 1; flex-basis: 0px;&#34;&gt;
+	&lt;a href=&#34;https://img.napnap.ccwu.cc/2026/10/29/04fd90c41348aa79.webp&#34; target=&#34;_blank&#34;&gt;
+		&lt;img src=&#34;https://img.napnap.ccwu.cc/2026/10/29/04fd90c41348aa79.webp&#34; loading=&#34;lazy&#34; alt=&#34;winrar安装目录&#34;&gt;
+	&lt;/a&gt;
+	&lt;figcaption class=&#34;article-figcaption is-hidden&#34;&gt;winrar安装目录&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;在安装目录下创建一个后缀为.txt文件，并将以下内容复制进去&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;RAR registration data
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Federal Agency for Education
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1000000 PC usage license
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;UID=b621cca9a84bc5deffbf
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;6412612250ffbf533df6db2dfe8ccc3aae5362c06d54762105357d
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;5e3b1489e751c76bf6e0640001014be50a52303fed29664b074145
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;7e567d04159ad8defc3fb6edf32831fd1966f72c21c0c53c02fbbb
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2f91cfca671d9c482b11b8ac3281cb21378e85606494da349941fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;e9ee328f12dc73e90b6356b921fbfb8522d6562a6a4b97e8ef6c9f
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fb866be1e3826b5aa126a4d2bfe9336ad63003fc0e71c307fc2c60
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;64416495d4c55a0cc82d402110498da970812063934815d81470829275
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;保存后将文件后缀改为&lt;code&gt;.key&lt;/code&gt;，到此即可完成WinRAR的破解，打开软件即可看到软件已注册。&lt;/p&gt;
+
+&lt;figure class=&#34;article-figure gallery-image&#34; style=&#34;flex-grow: 1; flex-basis: 0px;&#34;&gt;
+	&lt;a href=&#34;https://img.napnap.ccwu.cc/2026/10/29/8d09740e47959eb5.webp&#34; target=&#34;_blank&#34;&gt;
+		&lt;img src=&#34;https://img.napnap.ccwu.cc/2026/10/29/8d09740e47959eb5.webp&#34; loading=&#34;lazy&#34;&gt;
+	&lt;/a&gt;
+	&lt;figcaption class=&#34;article-figcaption is-hidden&#34;&gt;&lt;/figcaption&gt;&lt;/figure&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

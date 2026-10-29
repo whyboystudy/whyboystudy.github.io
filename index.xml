@@ -11,6 +11,84 @@
             <title>差不多先生</title>
             <link>https://www.whysoso.com/</link>
         </image><item>
+        <title>WinRAR 的安装及破解</title>
+        <link>https://www.whysoso.com/post/tutorial/winrar-download/</link>
+        <pubDate>Thu, 29 Oct 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.whysoso.com/post/tutorial/winrar-download/</guid>
+        <description>&lt;img src="https://img.napnap.ccwu.cc/2026/10/29/04fd90c41348aa79.webp" alt="Featured image of post 差不多先生" /&gt;&lt;p&gt;在搜索引擎搜「WinRAR 下载」，排前面的十有八九是第三方下载站：不是捆全家桶，就是偷偷换成「定制版」。这篇教程只讲一件事——&lt;strong&gt;怎么从官方渠道拿到干净的 WinRAR&lt;/strong&gt;，顺带把版本选择、安装和试用期规则一次说清。&lt;/p&gt;
+&lt;h2 id=&#34;1官网下载&#34;&gt;1、官网下载
+&lt;/h2&gt;&lt;p&gt;国际官网直接提供简体中文安装包，不用装任何下载器，点链接就下。&lt;/p&gt;
+&lt;h3 id=&#34;11-下载步骤&#34;&gt;1.1 下载步骤
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;打开 &lt;a class=&#34;link&#34; href=&#34;https://www.win-rar.com/download.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.win-rar.com/download.html&lt;/a&gt;；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;页面分两块：&lt;strong&gt;Latest English Versions&lt;/strong&gt;（英文版）和 &lt;strong&gt;Latest Localized Versions&lt;/strong&gt;（各语言版本）；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在语言版本列表里找 &lt;strong&gt;WinRAR 7.23 Chinese Simplified 64 bit&lt;/strong&gt;，点击即开始下载。&lt;/p&gt;
+&lt;h3 id=&#34;12-安装步骤&#34;&gt;1.2 安装步骤
+&lt;/h3&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;双击下载好的 &lt;code&gt;winrar-x64-723sc.exe&lt;/code&gt;；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;目标文件夹保持默认（&lt;code&gt;C:\Program Files\WinRAR&lt;/code&gt;）即可，点「安装」；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;关联设置&lt;/strong&gt;这一页建议保持全选——把 RAR/ZIP/7z 等格式都关联上，以后双击压缩包就能直接打开；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;完成后点「确定」，首次打开会弹出「购买/继续试用」窗口，选关闭即可。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;2破解&#34;&gt;2、破解
+&lt;/h2&gt;
+&lt;figure class=&#34;article-figure gallery-image&#34; style=&#34;flex-grow: 1; flex-basis: 0px;&#34;&gt;
+	&lt;a href=&#34;https://img.napnap.ccwu.cc/2026/10/29/04fd90c41348aa79.webp&#34; target=&#34;_blank&#34;&gt;
+		&lt;img src=&#34;https://img.napnap.ccwu.cc/2026/10/29/04fd90c41348aa79.webp&#34; loading=&#34;lazy&#34; alt=&#34;winrar安装目录&#34;&gt;
+	&lt;/a&gt;
+	&lt;figcaption class=&#34;article-figcaption is-hidden&#34;&gt;winrar安装目录&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;在安装目录下创建一个后缀为.txt文件，并将以下内容复制进去&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;RAR registration data
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Federal Agency for Education
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1000000 PC usage license
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;UID=b621cca9a84bc5deffbf
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;6412612250ffbf533df6db2dfe8ccc3aae5362c06d54762105357d
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;5e3b1489e751c76bf6e0640001014be50a52303fed29664b074145
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;7e567d04159ad8defc3fb6edf32831fd1966f72c21c0c53c02fbbb
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2f91cfca671d9c482b11b8ac3281cb21378e85606494da349941fa
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;e9ee328f12dc73e90b6356b921fbfb8522d6562a6a4b97e8ef6c9f
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fb866be1e3826b5aa126a4d2bfe9336ad63003fc0e71c307fc2c60
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;64416495d4c55a0cc82d402110498da970812063934815d81470829275
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;保存后将文件后缀改为&lt;code&gt;.key&lt;/code&gt;，到此即可完成WinRAR的破解，打开软件即可看到软件已注册。&lt;/p&gt;
+
+&lt;figure class=&#34;article-figure gallery-image&#34; style=&#34;flex-grow: 1; flex-basis: 0px;&#34;&gt;
+	&lt;a href=&#34;https://img.napnap.ccwu.cc/2026/10/29/8d09740e47959eb5.webp&#34; target=&#34;_blank&#34;&gt;
+		&lt;img src=&#34;https://img.napnap.ccwu.cc/2026/10/29/8d09740e47959eb5.webp&#34; loading=&#34;lazy&#34;&gt;
+	&lt;/a&gt;
+	&lt;figcaption class=&#34;article-figcaption is-hidden&#34;&gt;&lt;/figcaption&gt;&lt;/figure&gt;</description>
+        </item>
+        <item>
         <title>把民生实事办到群众心坎上</title>
         <link>https://www.whysoso.com/post/shenlun/2026-10-29-0703/</link>
         <pubDate>Thu, 29 Oct 2026 00:00:00 +0000</pubDate>
@@ -1603,33 +1681,6 @@ flowchart LR
 &lt;li&gt;政策金句：总书记关于新质生产力、科技创新的重要论述，可直接替换主题词迁移使用。&lt;/li&gt;
 &lt;li&gt;案例库：C919、北斗、新能源汽车、华为研发、比亚迪——覆盖&amp;quot;国之重器+市场主体&amp;quot;双例证，适合多数经济类主题。&lt;/li&gt;
 &lt;li&gt;结尾句型：&amp;ldquo;惟 X 者进，惟 X 者强，惟 X 者胜&amp;rdquo;，百搭收束，稳妥有力。&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        <item>
-        <title>以民生温度丈量发展厚度</title>
-        <link>https://www.whysoso.com/post/shenlun/2026-10-20-1051/</link>
-        <pubDate>Tue, 20 Oct 2026 00:00:00 +0000</pubDate>
-        
-        <guid>https://www.whysoso.com/post/shenlun/2026-10-20-1051/</guid>
-        <description>&lt;p&gt;“治国有常，利民为本。”习近平总书记深刻指出：“人民对美好生活的向往，就是我们的奋斗目标。”抓改革、促发展，归根到底就是为了让人民过上更好的日子。今天的中国，已建成世界上规模最大的社会保障体系和医疗卫生体系，但就业结构性矛盾、公共服务城乡差距、“一老一小”照护难题等，仍是群众心头的“急难愁盼”。民生无小事，枝叶总关情。唯有把为民造福作为最大政绩，用心用情用力办好群众身边的事，才能让现代化建设成果更多更公平惠及全体人民。&lt;/p&gt;
-&lt;h2 id=&#34;兜住底线织密扎牢社会保障安全网&#34;&gt;兜住底线，织密扎牢社会保障“安全网”
-&lt;/h2&gt;&lt;p&gt;民生保障的成色，首先要看困难群众的日子过得怎么样。兜底，既是“尽力而为、量力而行”的清醒，也是共同富裕的底线要求。从基本医保参保率稳定在95%以上、跨省异地就医直接结算惠及亿万群众，到城乡居民基础养老金最低标准连年提高；从低保、特困供养“应保尽保、应救尽救”，到困难残疾人“两项补贴”、急难发生地直接实施临时救助——一张覆盖全民、统筹城乡、公平统一、安全规范、可持续的多层次社会保障体系正加速成形。让每一个身处困境的人都能感受到制度的暖意，社会才能稳如磐石、安如泰山。&lt;/p&gt;
-&lt;h2 id=&#34;提升品质把公共服务办到群众心坎上&#34;&gt;提升品质，把公共服务办到群众心坎上
-&lt;/h2&gt;&lt;p&gt;群众对民生的期待，正从“有没有”转向“好不好”，从“生存型”需求升级为“发展型”需求。从“高效办成一件事”让新生儿出生、退休办理、社保卡申领“一窗受理、一次办结”，到紧密型县域医共体推动“小病不出村、大病不出县”；从城镇老旧小区改造让“老破小”变身“新家园”，到社区“15分钟便民生活圈”托起家门口的幸福——服务供给的“颗粒度”越细，群众的获得感就越实。民生工作最需下“绣花功夫”，把“政府端菜”变成“群众点菜”，让公共服务的每一次改进都精准对接百姓的操心事、烦心事。&lt;/p&gt;
-&lt;h2 id=&#34;促进公平让发展成果的阳光照进每个角落&#34;&gt;促进公平，让发展成果的阳光照进每个角落
-&lt;/h2&gt;&lt;p&gt;民生问题，本质上是一个公平问题。城乡之间、区域之间、群体之间的差距，是共同富裕必须跨越的坎。从就业优先政策托举高校毕业生、农民工、退役军人等重点群体，到以工代赈让脱贫群众在家门口务工增收；从“特岗计划”“国培计划”把好老师送进乡村课堂，到普惠托育扩容、居家社区养老服务圈加快布点——公共资源持续向基层倾斜、向薄弱环节倾斜，才能打破“出身决定命运”的隐性壁垒。共同富裕不是“等靠要”的平均主义，而是让每一个人都有通过辛勤劳动改变命运的机会。&lt;/p&gt;
-&lt;p&gt;“江山就是人民，人民就是江山。”民生工作没有完成时，只有进行时。以兜底之实守住基本，以提质之效回应期待，以共享之广促进公平，一件接着一件办、一年接着一年干，我们必能把“民生清单”变成群众的“幸福账单”，让中国式现代化始终充盈温暖人心的力量。&lt;/p&gt;
-&lt;h2 id=&#34;简评&#34;&gt;简评
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;立意角度&lt;/strong&gt;：以“民生温度”与“发展厚度”构成一组对照，把宏大的“共同富裕”落到“兜底—提质—公平”三个可感可触的层面，避免了空喊口号。这个角度既贴合“以人民为中心”的主旋律，又能自然容纳社保、医疗、就业、养老等具体素材，适合“民生”“共同富裕”“公共服务”“人民城市”“一老一小”等各类考题。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;论证结构&lt;/strong&gt;：开头以《淮南子》“治国有常，利民为本”起势，接总书记金句破题，再用“成就＋短板”一句完成问题导入，立论干净利落；三个分论点统一采用“四字动宾小标题＋观点阐释＋政策与案例群＋回扣升华”的四段式，彼此构成“保基本—提质量—促公平”的递进逻辑，不并列堆砌；结尾以“江山就是人民”收束，落点回到中国式现代化，收得住、提得起。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;可套用句式与素材&lt;/strong&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;破题金句&lt;/strong&gt;：“治国有常，利民为本。”“民生无小事，枝叶总关情。”“江山就是人民，人民就是江山。”&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;过渡/分析金句&lt;/strong&gt;：“从&amp;rsquo;有没有&amp;rsquo;转向&amp;rsquo;好不好&amp;rsquo;，从&amp;rsquo;生存型&amp;rsquo;需求升级为&amp;rsquo;发展型&amp;rsquo;需求。”“民生工作最需下&amp;rsquo;绣花功夫&amp;rsquo;，把&amp;rsquo;政府端菜&amp;rsquo;变成&amp;rsquo;群众点菜&amp;rsquo;。”“共同富裕不是&amp;rsquo;等靠要&amp;rsquo;的平均主义，而是让每一个人都有通过辛勤劳动改变命运的机会。”&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;案例库&lt;/strong&gt;：跨省异地就医直接结算、城乡居民基础养老金提标（兜底）；“高效办成一件事”、紧密型县域医共体、老旧小区改造、15分钟便民生活圈（提质）；以工代赈、特岗计划、普惠托育与居家社区养老（公平）。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;万能框架&lt;/strong&gt;：“兜住底线—提升品质—促进公平”这一组三段式，可平移改写为“守底线—提标线—促公平”“保基本—强基层—促均衡”，写民政、医保、教育、住房类题目都可直接套用。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;提分提醒&lt;/strong&gt;：民生类文章最忌通篇“送温暖”，务必在每段回扣一句“制度”“机制”“可持续”，体现机关公文的分寸感——既讲感情，更讲制度。&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>
