@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://www.whysoso.com/post/tutorial/github-pages-custom-domain/'>
 
-<link rel="stylesheet" href="/scss/style.min.b894f32f8941362eaa7f3765b74a237a57c76953f311c09a77dd1d3e5e47a580.css"><meta property='og:title' content="给 GitHub Pages 绑定自己的子域名：从仓库设置到 DNS 解析、HTTPS 全记录">
+<link rel="stylesheet" href="/scss/style.min.caf34c921bf17965006374773f67bfa92fd264556ab08432e15c73c808f4d297.css"><meta property='og:title' content="给 GitHub Pages 绑定自己的子域名：从仓库设置到 DNS 解析、HTTPS 全记录">
 <meta property='og:description' content="把 GitHub Pages 默认的 *.github.io 换成自己的子域名（如 www.whysoso.com）的完整流程——GitHub 仓库里填自定义域名、去注册商加 CNAME 解析、验证生效、开启强制 HTTPS，以及 Hugo 站点的 baseURL 配套修改、CNAME 防止被部署清空和 Cloudflare 代理的常见坑">
 <meta property='og:url' content='https://www.whysoso.com/post/tutorial/github-pages-custom-domain/'>
 <meta property='og:site_name' content='差不多先生'>
@@ -549,7 +549,6 @@
 
     <section class="article-content">
     
-    
     <p>GitHub Pages 默认给 <code>*.github.io</code> 地址，想换成自己的子域名（如 <code>www.whysoso.com</code>）只需两步：<strong>GitHub 仓库里声明自定义域名</strong> + <strong>注册商加 DNS 解析</strong>。本文用 <code>www.whysoso.com → whyboystudy.github.io</code> 实操为例，记录完整流程与踩坑。</p>
 <h2 id="第一步github-仓库里填自定义域名">第一步：GitHub 仓库里填自定义域名
 </h2><p>进 Pages 仓库（用户页即 <code>&lt;用户名&gt;.github.io</code>）→ <strong>Settings → Pages → Custom domain</strong>，输入子域名（如 <code>www.whysoso.com</code>），点 Save。</p>
@@ -633,6 +632,7 @@
 </h2><p><code>whysoso.com</code> 注册于 Spaceship → NS 指向 Cloudflare → Cloudflare 加 1 条 CNAME（www → <code>whyboystudy.github.io</code>）→ GitHub Pages 填 <code>www.whysoso.com</code> → 证书签发后 Enforce HTTPS → Hugo <code>baseURL</code> 改 <code>https://www.whysoso.com/</code> 并重部署 → <code>static/CNAME</code> 锁定域名不被部署清空。核心三句：<strong>GitHub 声明域名、注册商 DNS 加 CNAME 指到 <code>&lt;用户名&gt;.github.io</code>、证书出来再强制 HTTPS</strong>。Cloudflare 用户记「先灰云后橙云、SSL 用 Full」即可。</p>
 
         </section>
+
 
     <footer class="article-footer">
     
@@ -835,7 +835,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.31c0d69f1dbaefc858d2294f4cecc98e2355bd69fba73e2878c173deea863f50.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.0476e17ad4cee2c5f83ffff866a0837941846a6d49fb115c3ae02dfd9083a5e2.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
