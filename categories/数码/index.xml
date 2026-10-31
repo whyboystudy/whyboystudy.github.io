@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>数码 on 差不多先生</title>
+        <link>https://www.whysoso.com/categories/%E6%95%B0%E7%A0%81/</link>
+        <description>Recent content in 数码 on 差不多先生</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language><atom:link href="https://www.whysoso.com/categories/%E6%95%B0%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+        <image>
+            <url>https://www.whysoso.com/img/avatar.png</url>
+            <title>差不多先生</title>
+            <link>https://www.whysoso.com/</link>
+        </image><item>
+        <title>2026 年家用 NAS 选购推荐：绿联五款横评 &#43; 同价位竞品对照</title>
+        <link>https://www.whysoso.com/post/digital/nas-recommend-2026/</link>
+        <pubDate>Sat, 31 Oct 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.whysoso.com/post/digital/nas-recommend-2026/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;提醒：NAS 价格随促销、国补、硬盘行情波动很大。本文价格为 &lt;strong&gt;2026-10 行情参考区间（空盘版）&lt;/strong&gt;，下单前请以京东/天猫实时价为准；带盘套装通常会贵几百到上千元，是否划算要看当时盘价。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;先说结论2026-年怎么选不踩坑&#34;&gt;先说结论：2026 年怎么选不踩坑
+&lt;/h2&gt;&lt;p&gt;家用 NAS 已经不是「群晖一家独大」的年代了。国产系统（绿联 UGOS Pro、极空间 ZOS）把上手门槛压到了「半小时配完」，AI 相册、影视中心、手机备份都开箱即用。所以现在选 NAS，核心就三件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;盘位&lt;/strong&gt;：家庭主力推荐 &lt;strong&gt;4 盘位&lt;/strong&gt;（单盘 4–24T 可选，RAID 5/6 容错空间大）。2 盘位适合租房/极简备份。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网口&lt;/strong&gt;：&lt;strong&gt;千兆已淘汰&lt;/strong&gt;，2026 年起步 &lt;strong&gt;2.5GbE&lt;/strong&gt;，追求内网高速传大文件直接看 &lt;strong&gt;万兆（10GbE）&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CPU 架构&lt;/strong&gt;：轻量影音/Docker 选 x86（N100/N150/N305）；只要不做虚拟机、不做重转码，ARM 也能打，且更省电。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;下面先把绿联这五款讲透，再上竞品对照。&lt;/p&gt;
+&lt;h2 id=&#34;一绿联ugreen五款横评&#34;&gt;一、绿联（UGREEN）五款横评
+&lt;/h2&gt;&lt;p&gt;绿联这代 NASync 系列覆盖从千元到万元的空盘，本文聚焦 1500–4000 元这个家庭主力区间。&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;型号&lt;/th&gt;
+					&lt;th&gt;盘位&lt;/th&gt;
+					&lt;th&gt;处理器&lt;/th&gt;
+					&lt;th&gt;内存&lt;/th&gt;
+					&lt;th&gt;网口&lt;/th&gt;
+					&lt;th&gt;参考价（空盘）&lt;/th&gt;
+					&lt;th&gt;一句话定位&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;DH4300 Plus&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;4&lt;/td&gt;
+					&lt;td&gt;瑞芯微 RK3568（ARM 八核）&lt;/td&gt;
+					&lt;td&gt;8GB（不可扩）&lt;/td&gt;
+					&lt;td&gt;单 2.5GbE&lt;/td&gt;
+					&lt;td&gt;¥1499–1799（大促常下探千元档）&lt;/td&gt;
+					&lt;td&gt;全家共用的入门家庭主力&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;DXP4800S&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;4&lt;/td&gt;
+					&lt;td&gt;Intel N150（x86）&lt;/td&gt;
+					&lt;td&gt;8GB DDR5（可扩）&lt;/td&gt;
+					&lt;td&gt;双 2.5GbE&lt;/td&gt;
+					&lt;td&gt;¥1899–2199&lt;/td&gt;
+					&lt;td&gt;预算内要 x86 四盘位&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;DXP4800 GT&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;4&lt;/td&gt;
+					&lt;td&gt;AMD Ryzen R2514 + Vega 8 核显&lt;/td&gt;
+					&lt;td&gt;8/16GB（可扩 64GB、支持 ECC）&lt;/td&gt;
+					&lt;td&gt;&lt;strong&gt;双万兆&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;首发 ¥3199，618 国补后约 ¥2463，JD 空盘 8G 约 ¥2896&lt;/td&gt;
+					&lt;td&gt;影音/创作一步到位&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;DXP4800 Plus&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;4&lt;/td&gt;
+					&lt;td&gt;Intel 8505（5核6线程）+ &lt;strong&gt;板载 128GB SSD 缓存&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;8GB（可扩 64GB）&lt;/td&gt;
+					&lt;td&gt;单万兆&lt;/td&gt;
+					&lt;td&gt;¥3299–3699&lt;/td&gt;
+					&lt;td&gt;小工作室、虚拟机、直连万兆&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;DXP4800 Pro&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;4&lt;/td&gt;
+					&lt;td&gt;Intel i3-1315U（x86）&lt;/td&gt;
+					&lt;td&gt;16GB（可扩）&lt;/td&gt;
+					&lt;td&gt;单万兆&lt;/td&gt;
+					&lt;td&gt;¥2799–3199&lt;/td&gt;
+					&lt;td&gt;要算力的中端用户&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;逐款点评&#34;&gt;逐款点评
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;DH4300 Plus —— 预算有限 / 全家人一起用&lt;/strong&gt;
+ARM 架构不支持虚拟机，但 Docker 已通过 OTA 支持；6TOPS NPU + NFC 一碰连 + AI 相册 + HDMI 直出，是「家人一起用」的最省心答案。4 盘位 + 2.5G 在千元出头这个价位几乎没有对手。&lt;strong&gt;缺点&lt;/strong&gt;：内存不可扩、ARM 跑重度服务吃力。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DXP4800S —— 想折腾 Docker 但预算卡在 2000 内&lt;/strong&gt;
+换上 x86 N150 + 双 2.5G，内存可扩，Docker/轻量服务比 DH4300 舒服很多。纯备份 + 轻度影音 + 跑几个容器，它刚好够。和下面 DXP4800 白色版差几百块，换来的是更稳的 x86 生态。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DXP4800 GT —— 内网高速 + 影音创作党&lt;/strong&gt;
+绿联首款&lt;strong&gt;双万兆&lt;/strong&gt;四盘位，AMD R2514 带 Vega 8 核显，支持网口负载均衡和设备直连，大文件内网互传能跑满。内存可扩到 64GB 且支持 ECC，长时间跑服务更稳。价格区间很「跳水」，碰上国补 + 大促能到 2500 档，性价比直接拉满；原价 3200 档则偏贵。&lt;strong&gt;注意&lt;/strong&gt;：它是 2026 年新机型，系统适配还在快速迭代，买前看下最新固件口碑。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DXP4800 Plus —— 万兆 + 板载缓存的实用派&lt;/strong&gt;
+搭载 Intel Pentium Gold 8505（5 核 6 线程，比 N100 的 DXP4800 基础版强一档），再加万兆网卡和板载 128GB SSD 缓存，适合做虚拟机、小工作室、或把 NAS 直接当内网高速存储用。比 GT 便宜一截，但只有单万兆、核显弱。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DXP4800 Pro —— 要算力的中端天花板&lt;/strong&gt;
+i3-1315U + 16GB + 单万兆，转码、多容器、轻量虚拟机都能扛。和 Plus 价格有重叠，区别在于 Pro 算力强、Plus 有板载缓存。重度用户选 Pro，要「即插即用高速缓存」选 Plus。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一个容易混的点：DXP4800 白色基础版（N100、双 2.5G 链路聚合，约 ¥2199–2599）你没点名，但它就夹在 4800S 和 GT 之间，颜值党和摄影党可以多看一眼。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;二同价位其他品牌怎么选&#34;&gt;二、同价位其他品牌怎么选
+&lt;/h2&gt;&lt;p&gt;只看绿联容易当局者迷，同价位这几个对手各有绝活。&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;型号&lt;/th&gt;
+					&lt;th&gt;处理器&lt;/th&gt;
+					&lt;th&gt;盘位/网口&lt;/th&gt;
+					&lt;th&gt;参考价&lt;/th&gt;
+					&lt;th&gt;强项&lt;/th&gt;
+					&lt;th&gt;短板&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;极空间 Z4 Pro&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;Intel N100/N97 四核&lt;/td&gt;
+					&lt;td&gt;4 盘 / 双 2.5G&lt;/td&gt;
+					&lt;td&gt;¥2299–2500&lt;/td&gt;
+					&lt;td&gt;极影视海报墙 + AI 相册（宠物识别、自然语言搜索）体验天花板&lt;/td&gt;
+					&lt;td&gt;偏科，高级功能/扩展弱&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;威联通 TS-464C2&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;Intel N305&lt;/td&gt;
+					&lt;td&gt;4 盘 / 双 2.5G + M.2 + PCIe&lt;/td&gt;
+					&lt;td&gt;¥1900–2200&lt;/td&gt;
+					&lt;td&gt;QTS 功能深度最强、能跑虚拟机、有 PCIe 扩展&lt;/td&gt;
+					&lt;td&gt;系统复杂，新手劝退&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;群晖 DS423+&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;Intel J4125&lt;/td&gt;
+					&lt;td&gt;4 盘 / 双 1GbE&lt;/td&gt;
+					&lt;td&gt;¥2800 左右&lt;/td&gt;
+					&lt;td&gt;DSM 生态 + Synology Photos AI，苹果全家桶同步丝滑&lt;/td&gt;
+					&lt;td&gt;同价硬件最弱，千兆网口是硬伤&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;飞牛 Basic 4&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;Intel N150&lt;/td&gt;
+					&lt;td&gt;4 盘 / 双 2.5G&lt;/td&gt;
+					&lt;td&gt;¥1999 左右&lt;/td&gt;
+					&lt;td&gt;新系统轻量、待机低、支持轻量虚拟机&lt;/td&gt;
+					&lt;td&gt;品牌太新，长期更新待验证&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;华为家庭存储&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;定制 ARM&lt;/td&gt;
+					&lt;td&gt;2 盘 / 千兆&lt;/td&gt;
+					&lt;td&gt;¥1500–2000&lt;/td&gt;
+					&lt;td&gt;华为手机一碰连、自动备份无缝&lt;/td&gt;
+					&lt;td&gt;2 盘位、生态封闭、不适合折腾&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;怎么横向挑&#34;&gt;怎么横向挑
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;影音 + 相册偏执狂&lt;/strong&gt;：极空间 Z4 Pro。它的极影视自动刮削和 AI 相册，2026 年还没哪个成品 NAS 追得上。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;硬核折腾 / 想跑 Windows 虚拟机&lt;/strong&gt;：威联通 TS-464C2。同价位唯一带 PCIe 扩展，QTS 功能深度远超对手，代价是学习一周。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;已经苹果全家桶 / 要的是省心&lt;/strong&gt;：群晖 DS423+。系统生态和 Photos 仍是标杆，但请接受「花更多钱买更少硬件」这个事实。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;纯备份党、不想交品牌税&lt;/strong&gt;：绿联 DH4300 Plus / 飞牛 Basic 4 都行，看你要 ARM 省电还是 x86 可玩。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;三按需求直接对号入座&#34;&gt;三、按需求直接对号入座
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;租房 / 预算卡 1500 内 / 纯备份&lt;/strong&gt;：DH4300 Plus（4 盘位千元档真香）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;想玩 Docker、预算 2000 内&lt;/strong&gt;：DXP4800S 或 威联通 TS-464C2（要功能深度选后者）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;全家共用、手机备份 + AI 相册&lt;/strong&gt;：DH4300 Plus（性价比）/ 极空间 Z4 Pro（体验优先）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;影音库 + 内网高速传片&lt;/strong&gt;：DXP4800 GT（双万兆一步到位）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;小工作室 / 虚拟机 / 轻量生产力&lt;/strong&gt;：DXP4800 Pro 或 DXP4800 Plus（算力 vs 板载缓存的区别）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重度影音 + 不差钱要最强体验&lt;/strong&gt;：极空间 Z4 Pro&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;四下单前三个避坑提醒&#34;&gt;四、下单前三个避坑提醒
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;买空盘版，硬盘另购更划算。&lt;/strong&gt; 存储涨价周期里，带盘套装往往把盘价锁死在高位。手里没盘、近期就要用再看套装；有旧盘直接空盘版。NAS 专用盘认准希捷酷狼 / 西数红盘 Plus / 东芝 N300。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RAID 不是备份。&lt;/strong&gt; RAID 只防硬盘物理坏，防不了误删、勒索病毒、雷击烧主板、家里进水。牢记 &lt;strong&gt;3-2-1&lt;/strong&gt;：NAS 一份 + 外接硬盘冷备一份 + 加密同步到网盘一份。绿联/极空间的备份套件都支持自动同步百度/阿里云盘。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网口决定体验上限。&lt;/strong&gt; 千兆（群晖 DS423+ 就是）在 2026 年已经是瓶颈；家里有 2.5G/万兆交换机或想直连电脑传 4K 素材，优先双 2.5G 或万兆机型。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;一句话总结&lt;/strong&gt;：家庭主力闭眼入 &lt;strong&gt;DH4300 Plus&lt;/strong&gt;；想折腾 x86 + Docker 选 &lt;strong&gt;DXP4800S&lt;/strong&gt;；影音创作要内网高速就上 &lt;strong&gt;DXP4800 GT&lt;/strong&gt;；要算力的中端选 &lt;strong&gt;DXP4800 Pro&lt;/strong&gt;；而影音体验党、苹果/华为生态党，则分别看看 &lt;strong&gt;极空间 Z4 Pro&lt;/strong&gt; 和 &lt;strong&gt;群晖 DS423+ / 华为家庭存储&lt;/strong&gt;。先把需求定准，再在对应价位段挑，基本不会错。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
