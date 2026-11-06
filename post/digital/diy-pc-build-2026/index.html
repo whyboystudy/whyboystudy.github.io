@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从十件套清单到「哪些必须买好、哪些可以将就」，再到 CPU 与显卡的预算配比，最后给出高、中、低三套可直接抄的配置单及适用工作。">
+<title>自己组装台式机：配件清单、核心件取舍与三套完整配置（2026 年底版）</title>
+
+<link rel='canonical' href='https://www.whysoso.com/post/digital/diy-pc-build-2026/'>
+
+<link rel="stylesheet" href="/scss/style.min.caf34c921bf17965006374773f67bfa92fd264556ab08432e15c73c808f4d297.css"><meta property='og:title' content="自己组装台式机：配件清单、核心件取舍与三套完整配置（2026 年底版）">
+<meta property='og:description' content="从十件套清单到「哪些必须买好、哪些可以将就」，再到 CPU 与显卡的预算配比，最后给出高、中、低三套可直接抄的配置单及适用工作。">
+<meta property='og:url' content='https://www.whysoso.com/post/digital/diy-pc-build-2026/'>
+<meta property='og:site_name' content='差不多先生'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='装机' /><meta property='article:tag' content='DIY' /><meta property='article:tag' content='选购指南' /><meta property='article:published_time' content='2026-11-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-11-06T16:40:18&#43;08:00'/>
+<meta name="twitter:title" content="自己组装台式机：配件清单、核心件取舍与三套完整配置（2026 年底版）">
+<meta name="twitter:description" content="从十件套清单到「哪些必须买好、哪些可以将就」，再到 CPU 与显卡的预算配比，最后给出高、中、低三套可直接抄的配置单及适用工作。">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c222babdbdc5d500.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🚀</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">差不多先生</a></h1>
+            <h2 class="site-description">技术分享与生活记录</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    
+                    <a 
+                        href='https://space.bilibili.com/389116170'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    
+                    <a 
+                        href='https://github.com/whyboystudy'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    
+                    <a 
+                        href='/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="alternate"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    
+                    <a 
+                        href='https://x.com/WhyTastyCheese'
+                        target="_blank"
+                        title="X"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4l11.733 16h4.267l-11.733 -16l-4.267 0" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E%E6%88%91/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于我</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/catestags/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类&amp;标签</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>全部文章</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索 | Search</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/blogroll/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        <li >
+            <a href='/album/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <circle cx="8.5" cy="10" r="1.5" />
+  <path d="M21 17l-5-5L5 17" />
+</svg>
+
+                
+                <span>相册</span>
+            </a>
+        </li>
+        
+        
+        
+        
+        
+        <li >
+            <a href='/random/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>随机文章</span>
+            </a>
+        </li>
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                <form action="/search/" class="search-form widget" >
+        <p>
+            <label>搜索</label>
+            <input name="keyword" required placeholder="输入关键词..." />
+        
+            <button title="搜索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一十件套清单到底要买哪些东西">一、十件套清单：到底要买哪些东西</a></li>
+    <li><a href="#二核心五件哪些必须买好哪些可以将就">二、核心五件：哪些必须买好，哪些可以将就</a></li>
+    <li><a href="#三cpu-到底重不重要">三、CPU 到底重不重要</a></li>
+    <li><a href="#四三套完整配置2026-11-行情以实时为准">四、三套完整配置（2026-11 行情，以实时为准）</a>
+      <ol>
+        <li><a href="#低配--约-3000-元办公网课家用">低配 · 约 3000 元：办公、网课、家用</a></li>
+        <li><a href="#中配--约-7300-元主流游戏--轻度生产力">中配 · 约 7300 元：主流游戏 + 轻度生产力</a></li>
+        <li><a href="#高配--约-16500-元4k-创作ai硬核游戏">高配 · 约 16500 元：4K 创作、AI、硬核游戏</a></li>
+      </ol>
+    </li>
+    <li><a href="#五下单前最后几条">五、下单前最后几条</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+            
+                <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">归档</h2>
+
+        
+        
+        
+
+        <div class="archive-tags">
+            
+                    <a href="/archives/#2026" class="archive-tag">
+                        <span class="year">2026</span>
+                        <span class="count">34</span>
+                    </a>
+                
+            
+        </div>
+    </section>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    
+
+
+
+
+
+
+
+
+
+
+<div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E6%95%B0%E7%A0%81/" style="background-color: #5e60ce; color: #fff;">
+                数码
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/digital/diy-pc-build-2026/">自己组装台式机：配件清单、核心件取舍与三套完整配置（2026 年底版）</a>
+        </h2>
+
+        
+        <h3 class="article-subtitle">
+            从十件套清单到「哪些必须买好、哪些可以将就」，再到 CPU 与显卡的预算配比，最后给出高、中、低三套可直接抄的配置单及适用工作。
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-11-06T00:00:00Z'>2026-11-06</time>
+            </div>
+        
+
+        
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+
+        
+        
+        <div id="viewCount">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <time class="article-time--reading">
+                
+                <span id="vercount_value_page_pv">loading... </span>次
+            </time>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    <blockquote>
+<p>提醒：2026 年底存储正处涨价期，内存、SSD 价格波动尤其大。本文价格为 <strong>2026-11 行情参考</strong>，每日浮动，下单前一律以京东/天猫实时价为准。</p>
+</blockquote>
+<p>自己装机的乐趣，一半在「按需搭配」，一半在「不花冤枉钱」。但第一次装的人最容易在两个地方栽跟头：一是漏买配件（比如买了带 F 后缀的 CPU 却发现没核显、点不亮），二是把钱花错地方（旗舰 CPU 配入门显卡，或者好显卡塞进杂牌电源里）。这篇把清单、取舍逻辑和配置单一次讲清。</p>
+<h2 id="一十件套清单到底要买哪些东西">一、十件套清单：到底要买哪些东西
+</h2><div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>配件</th>
+					<th>干什么</th>
+					<th>一句话要点</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>CPU</td>
+					<td>大脑，算一切</td>
+					<td>散片比盒装省 200~300；注意 F 后缀无核显</td>
+			</tr>
+			<tr>
+					<td>主板</td>
+					<td>所有配件的家</td>
+					<td>板 U 必须同代同接口，不必追旗舰</td>
+			</tr>
+			<tr>
+					<td>内存</td>
+					<td>临时工作台</td>
+					<td>2026 涨价主力，按预算尽量一次到位</td>
+			</tr>
+			<tr>
+					<td>显卡</td>
+					<td>画面、渲染、AI 算力</td>
+					<td>通常占整机预算大头</td>
+			</tr>
+			<tr>
+					<td>固态硬盘</td>
+					<td>系统和文件的家</td>
+					<td>只买大牌 TLC 颗粒</td>
+			</tr>
+			<tr>
+					<td>电源</td>
+					<td>全机命脉</td>
+					<td>不可省，功率留 30% 余量</td>
+			</tr>
+			<tr>
+					<td>散热器</td>
+					<td>压 CPU 温度</td>
+					<td>百元风冷够压绝大多数非旗舰 U</td>
+			</tr>
+			<tr>
+					<td>机箱</td>
+					<td>壳体与风道</td>
+					<td>百元海景房完全够用</td>
+			</tr>
+			<tr>
+					<td>显示器</td>
+					<td>你看到的一切</td>
+					<td>可先用旧的，之后单独升级</td>
+			</tr>
+			<tr>
+					<td>键鼠外设</td>
+					<td>交互</td>
+					<td>先凑合，后升级</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>另外两样按需：机械硬盘（大容量冷数据备份）、机箱风扇（风道补充）。都不是必需项。</p>
+<h2 id="二核心五件哪些必须买好哪些可以将就">二、核心五件：哪些必须买好，哪些可以将就
+</h2><p><strong>核心配件 = CPU、显卡、内存、SSD、电源。</strong> 它们直接决定性能、速度和机器寿命。</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>必须买好</th>
+					<th>原因</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>电源</strong></td>
+					<td>杂牌电压不稳，轻则死机，重则连带烧掉显卡和主板。它不决定快慢，决定死活</td>
+			</tr>
+			<tr>
+					<td><strong>SSD</strong></td>
+					<td>杂牌掉盘 = 数据全无。认致态、铠侠、三星、佰维等正经颗粒</td>
+			</tr>
+			<tr>
+					<td><strong>内存</strong></td>
+					<td>只买金百达、三星、海力士等正规颗粒，兼容性问题最难排查</td>
+			</tr>
+			<tr>
+					<td><strong>显卡</strong></td>
+					<td>一线二线都行（华硕、微星、影驰、映众），别买听都没听过的牌子</td>
+			</tr>
+			<tr>
+					<td><strong>主板</strong></td>
+					<td>别贪最丐的型号，供电和接口会限制后续升级</td>
+			</tr>
+	</tbody>
+</table></div>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>可以将就</th>
+					<th>怎么省</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>机箱</strong></td>
+					<td>百元海景房，风道不差就行，外观钱最不值</td>
+			</tr>
+			<tr>
+					<td><strong>散热器</strong></td>
+					<td>玄冰 400、利民百元风冷，压中端 U 绰绰有余</td>
+			</tr>
+			<tr>
+					<td><strong>CPU 散片</strong></td>
+					<td>同型号省几百，店保够用</td>
+			</tr>
+			<tr>
+					<td><strong>机箱风扇</strong></td>
+					<td>几把便宜的 ARGB 就够</td>
+			</tr>
+			<tr>
+					<td><strong>键鼠、显示器</strong></td>
+					<td>手头有就先用，是最容易后补的件</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>一句话：<strong>省在「外壳」和「溢价」，别省在「供电」和「数据」。</strong></p>
+<h2 id="三cpu-到底重不重要">三、CPU 到底重不重要
+</h2><p>CPU 当然重要，它和显卡是一对搭档，重点是“配比要跟着用途走”。我先画个直观的图再解释：</p>
+
+<figure class="article-figure gallery-image" style="flex-grow: 1; flex-basis: 0px;">
+	<a href="https://img.napnap.ccwu.cc/2026/11/06/001.webp" target="_blank">
+		<img src="https://img.napnap.ccwu.cc/2026/11/06/001.webp" loading="lazy">
+	</a>
+	<figcaption class="article-figcaption is-hidden"></figcaption></figure><p>常见的说法是「预算往显卡和电源倾斜」，这话只对了一半。</p>
+<p>游戏里，<strong>CPU 负责出帧</strong>（算逻辑、发指令），<strong>显卡负责画帧</strong>。分辨率越高、画质越拉满，画帧负担越重，显卡权重越大；反过来追求 1080p 高刷（240Hz 电竞），每毫秒都要 CPU 快速算出下一帧，CPU 反而成为瓶颈。所以预算配比要跟着用途走：</p>
+<div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>用途</th>
+					<th>谁是主力</th>
+					<th>倾斜方向</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>4K 3A 大作</td>
+					<td>显卡</td>
+					<td>CPU 够用就行</td>
+			</tr>
+			<tr>
+					<td>电竞高刷 1080p</td>
+					<td>CPU 与显卡并重</td>
+					<td>X3D 这类大缓存 U 很有价值</td>
+			</tr>
+			<tr>
+					<td>视频剪辑、渲染、代码编译</td>
+					<td>CPU 多核</td>
+					<td>CPU 才最该砸钱</td>
+			</tr>
+			<tr>
+					<td>本地大模型 / AI</td>
+					<td>显卡显存</td>
+					<td>显存容量 &gt; 一切</td>
+			</tr>
+	</tbody>
+</table></div>
+<p>所谓「CPU 可以省」，省的是<strong>旗舰溢价</strong>：游戏场景下中端甜点 U 与旗舰 U 的帧数差距往往只有 5%~15%，价格却可能差一倍以上，这钱加在显卡上是实打实的提升；买散片、选上代老将（如 12600KF）也都是合法省钱。</p>
+<p>但有条红线：<strong>CPU 差到成为瓶颈就是浪费</strong>。拿入门 U 去配高端显卡，显卡会长期喂不饱，钱等于白花。原则是两者档位匹配，谁也别拖谁。</p>
+<h2 id="四三套完整配置2026-11-行情以实时为准">四、三套完整配置（2026-11 行情，以实时为准）
+</h2><h3 id="低配--约-3000-元办公网课家用">低配 · 约 3000 元：办公、网课、家用
+</h3><div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>配件</th>
+					<th>型号</th>
+					<th>参考价</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>CPU</td>
+					<td>R5 5600GT（带核显，免独显）</td>
+					<td>~¥850</td>
+			</tr>
+			<tr>
+					<td>主板</td>
+					<td>B550M</td>
+					<td>¥499</td>
+			</tr>
+			<tr>
+					<td>内存</td>
+					<td>16G DDR4 3200 (8G×2)</td>
+					<td>¥699</td>
+			</tr>
+			<tr>
+					<td>SSD</td>
+					<td>512G NVMe</td>
+					<td>¥579</td>
+			</tr>
+			<tr>
+					<td>电源</td>
+					<td>450W 铜牌</td>
+					<td>¥199</td>
+			</tr>
+			<tr>
+					<td>散热 + 机箱</td>
+					<td>玄冰 400 + 海景房</td>
+					<td>¥218</td>
+			</tr>
+	</tbody>
+</table></div>
+<p><strong>适合的工作</strong>：Office 全家桶、网课、多开网页、4K 视频播放、轻度网游（LOL、CS 中低画质）。核心逻辑是用核显省下整张显卡的钱，安静、省电、够用。</p>
+<h3 id="中配--约-7300-元主流游戏--轻度生产力">中配 · 约 7300 元：主流游戏 + 轻度生产力
+</h3><div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>配件</th>
+					<th>型号</th>
+					<th>参考价</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>CPU</td>
+					<td>i5-12600KF 散片（10 核 16 线程）</td>
+					<td>¥899</td>
+			</tr>
+			<tr>
+					<td>主板</td>
+					<td>B760M（DDR4 版）</td>
+					<td>¥849</td>
+			</tr>
+			<tr>
+					<td>内存</td>
+					<td>16G DDR4 3200 (8G×2)</td>
+					<td>¥699</td>
+			</tr>
+			<tr>
+					<td>SSD</td>
+					<td>1T PCIe 4.0（致态 TiPlus 7100）</td>
+					<td>¥1199</td>
+			</tr>
+			<tr>
+					<td>显卡</td>
+					<td>RTX 5060 8G（约等于上代 4060 Ti）</td>
+					<td>¥3099</td>
+			</tr>
+			<tr>
+					<td>电源</td>
+					<td>650W 铜牌 ATX 3.1</td>
+					<td>¥299</td>
+			</tr>
+			<tr>
+					<td>散热 + 机箱</td>
+					<td>六热管风冷 + 海景房</td>
+					<td>¥258</td>
+			</tr>
+	</tbody>
+</table></div>
+<p><strong>适合的工作</strong>：1080p 通杀、2K 分辨率下绝大多数游戏高画质；轻度视频剪辑、多开办公、跑小模型。这是普通人的性价比天花板——再往上加钱，帧数提升开始明显变贵。</p>
+<h3 id="高配--约-16500-元4k-创作ai硬核游戏">高配 · 约 16500 元：4K 创作、AI、硬核游戏
+</h3><div class="table-wrapper"><table>
+	<thead>
+			<tr>
+					<th>配件</th>
+					<th>型号</th>
+					<th>参考价</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>CPU</td>
+					<td>R7 9800X3D（游戏最强 U）</td>
+					<td>¥2899</td>
+			</tr>
+			<tr>
+					<td>主板</td>
+					<td>B850 / X870</td>
+					<td>~¥1800</td>
+			</tr>
+			<tr>
+					<td>内存</td>
+					<td>DDR5 32G~64G（涨价期偏贵）</td>
+					<td>¥1300~2600</td>
+			</tr>
+			<tr>
+					<td>SSD</td>
+					<td>2T PCIe 4.0/5.0</td>
+					<td>~¥1800</td>
+			</tr>
+			<tr>
+					<td>显卡</td>
+					<td>RTX 5070 Ti 16G</td>
+					<td>~¥6300</td>
+			</tr>
+			<tr>
+					<td>电源</td>
+					<td>850W 金牌 ATX 3.1</td>
+					<td>~¥700</td>
+			</tr>
+			<tr>
+					<td>散热 + 机箱</td>
+					<td>360 水冷 + 中塔</td>
+					<td>~¥800</td>
+			</tr>
+	</tbody>
+</table></div>
+<p><strong>适合的工作</strong>：4K 游戏、视频剪辑与渲染、本地大模型推理、直播推流、虚拟机多开与大型项目编译。偏生产力可把 U 换成 9950X3D，游戏场景 9800X3D 已到顶。</p>
+<h2 id="五下单前最后几条">五、下单前最后几条
+</h2><ol>
+<li><strong>板 U 兼容性</strong>：插槽、芯片组、BIOS 版本三项对上，尤其是老主板装新 U，可能要先刷 BIOS。</li>
+<li><strong>内存开 XMP / EXPO</strong>：不开的话 3200 的条子默认跑 2133，白买。</li>
+<li><strong>电源留余量</strong>：整机满载功耗 × 1.3 左右最舒服，也最安静。</li>
+<li><strong>先验机再装箱</strong>：所有件上机点亮、跑一遍压力测试，再理线装侧板，省得返工。</li>
+<li><strong>存储涨价期</strong>：内存和 SSD 可先按 16G + 1T 起步，主板留好插槽，价格回落再补。</li>
+</ol>
+<p>装机的本质不是把最贵的件堆一起，而是<strong>让每个件的档次互相配得上</strong>。想清楚自己主要拿它干什么，上面三套里挑一套，改改容量就能直接下单了。</p>
+
+        </section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E8%A3%85%E6%9C%BA/">装机</a>
+        
+            <a href="/tags/diy/">DIY</a>
+        
+            <a href="/tags/%E9%80%89%E8%B4%AD%E6%8C%87%E5%8D%97/">选购指南</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2026-11-06 16:40
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        
+        <div class="related-content--item">
+            <a href="/post/digital/nas-recommend-2026/">2026 年家用 NAS 选购推荐：绿联五款横评 &#43; 同价位竞品对照</a>
+        </div>
+        
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.0.1/weibo"],"lang":"zh-CN","locale":{"admin":"差不多先生","placeholder":"留下你的评论吧～"},"pageview":true,"requiredMeta":["name","email"],"serverURL":"https://comment.whyboy.cc.cd"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2026 差不多先生
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.2">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.0476e17ad4cee2c5f83ffff866a0837941846a6d49fb115c3ae02dfd9083a5e2.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    .back-top-btn {
+        position: fixed;
+        right: 370px;
+        bottom: 100px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--card-background, #fff);
+        border: 1px solid var(--card-border, #e5e7eb);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s ease;
+    }
+    .back-top-btn.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+    .back-top-btn:hover {
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+    .back-top-btn svg {
+        width: 22px;
+        height: 22px;
+        stroke: var(--body-text-color, #333);
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+</style>
+
+<script>
+(function () {
+    if (!document.querySelector('.article-page')) return;
+
+    var btn = document.createElement('div');
+    btn.className = 'back-top-btn';
+    btn.title = '返回顶部';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
+
+    document.body.appendChild(btn);
+
+    function backToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    btn.addEventListener('click', backToTop);
+
+    var ticking = false;
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+            var y = window.scrollY || document.documentElement.scrollTop;
+            if (y > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+            ticking = false;
+        });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+
+
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+
+    showHideView();
+</script>
+
+
+
+<script>
+(function () {
+  if (!document.querySelector('.mermaid')) return;
+  function setupFs() {
+    document.querySelectorAll('.mermaid').forEach(function (host) {
+      if (host.dataset.fs) return;
+      host.dataset.fs = '1';
+      host.style.position = 'relative';
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'mermaid-fs-btn';
+      btn.textContent = '⛶ 全屏';
+      btn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (!document.fullscreenElement) {
+          var r = host.requestFullscreen || host.webkitRequestFullscreen;
+          if (r) r.call(host);
+        } else {
+          var x = document.exitFullscreen || document.webkitExitFullscreen;
+          if (x) x.call(document);
+        }
+      });
+      host.appendChild(btn);
+
+      var svg = host.querySelector('svg');
+      if (!svg) return;
+
+      var scale = 1, tx = 0, ty = 0, panning = false, sx = 0, sy = 0, stx = 0, sty = 0;
+      function apply() {
+        svg.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+      }
+      function reset() { scale = 1; tx = 0; ty = 0; apply(); }
+
+      host.addEventListener('wheel', function (e) {
+        if (document.fullscreenElement !== host) return;
+        e.preventDefault();
+        var rect = host.getBoundingClientRect();
+        var cx = e.clientX - rect.left, cy = e.clientY - rect.top;
+        var factor = e.deltaY < 0 ? 1.1 : 0.9;
+        var ns = Math.min(Math.max(scale * factor, 0.3), 12);
+        tx = cx - (cx - tx) * (ns / scale);
+        ty = cy - (cy - ty) * (ns / scale);
+        scale = ns;
+        apply();
+      }, { passive: false });
+
+      host.addEventListener('mousedown', function (e) {
+        if (document.fullscreenElement !== host) return;
+        panning = true; sx = e.clientX; sy = e.clientY; stx = tx; sty = ty;
+        svg.classList.add('grabbing');
+      });
+      window.addEventListener('mousemove', function (e) {
+        if (!panning) return;
+        tx = stx + (e.clientX - sx); ty = sty + (e.clientY - sy); apply();
+      });
+      window.addEventListener('mouseup', function () {
+        panning = false; svg.classList.remove('grabbing');
+      });
+      document.addEventListener('fullscreenchange', reset);
+    });
+  }
+  var tries = 0;
+  var timer = setInterval(function () {
+    tries++;
+    if (document.querySelectorAll('.mermaid svg').length || tries > 40) {
+      clearInterval(timer);
+      setupFs();
+    }
+  }, 200);
+})();
+</script>
+
+
+
+
+<style>
+    .highlight {
+         
+        max-height: 400px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 78px;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#fff));
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #f0f0f5;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+    function initCodeMoreBox() {
+        let codeBlocks = document.querySelectorAll(".highlight");
+        if (!codeBlocks) {
+            return;
+        }
+        codeBlocks.forEach(codeBlock => {
+            
+            if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+                return;
+            }
+            
+            
+            let codeMoreBox = document.createElement('div');
+            codeMoreBox.classList.add('code-more-box');
+            
+            let codeMoreBtn = document.createElement('span');
+            codeMoreBtn.classList.add('code-more-btn');
+            codeMoreBtn.addEventListener('click', () => {
+                codeBlock.classList.add('code-show');
+                codeMoreBox.style.display = 'none';
+                
+                window.dispatchEvent(new Event('resize'))
+            })
+            
+            let img = document.createElement('img');
+            img.classList.add('code-more-img');
+            img.src = "https://www.whysoso.com/icons/codeMore.png"
+            
+            codeMoreBtn.appendChild(img);
+            codeMoreBox.appendChild(codeMoreBtn);
+            codeBlock.appendChild(codeMoreBox)
+        })
+    }
+
+    initCodeMoreBox();
+</script>
+
+
+    </body>
+</html>

@@ -6,7 +6,7 @@
         <description>Recent content in Posts on 差不多先生</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Fri, 06 Nov 2026 10:12:42 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/post/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Fri, 06 Nov 2026 16:40:18 +0800</lastBuildDate><atom:link href="https://www.whysoso.com/post/index.xml" rel="self" type="application/rss+xml" />
         <image>
             <url>https://www.whysoso.com/img/avatar.png</url>
             <title>差不多先生</title>
@@ -116,6 +116,335 @@
 &lt;p&gt;易错常识：&lt;strong&gt;善意取得&lt;/strong&gt;三要件缺一不可——善意、合理价格、已公示（登记或交付），缺一则不能取得所有权；原主人只能向无处分权人索赔。&lt;/p&gt;
 &lt;p&gt;易错常识：恩格尔系数&lt;strong&gt;越大越穷&lt;/strong&gt;，常与生活水平成反比，极易被反向误记，务必记牢。&lt;/p&gt;
 &lt;p&gt;易错常识：科举&lt;strong&gt;1905 年废止&lt;/strong&gt;是清末新政内容，易与&lt;strong&gt;戊戌变法&lt;/strong&gt;混淆——戊戌变法（1898）并未成功废除科举，真正废除在 1905 年。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>自己组装台式机：配件清单、核心件取舍与三套完整配置（2026 年底版）</title>
+        <link>https://www.whysoso.com/post/digital/diy-pc-build-2026/</link>
+        <pubDate>Fri, 06 Nov 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://www.whysoso.com/post/digital/diy-pc-build-2026/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;提醒：2026 年底存储正处涨价期，内存、SSD 价格波动尤其大。本文价格为 &lt;strong&gt;2026-11 行情参考&lt;/strong&gt;，每日浮动，下单前一律以京东/天猫实时价为准。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;自己装机的乐趣，一半在「按需搭配」，一半在「不花冤枉钱」。但第一次装的人最容易在两个地方栽跟头：一是漏买配件（比如买了带 F 后缀的 CPU 却发现没核显、点不亮），二是把钱花错地方（旗舰 CPU 配入门显卡，或者好显卡塞进杂牌电源里）。这篇把清单、取舍逻辑和配置单一次讲清。&lt;/p&gt;
+&lt;h2 id=&#34;一十件套清单到底要买哪些东西&#34;&gt;一、十件套清单：到底要买哪些东西
+&lt;/h2&gt;&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;配件&lt;/th&gt;
+					&lt;th&gt;干什么&lt;/th&gt;
+					&lt;th&gt;一句话要点&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;CPU&lt;/td&gt;
+					&lt;td&gt;大脑，算一切&lt;/td&gt;
+					&lt;td&gt;散片比盒装省 200~300；注意 F 后缀无核显&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;主板&lt;/td&gt;
+					&lt;td&gt;所有配件的家&lt;/td&gt;
+					&lt;td&gt;板 U 必须同代同接口，不必追旗舰&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;内存&lt;/td&gt;
+					&lt;td&gt;临时工作台&lt;/td&gt;
+					&lt;td&gt;2026 涨价主力，按预算尽量一次到位&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;显卡&lt;/td&gt;
+					&lt;td&gt;画面、渲染、AI 算力&lt;/td&gt;
+					&lt;td&gt;通常占整机预算大头&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;固态硬盘&lt;/td&gt;
+					&lt;td&gt;系统和文件的家&lt;/td&gt;
+					&lt;td&gt;只买大牌 TLC 颗粒&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;电源&lt;/td&gt;
+					&lt;td&gt;全机命脉&lt;/td&gt;
+					&lt;td&gt;不可省，功率留 30% 余量&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;散热器&lt;/td&gt;
+					&lt;td&gt;压 CPU 温度&lt;/td&gt;
+					&lt;td&gt;百元风冷够压绝大多数非旗舰 U&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;机箱&lt;/td&gt;
+					&lt;td&gt;壳体与风道&lt;/td&gt;
+					&lt;td&gt;百元海景房完全够用&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;显示器&lt;/td&gt;
+					&lt;td&gt;你看到的一切&lt;/td&gt;
+					&lt;td&gt;可先用旧的，之后单独升级&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;键鼠外设&lt;/td&gt;
+					&lt;td&gt;交互&lt;/td&gt;
+					&lt;td&gt;先凑合，后升级&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;另外两样按需：机械硬盘（大容量冷数据备份）、机箱风扇（风道补充）。都不是必需项。&lt;/p&gt;
+&lt;h2 id=&#34;二核心五件哪些必须买好哪些可以将就&#34;&gt;二、核心五件：哪些必须买好，哪些可以将就
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;核心配件 = CPU、显卡、内存、SSD、电源。&lt;/strong&gt; 它们直接决定性能、速度和机器寿命。&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;必须买好&lt;/th&gt;
+					&lt;th&gt;原因&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;电源&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;杂牌电压不稳，轻则死机，重则连带烧掉显卡和主板。它不决定快慢，决定死活&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;SSD&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;杂牌掉盘 = 数据全无。认致态、铠侠、三星、佰维等正经颗粒&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;内存&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;只买金百达、三星、海力士等正规颗粒，兼容性问题最难排查&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;显卡&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;一线二线都行（华硕、微星、影驰、映众），别买听都没听过的牌子&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;主板&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;别贪最丐的型号，供电和接口会限制后续升级&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;可以将就&lt;/th&gt;
+					&lt;th&gt;怎么省&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;机箱&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;百元海景房，风道不差就行，外观钱最不值&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;散热器&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;玄冰 400、利民百元风冷，压中端 U 绰绰有余&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;CPU 散片&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;同型号省几百，店保够用&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;机箱风扇&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;几把便宜的 ARGB 就够&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;键鼠、显示器&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;手头有就先用，是最容易后补的件&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;一句话：&lt;strong&gt;省在「外壳」和「溢价」，别省在「供电」和「数据」。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;三cpu-到底重不重要&#34;&gt;三、CPU 到底重不重要
+&lt;/h2&gt;&lt;p&gt;CPU 当然重要，它和显卡是一对搭档，重点是“配比要跟着用途走”。我先画个直观的图再解释：&lt;/p&gt;
+
+&lt;figure class=&#34;article-figure gallery-image&#34; style=&#34;flex-grow: 1; flex-basis: 0px;&#34;&gt;
+	&lt;a href=&#34;https://img.napnap.ccwu.cc/2026/11/06/001.webp&#34; target=&#34;_blank&#34;&gt;
+		&lt;img src=&#34;https://img.napnap.ccwu.cc/2026/11/06/001.webp&#34; loading=&#34;lazy&#34;&gt;
+	&lt;/a&gt;
+	&lt;figcaption class=&#34;article-figcaption is-hidden&#34;&gt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;常见的说法是「预算往显卡和电源倾斜」，这话只对了一半。&lt;/p&gt;
+&lt;p&gt;游戏里，&lt;strong&gt;CPU 负责出帧&lt;/strong&gt;（算逻辑、发指令），&lt;strong&gt;显卡负责画帧&lt;/strong&gt;。分辨率越高、画质越拉满，画帧负担越重，显卡权重越大；反过来追求 1080p 高刷（240Hz 电竞），每毫秒都要 CPU 快速算出下一帧，CPU 反而成为瓶颈。所以预算配比要跟着用途走：&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;用途&lt;/th&gt;
+					&lt;th&gt;谁是主力&lt;/th&gt;
+					&lt;th&gt;倾斜方向&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;4K 3A 大作&lt;/td&gt;
+					&lt;td&gt;显卡&lt;/td&gt;
+					&lt;td&gt;CPU 够用就行&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;电竞高刷 1080p&lt;/td&gt;
+					&lt;td&gt;CPU 与显卡并重&lt;/td&gt;
+					&lt;td&gt;X3D 这类大缓存 U 很有价值&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;视频剪辑、渲染、代码编译&lt;/td&gt;
+					&lt;td&gt;CPU 多核&lt;/td&gt;
+					&lt;td&gt;CPU 才最该砸钱&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;本地大模型 / AI&lt;/td&gt;
+					&lt;td&gt;显卡显存&lt;/td&gt;
+					&lt;td&gt;显存容量 &amp;gt; 一切&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;所谓「CPU 可以省」，省的是&lt;strong&gt;旗舰溢价&lt;/strong&gt;：游戏场景下中端甜点 U 与旗舰 U 的帧数差距往往只有 5%~15%，价格却可能差一倍以上，这钱加在显卡上是实打实的提升；买散片、选上代老将（如 12600KF）也都是合法省钱。&lt;/p&gt;
+&lt;p&gt;但有条红线：&lt;strong&gt;CPU 差到成为瓶颈就是浪费&lt;/strong&gt;。拿入门 U 去配高端显卡，显卡会长期喂不饱，钱等于白花。原则是两者档位匹配，谁也别拖谁。&lt;/p&gt;
+&lt;h2 id=&#34;四三套完整配置2026-11-行情以实时为准&#34;&gt;四、三套完整配置（2026-11 行情，以实时为准）
+&lt;/h2&gt;&lt;h3 id=&#34;低配--约-3000-元办公网课家用&#34;&gt;低配 · 约 3000 元：办公、网课、家用
+&lt;/h3&gt;&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;配件&lt;/th&gt;
+					&lt;th&gt;型号&lt;/th&gt;
+					&lt;th&gt;参考价&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;CPU&lt;/td&gt;
+					&lt;td&gt;R5 5600GT（带核显，免独显）&lt;/td&gt;
+					&lt;td&gt;~¥850&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;主板&lt;/td&gt;
+					&lt;td&gt;B550M&lt;/td&gt;
+					&lt;td&gt;¥499&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;内存&lt;/td&gt;
+					&lt;td&gt;16G DDR4 3200 (8G×2)&lt;/td&gt;
+					&lt;td&gt;¥699&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;SSD&lt;/td&gt;
+					&lt;td&gt;512G NVMe&lt;/td&gt;
+					&lt;td&gt;¥579&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;电源&lt;/td&gt;
+					&lt;td&gt;450W 铜牌&lt;/td&gt;
+					&lt;td&gt;¥199&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;散热 + 机箱&lt;/td&gt;
+					&lt;td&gt;玄冰 400 + 海景房&lt;/td&gt;
+					&lt;td&gt;¥218&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;适合的工作&lt;/strong&gt;：Office 全家桶、网课、多开网页、4K 视频播放、轻度网游（LOL、CS 中低画质）。核心逻辑是用核显省下整张显卡的钱，安静、省电、够用。&lt;/p&gt;
+&lt;h3 id=&#34;中配--约-7300-元主流游戏--轻度生产力&#34;&gt;中配 · 约 7300 元：主流游戏 + 轻度生产力
+&lt;/h3&gt;&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;配件&lt;/th&gt;
+					&lt;th&gt;型号&lt;/th&gt;
+					&lt;th&gt;参考价&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;CPU&lt;/td&gt;
+					&lt;td&gt;i5-12600KF 散片（10 核 16 线程）&lt;/td&gt;
+					&lt;td&gt;¥899&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;主板&lt;/td&gt;
+					&lt;td&gt;B760M（DDR4 版）&lt;/td&gt;
+					&lt;td&gt;¥849&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;内存&lt;/td&gt;
+					&lt;td&gt;16G DDR4 3200 (8G×2)&lt;/td&gt;
+					&lt;td&gt;¥699&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;SSD&lt;/td&gt;
+					&lt;td&gt;1T PCIe 4.0（致态 TiPlus 7100）&lt;/td&gt;
+					&lt;td&gt;¥1199&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;显卡&lt;/td&gt;
+					&lt;td&gt;RTX 5060 8G（约等于上代 4060 Ti）&lt;/td&gt;
+					&lt;td&gt;¥3099&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;电源&lt;/td&gt;
+					&lt;td&gt;650W 铜牌 ATX 3.1&lt;/td&gt;
+					&lt;td&gt;¥299&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;散热 + 机箱&lt;/td&gt;
+					&lt;td&gt;六热管风冷 + 海景房&lt;/td&gt;
+					&lt;td&gt;¥258&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;适合的工作&lt;/strong&gt;：1080p 通杀、2K 分辨率下绝大多数游戏高画质；轻度视频剪辑、多开办公、跑小模型。这是普通人的性价比天花板——再往上加钱，帧数提升开始明显变贵。&lt;/p&gt;
+&lt;h3 id=&#34;高配--约-16500-元4k-创作ai硬核游戏&#34;&gt;高配 · 约 16500 元：4K 创作、AI、硬核游戏
+&lt;/h3&gt;&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;配件&lt;/th&gt;
+					&lt;th&gt;型号&lt;/th&gt;
+					&lt;th&gt;参考价&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;CPU&lt;/td&gt;
+					&lt;td&gt;R7 9800X3D（游戏最强 U）&lt;/td&gt;
+					&lt;td&gt;¥2899&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;主板&lt;/td&gt;
+					&lt;td&gt;B850 / X870&lt;/td&gt;
+					&lt;td&gt;~¥1800&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;内存&lt;/td&gt;
+					&lt;td&gt;DDR5 32G~64G（涨价期偏贵）&lt;/td&gt;
+					&lt;td&gt;¥1300~2600&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;SSD&lt;/td&gt;
+					&lt;td&gt;2T PCIe 4.0/5.0&lt;/td&gt;
+					&lt;td&gt;~¥1800&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;显卡&lt;/td&gt;
+					&lt;td&gt;RTX 5070 Ti 16G&lt;/td&gt;
+					&lt;td&gt;~¥6300&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;电源&lt;/td&gt;
+					&lt;td&gt;850W 金牌 ATX 3.1&lt;/td&gt;
+					&lt;td&gt;~¥700&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;散热 + 机箱&lt;/td&gt;
+					&lt;td&gt;360 水冷 + 中塔&lt;/td&gt;
+					&lt;td&gt;~¥800&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;适合的工作&lt;/strong&gt;：4K 游戏、视频剪辑与渲染、本地大模型推理、直播推流、虚拟机多开与大型项目编译。偏生产力可把 U 换成 9950X3D，游戏场景 9800X3D 已到顶。&lt;/p&gt;
+&lt;h2 id=&#34;五下单前最后几条&#34;&gt;五、下单前最后几条
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;板 U 兼容性&lt;/strong&gt;：插槽、芯片组、BIOS 版本三项对上，尤其是老主板装新 U，可能要先刷 BIOS。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存开 XMP / EXPO&lt;/strong&gt;：不开的话 3200 的条子默认跑 2133，白买。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;电源留余量&lt;/strong&gt;：整机满载功耗 × 1.3 左右最舒服，也最安静。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;先验机再装箱&lt;/strong&gt;：所有件上机点亮、跑一遍压力测试，再理线装侧板，省得返工。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;存储涨价期&lt;/strong&gt;：内存和 SSD 可先按 16G + 1T 起步，主板留好插槽，价格回落再补。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;装机的本质不是把最贵的件堆一起，而是&lt;strong&gt;让每个件的档次互相配得上&lt;/strong&gt;。想清楚自己主要拿它干什么，上面三套里挑一套，改改容量就能直接下单了。&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -1480,31 +1809,6 @@ i3-1315U + 16GB + 单万兆，转码、多容器、轻量虚拟机都能扛。�
 用 &lt;code&gt;apt-cache policy google-chrome-stable&lt;/code&gt; 看版本来源是否来自 &lt;code&gt;dl.google.com/linux/chrome/deb&lt;/code&gt;，再核对 &lt;code&gt;apt-key list&lt;/code&gt; 或 &lt;code&gt;/etc/apt/keyrings/google-chrome.gpg&lt;/code&gt; 的指纹是否与 Google 官方公布一致。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;按上面的顺序，安装、验证、卸载都能干净走通。日常使用推荐「方法一」的仓库方式，升级省心；一次性临时用选「方法二」更快。&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>在高质量发展中促进共同富裕</title>
-        <link>https://www.whysoso.com/post/shenlun/2026-10-25-0906/</link>
-        <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
-        
-        <guid>https://www.whysoso.com/post/shenlun/2026-10-25-0906/</guid>
-        <description>&lt;p&gt;「治国之道，富民为始。」共同富裕是社会主义的本质要求，是中国式现代化的重要特征。党的十八大以来，以习近平同志为核心的党中央把逐步实现全体人民共同富裕摆在更加重要的位置，打赢了人类历史上规模最大的脱贫攻坚战，全面建成小康社会，为共同富裕奠定了坚实基础。然而，发展不平衡不充分的问题仍然突出，城乡区域差距、收入分配差距依然存在。新征程上，必须把促进全体人民共同富裕作为为人民谋幸福的着力点，在不断做大「蛋糕」的同时分好「蛋糕」，让发展成果更多更公平惠及全体人民。&lt;/p&gt;
-&lt;h2 id=&#34;夯实物质根基在做大蛋糕中积蓄共富动能&#34;&gt;夯实物质根基，在做大「蛋糕」中积蓄共富动能
-&lt;/h2&gt;&lt;p&gt;高质量发展是共同富裕的前提和基础。没有坚实的物质财富支撑，共同富裕就成了无源之水、无本之木。近年来，我国坚持以经济建设为中心，2023 年国内生产总值超过 126 万亿元，对世界经济增长贡献率保持在 30% 左右，为持续改善民生提供了强劲动力。浙江高质量发展建设共同富裕示范区，以数字经济、智能制造双轮驱动，2023 年城乡居民收入倍差缩小至 1.86，印证了「发展是解决一切问题的基础和总钥匙」。实现共同富裕，必须坚持把高质量发展作为首要任务，推动经济实现质的有效提升和量的合理增长，不断把「蛋糕」做大做好，为分好「蛋糕」提供坚实底气。&lt;/p&gt;
-&lt;h2 id=&#34;优化分配制度在分好蛋糕中增进民生福祉&#34;&gt;优化分配制度，在分好「蛋糕」中增进民生福祉
-&lt;/h2&gt;&lt;p&gt;「分好蛋糕」比「做大蛋糕」更能直接体现共同富裕的成色。要构建初次分配、再分配、第三次分配协调配套的制度体系。初次分配重在提高劳动报酬占比，推动居民收入增长与经济发展基本同步；再分配靠税收、社保、转移支付精准调节，2023 年全国基本医保参保率稳定在 95% 以上，基本养老保险覆盖 10.7 亿人；第三次分配则鼓励慈善事业与志愿服务，让爱心接力持续温暖社会。正如习近平总书记所强调：「要自觉主动解决地区差距、城乡差距、收入差距等问题，不断增强人民群众获得感、幸福感、安全感。」唯有多渠道增加城乡居民财产性收入、扩大中等收入群体，才能形成中间大、两头小的橄榄型分配结构。&lt;/p&gt;
-&lt;h2 id=&#34;统筹城乡区域在协调发展中兜牢民生底线&#34;&gt;统筹城乡区域，在协调发展中兜牢民生底线
-&lt;/h2&gt;&lt;p&gt;共同富裕是全体人民的富裕，不是少数人的富裕，更不能落下任何一人。要全面推进乡村振兴，健全防止返贫动态监测和帮扶机制，守住不发生规模性返贫的底线；要深入实施区域协调发展战略，推动西部大开发、东北全面振兴、中部地区崛起、东部率先发展，不断缩小地区发展差距。浙江「千万工程」实施二十余年，从「脏乱差」蝶变为「绿富美」，带动农民收入连续多年领跑全国，生动诠释了「绿水青山就是金山银山」。促进共同富裕，既要尽力而为、量力而行，也要久久为功、循序渐进，一件接着一件办，一年接着一年干。&lt;/p&gt;
-&lt;p&gt;「路虽远，行则将至；事虽难，做则必成。」共同富裕不是同时同步同等的富裕，而是一项长期任务、历史工程。站在新的历史起点，我们要坚持在高质量发展中促进共同富裕，以更加均衡的发展、更加公平的分配、更有温度的治理，让现代化建设成果更多更公平惠及全体人民，书写无愧于时代的民生答卷。&lt;/p&gt;
-&lt;h2 id=&#34;简评&#34;&gt;简评
-&lt;/h2&gt;&lt;p&gt;本文以「共同富裕」为主题，采用「总—分—总」结构。开头以「治国之道，富民为始」破题，点明共同富裕是中国式现代化的本质要求，并直面发展不平衡不充分的现实短板，顺势立论。三个分论点分别从「做大蛋糕」（夯实物质根基）、「分好蛋糕」（优化分配制度）、「统筹城乡区域」（协调发展兜底线）三个维度展开，每层均嵌入权威数据（GDP 126 万亿元、医保参保率 95%、养老保险覆盖 10.7 亿人、浙江城乡收入倍差 1.86）与典型案例（浙江示范区、「千万工程」），并引用习近平总书记金句回扣论点，论证扎实有力。结尾以「路虽远，行则将至」升华，呼应开头、收束全篇。&lt;/p&gt;
-&lt;p&gt;可套用句式与素材：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;破题金句：「X 是社会主义的本质要求，是中国式现代化的重要特征。」（适用于一切顶层定调类话题）&lt;/li&gt;
-&lt;li&gt;数据模板：「2023 年国内生产总值超过 126 万亿元，对世界经济增长贡献率保持在 30% 左右。」（可替换为当年最新统计数据）&lt;/li&gt;
-&lt;li&gt;分配三段论：初次分配（提高劳动报酬占比）—再分配（税收、社保、转移支付）—第三次分配（慈善公益），适用于一切「公平、民生、共富」类话题。&lt;/li&gt;
-&lt;li&gt;结尾升华模板：「X 不是同时同步同等的……而是一项长期任务、历史工程。」&lt;/li&gt;
-&lt;/ul&gt;
 </description>
         </item>
         
