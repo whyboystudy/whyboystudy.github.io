@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="技术分享与生活记录">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="每日积累：高频成语、常识速记与素材沉淀，点滴汇聚、日拱一卒~~~">
 <title>公考积累</title>
 
 <link rel='canonical' href='https://www.whysoso.com/categories/%E5%85%AC%E8%80%83%E7%A7%AF%E7%B4%AF/'>
 
-<link rel="stylesheet" href="/scss/style.min.97692f9ee8af78cb4d20e1f9accf8637fea60681b7a2b57e586b5bcb720e527e.css"><meta property='og:title' content="公考积累">
-<meta property='og:description' content="技术分享与生活记录">
+<link rel="stylesheet" href="/scss/style.min.b599d180d7284b95059a9a50d671465d282a19888552c6fa72a0e83b01e826b5.css"><meta property='og:title' content="公考积累">
+<meta property='og:description' content="每日积累：高频成语、常识速记与素材沉淀，点滴汇聚、日拱一卒~~~">
 <meta property='og:url' content='https://www.whysoso.com/categories/%E5%85%AC%E8%80%83%E7%A7%AF%E7%B4%AF/'>
 <meta property='og:site_name' content='差不多先生'>
 <meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-11-16T09:50:25&#43;08:00 '/>
 <meta name="twitter:title" content="公考积累">
-<meta name="twitter:description" content="技术分享与生活记录"><link rel="alternate" type="application/rss&#43;xml" href="https://www.whysoso.com/categories/%E5%85%AC%E8%80%83%E7%A7%AF%E7%B4%AF/index.xml">
+<meta name="twitter:description" content="每日积累：高频成语、常识速记与素材沉淀，点滴汇聚、日拱一卒~~~"><link rel="alternate" type="application/rss&#43;xml" href="https://www.whysoso.com/categories/%E5%85%AC%E8%80%83%E7%A7%AF%E7%B4%AF/index.xml">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -543,6 +543,8 @@
                 <h3 class="section-count">11 个页面</h3>
                 <h1 class="section-term">公考积累</h1>
                 
+                    <h2 class="section-description">每日积累：高频成语、常识速记与素材沉淀，点滴汇聚、日拱一卒~~~</h2>
+                
             </div>
         </div>
     </header>
@@ -674,8 +676,6 @@
     <section class="copyright">
         &copy; 
         
-            2020 - 
-        
         2026 差不多先生
     </section>
     
@@ -707,7 +707,7 @@
 <style>
     .back-top-btn {
         position: fixed;
-        right: 370px;
+        right: 24px;                  
         bottom: 100px;
         width: 44px;
         height: 44px;
@@ -743,6 +743,10 @@
         stroke-linecap: round;
         stroke-linejoin: round;
     }
+     
+    .back-top-btn.no-sidebar {
+        display: none !important;
+    }
 </style>
 
 <script>
@@ -753,8 +757,24 @@
     btn.className = 'back-top-btn';
     btn.title = '返回顶部';
     btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
-
     document.body.appendChild(btn);
+
+    var rightSidebar = document.querySelector('.right-sidebar');
+
+    
+    function syncPosition() {
+        if (!rightSidebar || getComputedStyle(rightSidebar).display === 'none') {
+            btn.classList.add('no-sidebar');
+            btn.classList.remove('visible');
+            return false;
+        }
+        btn.classList.remove('no-sidebar');
+        var rect = rightSidebar.getBoundingClientRect();
+        
+        var right = window.innerWidth - rect.left - 4;
+        btn.style.right = Math.max(8, right) + 'px';
+        return true;
+    }
 
     function backToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -766,8 +786,8 @@
         if (ticking) return;
         ticking = true;
         requestAnimationFrame(function () {
-            var y = window.scrollY || document.documentElement.scrollTop;
-            if (y > 300) {
+            var sidebarVisible = syncPosition();
+            if (sidebarVisible && (window.scrollY || document.documentElement.scrollTop) > 300) {
                 btn.classList.add('visible');
             } else {
                 btn.classList.remove('visible');
@@ -776,8 +796,11 @@
         });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    syncPosition();
 })();
 </script>
+
 
 
 

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://www.whysoso.com/tags/%E9%95%BF%E6%9C%9F%E4%BB%B7%E5%80%BC/'>
 
-<link rel="stylesheet" href="/scss/style.min.97692f9ee8af78cb4d20e1f9accf8637fea60681b7a2b57e586b5bcb720e527e.css"><meta property='og:title' content="长期价值">
+<link rel="stylesheet" href="/scss/style.min.b599d180d7284b95059a9a50d671465d282a19888552c6fa72a0e83b01e826b5.css"><meta property='og:title' content="长期价值">
 <meta property='og:description' content="技术分享与生活记录">
 <meta property='og:url' content='https://www.whysoso.com/tags/%E9%95%BF%E6%9C%9F%E4%BB%B7%E5%80%BC/'>
 <meta property='og:site_name' content='差不多先生'>
@@ -577,8 +577,6 @@
     <section class="copyright">
         &copy; 
         
-            2020 - 
-        
         2026 差不多先生
     </section>
     
@@ -610,7 +608,7 @@
 <style>
     .back-top-btn {
         position: fixed;
-        right: 370px;
+        right: 24px;                  
         bottom: 100px;
         width: 44px;
         height: 44px;
@@ -646,6 +644,10 @@
         stroke-linecap: round;
         stroke-linejoin: round;
     }
+     
+    .back-top-btn.no-sidebar {
+        display: none !important;
+    }
 </style>
 
 <script>
@@ -656,8 +658,24 @@
     btn.className = 'back-top-btn';
     btn.title = '返回顶部';
     btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
-
     document.body.appendChild(btn);
+
+    var rightSidebar = document.querySelector('.right-sidebar');
+
+    
+    function syncPosition() {
+        if (!rightSidebar || getComputedStyle(rightSidebar).display === 'none') {
+            btn.classList.add('no-sidebar');
+            btn.classList.remove('visible');
+            return false;
+        }
+        btn.classList.remove('no-sidebar');
+        var rect = rightSidebar.getBoundingClientRect();
+        
+        var right = window.innerWidth - rect.left - 4;
+        btn.style.right = Math.max(8, right) + 'px';
+        return true;
+    }
 
     function backToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -669,8 +687,8 @@
         if (ticking) return;
         ticking = true;
         requestAnimationFrame(function () {
-            var y = window.scrollY || document.documentElement.scrollTop;
-            if (y > 300) {
+            var sidebarVisible = syncPosition();
+            if (sidebarVisible && (window.scrollY || document.documentElement.scrollTop) > 300) {
                 btn.classList.add('visible');
             } else {
                 btn.classList.remove('visible');
@@ -679,8 +697,11 @@
         });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    syncPosition();
 })();
 </script>
+
 
 
 

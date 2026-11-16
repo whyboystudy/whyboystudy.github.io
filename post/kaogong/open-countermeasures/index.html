@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://www.whysoso.com/post/kaogong/open-countermeasures/'>
 
-<link rel="stylesheet" href="/scss/style.min.97692f9ee8af78cb4d20e1f9accf8637fea60681b7a2b57e586b5bcb720e527e.css"><meta property='og:title' content="考公、事业编常用「开放型对策」：从单一措施到多维展开的实战写法">
+<link rel="stylesheet" href="/scss/style.min.b599d180d7284b95059a9a50d671465d282a19888552c6fa72a0e83b01e826b5.css"><meta property='og:title' content="考公、事业编常用「开放型对策」：从单一措施到多维展开的实战写法">
 <meta property='og:description' content="申论大作文、面试综合分析、公文写作都离不开对策。开放型对策（多角度、多主体展开）是拉开分差的关键。本文讲清是什么、何时用、三大展开框架、易错点与可直接套的模板句式。">
 <meta property='og:url' content='https://www.whysoso.com/post/kaogong/open-countermeasures/'>
 <meta property='og:site_name' content='差不多先生'>
@@ -759,8 +759,6 @@
     <section class="copyright">
         &copy; 
         
-            2020 - 
-        
         2026 差不多先生
     </section>
     
@@ -871,7 +869,7 @@
 <style>
     .back-top-btn {
         position: fixed;
-        right: 370px;
+        right: 24px;                  
         bottom: 100px;
         width: 44px;
         height: 44px;
@@ -907,6 +905,10 @@
         stroke-linecap: round;
         stroke-linejoin: round;
     }
+     
+    .back-top-btn.no-sidebar {
+        display: none !important;
+    }
 </style>
 
 <script>
@@ -917,8 +919,24 @@
     btn.className = 'back-top-btn';
     btn.title = '返回顶部';
     btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
-
     document.body.appendChild(btn);
+
+    var rightSidebar = document.querySelector('.right-sidebar');
+
+    
+    function syncPosition() {
+        if (!rightSidebar || getComputedStyle(rightSidebar).display === 'none') {
+            btn.classList.add('no-sidebar');
+            btn.classList.remove('visible');
+            return false;
+        }
+        btn.classList.remove('no-sidebar');
+        var rect = rightSidebar.getBoundingClientRect();
+        
+        var right = window.innerWidth - rect.left - 4;
+        btn.style.right = Math.max(8, right) + 'px';
+        return true;
+    }
 
     function backToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -930,8 +948,8 @@
         if (ticking) return;
         ticking = true;
         requestAnimationFrame(function () {
-            var y = window.scrollY || document.documentElement.scrollTop;
-            if (y > 300) {
+            var sidebarVisible = syncPosition();
+            if (sidebarVisible && (window.scrollY || document.documentElement.scrollTop) > 300) {
                 btn.classList.add('visible');
             } else {
                 btn.classList.remove('visible');
@@ -940,8 +958,11 @@
         });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    syncPosition();
 })();
 </script>
+
 
 
 
