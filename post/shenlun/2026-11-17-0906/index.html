@@ -638,8 +638,7 @@
      
     
         
-    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
-<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+    <link href='//unpkg.com/@waline/client@v3/dist/waline.css' rel='stylesheet'/>
 <div id="waline" class="waline-container"></div>
 <style>
     .waline-container {
@@ -652,9 +651,11 @@
     .waline-container .wl-count {
         color: var(--card-text-color-main);
     }
-</style><script>
+</style><script type="module">
     
-    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.4.0/weibo"],"lang":"zh-CN","locale":{"admin":"差不多先生","placeholder":"留下你的评论吧～"},"pageview":true,"requiredMeta":["name","email"],"serverURL":"https://comment.whyboy.cc.cd"});
+    
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+    init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.4.0/weibo"],"lang":"zh-CN","locale":{"admin":"差不多先生","placeholder":"留下你的评论吧～"},"requiredMeta":["name","email"],"serverURL":"https://comment.whyboy.cc.cd"});
 </script>
 
     
@@ -796,6 +797,46 @@
 })();
 </script>
 
+
+<script type="module">
+    import { pageviewCount } from 'https://unpkg.com/@waline/client@v3/dist/pageview.js';
+
+    
+    
+    const serverURL = "https:\/\/comment.whyboy.cc.cd";
+    const SELECTOR = '.waline-pageview-count';
+    const nodes = document.querySelectorAll(SELECTOR);
+    if (nodes.length) {
+        const keyOf = (el) => 'wb-pv:' + (el.dataset.path || location.pathname);
+
+        
+        const shown = new Map();
+        nodes.forEach((el) => {
+            const cached = localStorage.getItem(keyOf(el));
+            if (cached !== null) {
+                el.textContent = cached;
+                shown.set(el, cached);
+            }
+        });
+
+        
+        
+        nodes.forEach((el) => {
+            const baseline = shown.get(el);
+            const observer = new MutationObserver(() => {
+                const val = el.textContent.trim();
+                if (/^\d+$/.test(val) && val !== baseline) {
+                    localStorage.setItem(keyOf(el), val);
+                    observer.disconnect();
+                }
+            });
+            observer.observe(el, { childList: true, characterData: true, subtree: true });
+        });
+
+        
+        pageviewCount({ serverURL, selector: SELECTOR, update: true });
+    }
+</script>
 
 
 
