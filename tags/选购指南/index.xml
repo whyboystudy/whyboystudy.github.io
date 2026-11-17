@@ -152,7 +152,7 @@
 
 &lt;figure class=&#34;article-figure gallery-image&#34; style=&#34;flex-grow: 1; flex-basis: 0px;&#34;&gt;
 	&lt;a href=&#34;https://img.napnap.ccwu.cc/2026/11/06/001.webp&#34; target=&#34;_blank&#34;&gt;
-		&lt;img src=&#34;https://img.napnap.ccwu.cc/2026/11/06/001.webp&#34; loading=&#34;lazy&#34;&gt;
+		&lt;img src=&#34;https://img.napnap.ccwu.cc/2026/11/06/001.webp&#34; width=&#34;1600&#34; height=&#34;706&#34; loading=&#34;lazy&#34;&gt;
 	&lt;/a&gt;
 	&lt;figcaption class=&#34;article-figcaption is-hidden&#34;&gt;&lt;/figcaption&gt;&lt;/figure&gt;&lt;p&gt;常见的说法是「预算往显卡和电源倾斜」，这话只对了一半。&lt;/p&gt;
 &lt;p&gt;游戏里，&lt;strong&gt;CPU 负责出帧&lt;/strong&gt;（算逻辑、发指令），&lt;strong&gt;显卡负责画帧&lt;/strong&gt;。分辨率越高、画质越拉满，画帧负担越重，显卡权重越大；反过来追求 1080p 高刷（240Hz 电竞），每毫秒都要 CPU 快速算出下一帧，CPU 反而成为瓶颈。所以预算配比要跟着用途走：&lt;/p&gt;
